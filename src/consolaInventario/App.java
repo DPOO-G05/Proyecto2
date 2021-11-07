@@ -3,7 +3,6 @@ import java.io.*;
 import java.util.*;
 
 import appInventario.*;
-import procesamientoInventario.LectorArchivo;
 
 public class App {
 

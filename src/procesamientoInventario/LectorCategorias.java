@@ -2,6 +2,7 @@ package procesamientoInventario;
 
 import java.io.Serializable;
 import java.util.*;
+
 import appInventario.Categoria;
 
 public class LectorCategorias implements Serializable {
