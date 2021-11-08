@@ -1,5 +1,7 @@
 package interfaz.interfazInventario;
 
-public class PanelCategorias {
+import javax.swing.*;
+
+public class PanelCategorias extends JPanel {
 
 }

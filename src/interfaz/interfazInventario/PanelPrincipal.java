@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import interfaz.UI;
 
+import java.awt.Dimension;
 import java.awt.event.*;
 
 public class PanelPrincipal extends JPanel implements ActionListener {
@@ -20,11 +21,12 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 
 	public PanelPrincipal(UI principal)
 	{
-		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+		this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 
 		//Crear Label, Dropdown y Botón
 		JLabel titulo = new JLabel("Seleccione la Aplicación");
 		this.opciones = new JComboBox();
+		opciones.setPreferredSize(new Dimension(100,20));
 		JButton btnEnviar = new JButton("Ejecutar");
 		btnEnviar.setActionCommand(EJECUTAR);
 		btnEnviar.addActionListener(this);
