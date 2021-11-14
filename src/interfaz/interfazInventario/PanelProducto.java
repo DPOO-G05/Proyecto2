@@ -9,121 +9,166 @@ public class PanelProducto extends JPanel {
 	public PanelProducto() {
 		setLayout(null);
 		
-		JButton btnNewButton = new JButton("Buscar por SKU o Lote");
-		btnNewButton.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnSKU = new JButton("Buscar por SKU o Lote");
+		btnSKU.setFont(new Font("SansSerif", Font.BOLD, 13));
+		btnSKU.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(69, 11, 763, 32);
-		add(btnNewButton);
+		btnSKU.setBounds(69, 11, 763, 32);
+		add(btnSKU);
 		
-		JLabel lblNewLabel = new JLabel("Lote: ");
-		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblNewLabel.setBounds(69, 87, 47, 19);
-		add(lblNewLabel);
+		JLabel lbl1Lote = new JLabel("Lote: ");
+		lbl1Lote.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lbl1Lote.setBounds(69, 87, 47, 19);
+		add(lbl1Lote);
 		
-		JLabel lblUnidades = new JLabel("Unidades: ");
-		lblUnidades.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblUnidades.setBounds(399, 87, 77, 19);
-		add(lblUnidades);
+		JLabel lbl1Unidades = new JLabel("Unidades: ");
+		lbl1Unidades.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lbl1Unidades.setBounds(399, 87, 77, 19);
+		add(lbl1Unidades);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Vencimiento: ");
-		lblNewLabel_1_1.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblNewLabel_1_1.setBounds(676, 87, 105, 19);
-		add(lblNewLabel_1_1);
+		JLabel lbl1Vencimiento = new JLabel("Vencimiento: ");
+		lbl1Vencimiento.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lbl1Vencimiento.setBounds(676, 87, 105, 19);
+		add(lbl1Vencimiento);
 		
-		JLabel lblNewLabel_1 = new JLabel("XXXXXXXXX");
-		lblNewLabel_1.setFont(new Font("SansSerif", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(115, 91, 112, 14);
-		add(lblNewLabel_1);
+		JLabel lbl2Lote = new JLabel("XXXXXXXXX");
+		lbl2Lote.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lbl2Lote.setBounds(115, 91, 112, 14);
+		add(lbl2Lote);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("XXXXXXXXX");
-		lblNewLabel_1_2.setFont(new Font("SansSerif", Font.PLAIN, 13));
-		lblNewLabel_1_2.setBounds(479, 91, 112, 14);
-		add(lblNewLabel_1_2);
+		JLabel lbl2Unidades = new JLabel("XXXXXXXXX");
+		lbl2Unidades.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lbl2Unidades.setBounds(479, 91, 77, 14);
+		add(lbl2Unidades);
 		
-		JLabel lblNewLabel_1_2_1 = new JLabel("XXXXXXXXX");
-		lblNewLabel_1_2_1.setFont(new Font("SansSerif", Font.PLAIN, 13));
-		lblNewLabel_1_2_1.setBounds(778, 91, 112, 14);
-		add(lblNewLabel_1_2_1);
+		JLabel lbl2Vencimiento = new JLabel("XXXXXXXXX");
+		lbl2Vencimiento.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lbl2Vencimiento.setBounds(778, 91, 112, 14);
+		add(lbl2Vencimiento);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(241, 140, 407, 211);
-		add(panel);
+		JPanel panelImagen = new JPanel();
+		panelImagen.setBounds(241, 140, 407, 211);
+		add(panelImagen);
 		
-		JLabel lblPrecio = new JLabel("Precio:  ");
-		lblPrecio.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblPrecio.setBounds(69, 365, 63, 19);
-		add(lblPrecio);
+		JLabel lbl1Precio = new JLabel("Precio:  ");
+		lbl1Precio.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lbl1Precio.setBounds(69, 365, 63, 19);
+		add(lbl1Precio);
 		
-		JLabel lblPreciounidad = new JLabel("Precio (unidad):  ");
-		lblPreciounidad.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblPreciounidad.setBounds(202, 365, 120, 19);
-		add(lblPreciounidad);
+		JLabel lbl1Preciounidad = new JLabel("Precio (unidad):  ");
+		lbl1Preciounidad.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lbl1Preciounidad.setBounds(202, 365, 120, 19);
+		add(lbl1Preciounidad);
 		
 		JLabel lblMarca = new JLabel("Marca:   ");
 		lblMarca.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblMarca.setBounds(397, 365, 120, 19);
+		lblMarca.setBounds(396, 365, 63, 19);
 		add(lblMarca);
 		
-		JLabel lblEmpacado = new JLabel("Empacado:   ");
-		lblEmpacado.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblEmpacado.setBounds(528, 365, 120, 19);
-		add(lblEmpacado);
+		JLabel lbl1Empacado = new JLabel("Empacado:   ");
+		lbl1Empacado.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lbl1Empacado.setBounds(528, 365, 120, 19);
+		add(lbl1Empacado);
 		
-		JLabel lblCategoria = new JLabel("Categoria:   ");
-		lblCategoria.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblCategoria.setBounds(694, 365, 120, 19);
-		add(lblCategoria);
+		JLabel lbl1Categoria = new JLabel("Categoria:   ");
+		lbl1Categoria.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lbl1Categoria.setBounds(694, 365, 120, 19);
+		add(lbl1Categoria);
 		
-		JLabel lblGndola = new JLabel("G\u00F3ndola:  ");
-		lblGndola.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblGndola.setBounds(69, 411, 82, 19);
-		add(lblGndola);
+		JLabel lbl1Gondola = new JLabel("G\u00F3ndola:  ");
+		lbl1Gondola.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lbl1Gondola.setBounds(69, 411, 82, 19);
+		add(lbl1Gondola);
 		
-		JLabel lblSku = new JLabel("SKU:  ");
-		lblSku.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblSku.setBounds(202, 411, 82, 19);
-		add(lblSku);
+		JLabel lbl1SKU = new JLabel("SKU:  ");
+		lbl1SKU.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lbl1SKU.setBounds(220, 411, 47, 19);
+		add(lbl1SKU);
 		
-		JLabel lblPeso = new JLabel("Peso:  ");
-		lblPeso.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblPeso.setBounds(397, 411, 82, 19);
-		add(lblPeso);
+		JLabel lbl1Peso = new JLabel("Peso:  ");
+		lbl1Peso.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lbl1Peso.setBounds(397, 411, 82, 19);
+		add(lbl1Peso);
 		
-		JLabel lblFechaIngreso = new JLabel("Fecha Ingreso:  ");
-		lblFechaIngreso.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
-		lblFechaIngreso.setBounds(528, 411, 120, 19);
-		add(lblFechaIngreso);
+		JLabel lbl1FechaIngreso = new JLabel("Fecha Ingreso:  ");
+		lbl1FechaIngreso.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
+		lbl1FechaIngreso.setBounds(528, 411, 120, 19);
+		add(lbl1FechaIngreso);
 		
-		JButton btnNewButton_1 = new JButton("Anterior");
-		btnNewButton_1.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnNewButton_1.setBounds(138, 483, 105, 23);
-		add(btnNewButton_1);
+		JButton btnAnterior = new JButton("Anterior");
+		btnAnterior.setFont(new Font("SansSerif", Font.BOLD, 13));
+		btnAnterior.setBounds(138, 483, 105, 23);
+		add(btnAnterior);
 		
-		JButton btnNewButton_1_1 = new JButton("Siguiente");
-		btnNewButton_1_1.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnNewButton_1_1.setBounds(676, 484, 105, 23);
-		add(btnNewButton_1_1);
+		JButton btnSiguiente = new JButton("Siguiente");
+		btnSiguiente.setFont(new Font("SansSerif", Font.BOLD, 13));
+		btnSiguiente.setBounds(676, 484, 105, 23);
+		add(btnSiguiente);
 		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(96, 527, 736, 2);
-		add(separator);
+		JSeparator separador = new JSeparator();
+		separador.setBounds(96, 527, 736, 2);
+		add(separador);
 		
-		JButton btnNewButton_1_2 = new JButton("Modificar");
-		btnNewButton_1_2.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnNewButton_1_2.setBounds(290, 551, 105, 23);
-		add(btnNewButton_1_2);
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setFont(new Font("SansSerif", Font.BOLD, 13));
+		btnModificar.setBounds(290, 551, 105, 23);
+		add(btnModificar);
 		
-		JButton btnNewButton_1_2_1 = new JButton("Eliminar");
-		btnNewButton_1_2_1.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnNewButton_1_2_1.setBounds(421, 552, 105, 23);
-		add(btnNewButton_1_2_1);
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 13));
+		btnEliminar.setBounds(421, 552, 105, 23);
+		add(btnEliminar);
 		
-		JButton btnNewButton_1_2_1_1 = new JButton("Ganancias");
-		btnNewButton_1_2_1_1.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnNewButton_1_2_1_1.setBounds(557, 552, 105, 23);
-		add(btnNewButton_1_2_1_1);
+		JButton btnGanancias = new JButton("Ganancias");
+		btnGanancias.setFont(new Font("SansSerif", Font.BOLD, 13));
+		btnGanancias.setBounds(557, 552, 105, 23);
+		add(btnGanancias);
+		
+		JLabel lbl2Precio = new JLabel("XXXXXXXXX");
+		lbl2Precio.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lbl2Precio.setBounds(127, 369, 77, 14);
+		add(lbl2Precio);
+		
+		JLabel lbl2PrecioUnidad = new JLabel("XXXXXXXXX");
+		lbl2PrecioUnidad.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lbl2PrecioUnidad.setBounds(318, 369, 77, 14);
+		add(lbl2PrecioUnidad);
+		
+		JLabel lbl2Marca = new JLabel("XXXXXXXXX");
+		lbl2Marca.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lbl2Marca.setBounds(451, 368, 77, 14);
+		add(lbl2Marca);
+		
+		JLabel lbl2Empacado = new JLabel("XXXXXXXXX");
+		lbl2Empacado.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lbl2Empacado.setBounds(614, 369, 77, 14);
+		add(lbl2Empacado);
+		
+		JLabel lbl2Categoria = new JLabel("XXXXXXXXX");
+		lbl2Categoria.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lbl2Categoria.setBounds(770, 369, 77, 14);
+		add(lbl2Categoria);
+		
+		JLabel lbl2Gondola = new JLabel("XXXXXXXXX");
+		lbl2Gondola.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lbl2Gondola.setBounds(138, 415, 77, 14);
+		add(lbl2Gondola);
+		
+		JLabel lbl2SKU = new JLabel("XXXXXXXXX");
+		lbl2SKU.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lbl2SKU.setBounds(265, 415, 77, 14);
+		add(lbl2SKU);
+		
+		JLabel lbl2Peso = new JLabel("XXXXXXXXX");
+		lbl2Peso.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lbl2Peso.setBounds(440, 415, 77, 14);
+		add(lbl2Peso);
+		
+		JLabel lbl2FechaIngreso = new JLabel("XXXXXXXXX");
+		lbl2FechaIngreso.setFont(new Font("SansSerif", Font.PLAIN, 13));
+		lbl2FechaIngreso.setBounds(638, 415, 77, 14);
+		add(lbl2FechaIngreso);
 	}
 }
