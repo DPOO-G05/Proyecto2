@@ -4,9 +4,12 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class PanelProducto extends JPanel {
 	public PanelProducto() {
+		setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		setLayout(null);
 		
 		JButton btnSKU = new JButton("Buscar por SKU o Lote");
