@@ -88,5 +88,10 @@ public class CoordinadorUI {
 		System.out.printf("***********************\n 1. Número de Categorias: %d\n 2. Número de Referencias: %d\n 3. Número de Lotes: %d\n", numCategorias, numRef, numLotes);
 	}
 	
+	public SistemaInventario getSistemaInventario()
+	{
+		return this.sistemaInventario;
+	}
+	
 
 }

@@ -2,12 +2,17 @@ package interfaz.interfazInventario;
 
 import javax.swing.*;
 
+import appInventario.Producto;
+import appInventario.Referencia;
+import interfaz.UI;
+
 import java.awt.*;
 
 import java.awt.event.*;
 
 public class UIInventario extends JFrame implements ActionListener {
 
+	private UI principal;
 	
 	private PanelInformacion panelInformacion;
 	
@@ -23,9 +28,15 @@ public class UIInventario extends JFrame implements ActionListener {
 	
 	private JMenuItem mu11, mu21, mu22, mu23, mu31, mu41;
 	
+	private Referencia referenciaActual;
 	
-	public UIInventario()
+	
+	public UIInventario(UI principal)
 	{
+		//Inicializar
+		this.principal = principal;
+		
+		
 		//Configuracion de la Ventana
 		this.setTitle("Gestión Inventario");
 		this.setSize(1200,700);
@@ -35,11 +46,11 @@ public class UIInventario extends JFrame implements ActionListener {
 		//Crear los paneles
 		this.panelInformacion = new PanelInformacion();
 	
-		this.panelCategorias = new PanelCategorias();
+		this.panelCategorias = new PanelCategorias(this);
 	
 		this.panelProducto= new PanelProducto();
 	
-		this.panelLotes = new PanelLotes();
+		this.panelLotes = new PanelLotes(this);
 		
 		//Agregar los paneles
 		
@@ -101,6 +112,11 @@ public class UIInventario extends JFrame implements ActionListener {
 		this.menuInfo.add(mu41);
 		
 
+	}
+	
+	public UI getPrincipal()
+	{
+		return this.principal;
 	}
 	
 }

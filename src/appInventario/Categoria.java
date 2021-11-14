@@ -34,5 +34,12 @@ public class Categoria implements Serializable {
 	public HashMap<String, Gondola> getGondolas() {
 		return gondolas;
 	}
+	
+	
+	public String getNombre()
+	{
+		return this.nombre;
+	}
+	
 
 }

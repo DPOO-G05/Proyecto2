@@ -8,26 +8,89 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import appInventario.Categoria;
+import appInventario.Lote;
+import interfaz.CoordinadorUI;
+
+import javax.swing.tree.*;
+import java.awt.event.*;
+import java.util.HashMap;
+import java.util.Set; 
+
+
+
 public class PanelLotes extends JPanel {
-	public PanelLotes() {
+	
+	private JTree jtLotes;
+	
+	private UIInventario principalInventario;
+	
+	
+	public PanelLotes(UIInventario principalInventario) 
+	{
+		//Inicializar
+		this.principalInventario = principalInventario;
+
+		//Configuraciones ventana
 		this.setPreferredSize(new Dimension(150, 600));
 		setBorder(new LineBorder(new Color(0, 0, 0), 2));
-	    DefaultMutableTreeNode style=new DefaultMutableTreeNode("Style");  
-	    DefaultMutableTreeNode color=new DefaultMutableTreeNode("color");  
-	    DefaultMutableTreeNode font=new DefaultMutableTreeNode("font");  
-	    style.add(color);  
-	    style.add(font);  
-	    DefaultMutableTreeNode red=new DefaultMutableTreeNode("red");  
-	    DefaultMutableTreeNode blue=new DefaultMutableTreeNode("blue");  
-	    DefaultMutableTreeNode black=new DefaultMutableTreeNode("black");  
-	    DefaultMutableTreeNode green=new DefaultMutableTreeNode("green");  
-	    color.add(red); color.add(blue); color.add(black); color.add(green);
-	    setLayout(new GridLayout(1, 1, 0, 0));
-	    JTree jt=new JTree(style);
-	    JScrollPane qPane = new JScrollPane(jt);
 
-	    add(qPane);
-	    //add(jt);
+		setLayout(new GridLayout(1, 1, 0, 0));
+		popularLotes();
+	    JScrollPane scrollerLotes = new JScrollPane(this.jtLotes);
+
+	    //Agregar listener para detectar click sobre un lote;
+	    MouseListener ml = new MouseAdapter() {
+	        public void mousePressed(MouseEvent e) {
+	            int selRow = jtLotes.getRowForLocation(e.getX(), e.getY());
+	            TreePath selPath = jtLotes.getPathForLocation(e.getX(), e.getY());
+	            if(selRow != -1) {
+	                if(e.getClickCount() == 2) {
+	                	Object objeto = selPath.getLastPathComponent();
+	                	String strObjeto = objeto.toString();
+	                	System.out.println(strObjeto);
+	                }
+	            }
+	        }
+	    };
+
+	    jtLotes.addMouseListener(ml);
+
+	    //Agregar el scroller al Panel
+	    add(scrollerLotes);
 		
 	}
+	
+	
+	public void popularLotes()
+	{
+		//Inicializar el JTree
+		
+		CoordinadorUI coordinador = this.principalInventario.getPrincipal().getCoordinador();
+		HashMap<String,Lote> lotes = coordinador.getSistemaInventario().getLotes();
+		
+		Set<String> llavesLot = lotes.keySet();
+	
+		//Crear el nodo raiz
+		
+	    DefaultMutableTreeNode lotesNodoRaiz = new DefaultMutableTreeNode("Lotes");  
+		//Iterar sobre cada uno de de las categorias
+		
+		for(String llaveLot : llavesLot)
+		{
+			Lote lote = lotes.get(llaveLot);
+			
+			//Crear el nodo
+
+			DefaultMutableTreeNode nodoLot = new DefaultMutableTreeNode(llaveLot);  
+			//Agregar el nodo a las categorias
+			lotesNodoRaiz.add(nodoLot);
+
+		}
+		
+		this.jtLotes = new JTree(lotesNodoRaiz);
+	
+	}
+	
 }
+

@@ -13,8 +13,6 @@ public class UI extends JFrame implements ActionListener {
 	private UIInventario UIinventario;
 	private UIPos UIpos;
 	private PanelPrincipal panelPrincipal;
-	
-	
 	private CoordinadorUI coordinador;
 	
 	public UI()
@@ -36,9 +34,10 @@ public class UI extends JFrame implements ActionListener {
 		
 		
 		//Crear atributos
-		this.UIinventario = new UIInventario();
-		this.UIpos = new UIPos();
+
 		this.coordinador = new CoordinadorUI(this);
+		this.UIinventario = new UIInventario(this);
+		this.UIpos = new UIPos();
 	
 		//Crear el Panel y agregar opciones
 		this.panelPrincipal = new PanelPrincipal(this);
@@ -74,6 +73,11 @@ public class UI extends JFrame implements ActionListener {
 		
 		this.UIpos.setVisible(true);
 	
+	}
+	
+	public CoordinadorUI getCoordinador()
+	{
+		return this.coordinador;
 	}
 	
 }
