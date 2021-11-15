@@ -140,5 +140,10 @@ public class Producto implements Serializable {
 	public void setLote(Lote lote) {
 		this.lote = lote;
 	}
+	
+	public Lote getLote()
+	{
+		return this.lote;
+	}
 
 }

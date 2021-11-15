@@ -35,6 +35,21 @@ public class Lote implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public Producto getProducto()
+	{
+		return this.producto;
+	}
+	
+	public String getVencimiento()
+	{
+		return this.vencimiento.toString();
+	}
+	
+	public double getUnidades()
+	{
+		return this.unidades;
+	}
 
 	
 	

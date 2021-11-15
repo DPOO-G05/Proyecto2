@@ -48,7 +48,7 @@ public class UIInventario extends JFrame implements ActionListener {
 	
 		this.panelCategorias = new PanelCategorias(this);
 	
-		this.panelProducto= new PanelProducto();
+		this.panelProducto= new PanelProducto(this);
 	
 		this.panelLotes = new PanelLotes(this);
 		
@@ -117,6 +117,22 @@ public class UIInventario extends JFrame implements ActionListener {
 	public UI getPrincipal()
 	{
 		return this.principal;
+	}
+	
+	public void actualizarReferencia(Referencia referencia)
+	{
+		this.referenciaActual = referencia; 
+		this.panelProducto.actualizar();
+	}
+	
+	public Referencia getReferencia()
+	{
+		return this.referenciaActual;
+	}
+	
+	public void actualizarBanner(String titulo)
+	{
+		this.panelInformacion.actualizarTitulo(titulo);
 	}
 	
 }

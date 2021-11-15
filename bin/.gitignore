@@ -1,4 +1,8 @@
+/appInventario/
+/appPOS/
+/consolaInventario/
+/consolaPOS/
 /interfaz/
+/module-info.class
 /persistencia/
 /procesamientoInventario/
-/appInventario/

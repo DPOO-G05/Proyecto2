@@ -2,13 +2,42 @@ package interfaz.interfazInventario;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.SortedMap;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
+
+import appInventario.Lote;
+import appInventario.Producto;
+import appInventario.Referencia;
+
 import java.awt.Color;
 
 public class PanelProducto extends JPanel {
-	public PanelProducto() {
+	
+	private UIInventario principalInventario;
+	
+	private JLabel lbl2Lote;
+	
+	private JLabel lbl2Vencimiento;
+	
+	private JLabel lbl2Unidades;
+	
+	private JLabel lbl2Precio;
+	
+	private JLabel lbl2PrecioUnidad;
+
+	private JLabel lbl2Marca;
+	
+	public PanelProducto(UIInventario principalInventario) 
+	{
+		
+		//Inicializar referencias
+		
+		this.principalInventario = principalInventario;
+		
+		//Configuraci�n par�metros
 		setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		setLayout(null);
 		
@@ -36,17 +65,17 @@ public class PanelProducto extends JPanel {
 		lbl1Vencimiento.setBounds(676, 87, 105, 19);
 		add(lbl1Vencimiento);
 		
-		JLabel lbl2Lote = new JLabel("XXXXXXXXX");
+		this.lbl2Lote = new JLabel("XXXXXXXXX");
 		lbl2Lote.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2Lote.setBounds(115, 91, 112, 14);
 		add(lbl2Lote);
 		
-		JLabel lbl2Unidades = new JLabel("XXXXXXXXX");
+		this.lbl2Unidades = new JLabel("XXXXXXXXX");
 		lbl2Unidades.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2Unidades.setBounds(479, 91, 77, 14);
 		add(lbl2Unidades);
 		
-		JLabel lbl2Vencimiento = new JLabel("XXXXXXXXX");
+		this.lbl2Vencimiento = new JLabel("XXXXXXXXX");
 		lbl2Vencimiento.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2Vencimiento.setBounds(778, 91, 112, 14);
 		add(lbl2Vencimiento);
@@ -129,17 +158,17 @@ public class PanelProducto extends JPanel {
 		btnGanancias.setBounds(557, 552, 105, 23);
 		add(btnGanancias);
 		
-		JLabel lbl2Precio = new JLabel("XXXXXXXXX");
+		this.lbl2Precio = new JLabel("XXXXXXXXX");
 		lbl2Precio.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2Precio.setBounds(127, 369, 77, 14);
 		add(lbl2Precio);
 		
-		JLabel lbl2PrecioUnidad = new JLabel("XXXXXXXXX");
+		this.lbl2PrecioUnidad = new JLabel("XXXXXXXXX");
 		lbl2PrecioUnidad.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2PrecioUnidad.setBounds(318, 369, 77, 14);
 		add(lbl2PrecioUnidad);
 		
-		JLabel lbl2Marca = new JLabel("XXXXXXXXX");
+		lbl2Marca = new JLabel("XXXXXXXXX");
 		lbl2Marca.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2Marca.setBounds(451, 368, 77, 14);
 		add(lbl2Marca);
@@ -174,4 +203,73 @@ public class PanelProducto extends JPanel {
 		lbl2FechaIngreso.setBounds(638, 415, 77, 14);
 		add(lbl2FechaIngreso);
 	}
+	
+	
+	
+	public void actualizar()
+	{
+		//1. Recuperar referencia
+		Referencia referencia = principalInventario.getReferencia();
+	
+		//2. Actualizar informaci�n Panel Principal
+		actualizarBanner(referencia);
+		//3. Actualizar informaci�n Lote
+		actualizarInfoLote(referencia);
+		
+		//4. Actualizar Imagen
+		
+		//5. Actualizar Informaci�n General
+		actualizarInfoGen(referencia);
+	}
+	
+	private void actualizarInfoLote(Referencia referencia)
+	{
+		SortedMap<LocalDate, Producto> productos = referencia.getProductos();
+		Producto primerProd = productos.get(productos.firstKey());
+		
+		Lote lote = primerProd.getLote();
+		String id = lote.getId();
+		String vencimiento = lote.getVencimiento();
+		String unidades = Double.toString(lote.getUnidades());
+		
+		//Cambiar informaci�n
+		
+		this.lbl2Lote.setText(id);
+		this.lbl2Unidades.setText(unidades);
+		this.lbl2Vencimiento.setText(vencimiento);
+		
+		
+	}
+	
+	private void actualizarBanner(Referencia referencia)
+	{
+		SortedMap<LocalDate, Producto> productos = referencia.getProductos();
+		Producto primerProd = productos.get(productos.firstKey());
+		String titulo = primerProd.getNombre();
+		this.principalInventario.actualizarBanner(titulo);
+		
+	}
+	
+	private void actualizarImagen(Referencia referencia)
+	{
+		
+	}
+	
+	private void actualizarInfoGen(Referencia referencia) 
+	{
+		SortedMap<LocalDate, Producto> productos = referencia.getProductos();
+		Producto primerProd = productos.get(productos.firstKey());
+
+		//1. Precio
+		this.lbl2Precio.setText(Double.toString(primerProd.getPrecioUnidad()));
+
+		//2. Marca
+		this.lbl2Marca.setText(primerProd.getMarca());
+
+	}
+	
+	
+	
+	
+	
 }

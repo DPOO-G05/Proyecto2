@@ -10,6 +10,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import appInventario.Categoria;
 import appInventario.Lote;
+import appInventario.Producto;
+import appInventario.Referencia;
 import interfaz.CoordinadorUI;
 
 import javax.swing.tree.*;
@@ -24,6 +26,8 @@ public class PanelLotes extends JPanel {
 	private JTree jtLotes;
 	
 	private UIInventario principalInventario;
+	
+	private PanelProducto panelProducto;  
 	
 	
 	public PanelLotes(UIInventario principalInventario) 
@@ -48,6 +52,7 @@ public class PanelLotes extends JPanel {
 	                if(e.getClickCount() == 2) {
 	                	Object objeto = selPath.getLastPathComponent();
 	                	String strObjeto = objeto.toString();
+	                	setProductoLote(strObjeto);
 	                	System.out.println(strObjeto);
 	                }
 	            }
@@ -90,6 +95,26 @@ public class PanelLotes extends JPanel {
 		
 		this.jtLotes = new JTree(lotesNodoRaiz);
 	
+	}
+	
+	public void setProductoLote(String idLote)
+	{
+		//Recibe por parámetro el id del SKU y modifica el producto a desplegar
+		// dependiendo del asociado al lote seleccionado
+		
+		//1. Recuperar el Lote
+		CoordinadorUI coordinador = this.principalInventario.getPrincipal().getCoordinador();
+		HashMap<String,Lote> lotes = coordinador.getSistemaInventario().getLotes();
+		Lote lote = lotes.get(idLote);
+		
+		//2. Recuperar la Referencia
+		Producto producto = lote.getProducto();
+		String SKU = producto.getCodigoProducto();
+		HashMap<String, Referencia> referencias = coordinador.getSistemaInventario().getReferencias();
+		Referencia referencia = referencias.get(SKU);
+
+		//Actualiza la información desplegada del producto
+		this.principalInventario.actualizarReferencia(referencia);
 	}
 	
 }
