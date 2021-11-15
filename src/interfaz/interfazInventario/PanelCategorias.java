@@ -50,6 +50,7 @@ public class PanelCategorias extends JPanel {
 	                if(e.getClickCount() == 2) {
 	                	Object objeto = selPath.getLastPathComponent();
 	                	String strObjeto = objeto.toString();
+	                	setProductoCategoria(strObjeto);
 	                	System.out.println(strObjeto);
 	                }
 	            }
@@ -123,6 +124,32 @@ public class PanelCategorias extends JPanel {
 		
 		
 	}
+
+	
+	private void setProductoCategoria(String texto)
+	{
+		String[] partes = texto.split("-");
+		String SKU = partes[partes.length - 1];
+		
+		//1. Recuperar la referencia
+		CoordinadorUI coordinador = principalInventario.getPrincipal().getCoordinador();
+		
+		HashMap<String, Referencia> referencias = coordinador.getSistemaInventario().getReferencias();
+		
+		Referencia referencia = referencias.get(SKU);
+		
+		//2. Determinar el producto a desplegar (por default es el primero en la liste de productos de la referencia)
+		Producto producto = referencia.getProductos().get(referencia.getProductos().firstKey());
+		
+		//3. Asignar 
+		
+		principalInventario.actualizarReferencia(referencia, producto);
+
+		
+		
+	}
+	
+	
 	
 	
 	
