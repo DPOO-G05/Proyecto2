@@ -32,6 +32,7 @@ public class Producto implements Serializable {
 	public Producto(String codigo, String fechaVenc,String[] charac,Referencia referencia, LocalDate fechaIngreso)
 	{
 		this.SKU= codigo; 
+		this.referencia = referencia;
 		LocalDate fecha = LocalDate.parse(fechaVenc);
 		this.fechaVenc = fecha;
 		this.nombre = charac[0];
@@ -145,6 +146,11 @@ public class Producto implements Serializable {
 	public Lote getLote()
 	{
 		return this.lote;
+	}
+	
+	public Referencia getReferencia()
+	{
+		return this.referencia;
 	}
 
 }

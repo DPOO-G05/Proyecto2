@@ -3,6 +3,7 @@ package interfaz.interfazInventario;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.SortedMap;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -13,10 +14,11 @@ import appInventario.Gondola;
 import appInventario.Lote;
 import appInventario.Producto;
 import appInventario.Referencia;
+import interfaz.CoordinadorUI;
 
 import java.awt.Color;
 
-public class PanelProducto extends JPanel {
+public class PanelProducto extends JPanel implements ActionListener {
 	
 	private UIInventario principalInventario;
 	
@@ -44,6 +46,8 @@ public class PanelProducto extends JPanel {
 
 	private JLabel lbl2FechaIngreso;
 	
+	private final static String BUSQUEDA_SKU = "BUSQUEDA_SKU";
+	
 	public PanelProducto(UIInventario principalInventario) 
 	{
 		
@@ -57,10 +61,8 @@ public class PanelProducto extends JPanel {
 		
 		JButton btnSKU = new JButton("Buscar por SKU o Lote");
 		btnSKU.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnSKU.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnSKU.addActionListener(this);
+		btnSKU.setActionCommand(BUSQUEDA_SKU);
 		btnSKU.setBounds(69, 11, 763, 32);
 		add(btnSKU);
 		
@@ -298,9 +300,80 @@ public class PanelProducto extends JPanel {
 		//7. FechaIngreso
 		this.lbl2FechaIngreso.setText(primerProd.getFechaIngreso().toString());
 	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		String comando = e.getActionCommand();
+		
+		if (comando.equals(BUSQUEDA_SKU))
+		{
+			buscarPorSKU();
+
+		}
+		
+	}
 	
+	private void buscarPorSKU()
+	{
+		Object[] opciones = {"SKU", "Lote"};
+		Object opcionDefault = opciones[0];
+		int seleccion = JOptionPane.showOptionDialog(this,
+		             "¿Quiere buscar por SKU o ID de Lote?",
+		             "Busqueda",
+		             JOptionPane.YES_NO_OPTION,
+		             JOptionPane.QUESTION_MESSAGE,
+		             null,
+		             opciones,
+		             opcionDefault);
+
+		//Recuperar el coordinador
+
+		CoordinadorUI coordinador = this.principalInventario.getPrincipal().getCoordinador();
+		//Leer la información
+		if (seleccion == JOptionPane.YES_OPTION) {
+				//Solicitar el SKU
+			String SKU = JOptionPane.showInputDialog("Introduzca el SKU","SKU...");
+			if (SKU != null)
+			{
+				SKU = SKU.strip().toUpperCase();
+				HashMap<String, Referencia> referencias = coordinador.getSistemaInventario().getReferencias();
+				Referencia ref = referencias.get(SKU);
+				Producto prod = ref.getProductos().get(ref.getProductos().firstKey());
+				this.principalInventario.actualizarReferencia(ref, prod);
+				System.out.println(SKU);
+			}
+
+		}
+		else if (seleccion == JOptionPane.NO_OPTION) {
+				//Solicitar el Id Panel
+			String idLote = JOptionPane.showInputDialog("Introduzca el ID del Lote","ID...");
+			if (idLote != null)
+			{
+				idLote = idLote.strip().toUpperCase();
+				//Recuperar el Lote
+				HashMap<String, Lote> lotes = coordinador.getSistemaInventario().getLotes();
+				Lote lote = lotes.get(idLote);
+				//Actualizar información
+				Producto producto = lote.getProducto();
+				Referencia referencia = producto.getReferencia();
+				this.principalInventario.actualizarReferencia(referencia, producto);
+			}
+		}
+		else {
+			
+			//Warning: No seleccionó nada
+			
+		    JOptionPane.showMessageDialog(this, "Debe seleccionar una opción", "Advertencia",JOptionPane.WARNING_MESSAGE);	
+			
+		}
+			
+			
+			
+			
 	
-	
+	}
 	
 	
 }
