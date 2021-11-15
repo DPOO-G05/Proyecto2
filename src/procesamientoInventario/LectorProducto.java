@@ -89,23 +89,32 @@ public class LectorProducto implements Serializable {
 			{
 				ProductoRefrigerado producto = new ProductoRefrigerado(SKU, vencimiento, charac, referencia);
 				double temp = Double.parseDouble(linea.get(13));
+				Categoria cat = categorias.get(categoria);
+				Gondola gond = cat.getGondolas().get(gondola);
 				producto.setTempRefrigerado(temp);
 				referencia.agregarProducto(producto);
 				referencia.actualizarUnidades(producto.getUnidadesRestantes());
+				gond.getReferencias().put(SKU, referencia);
 			}
 			else if (categoria.equals(CONGELADO))
 			{
 				ProductoCongelado producto = new ProductoCongelado(SKU,vencimiento, charac, referencia);
 				double temp = Double.parseDouble(linea.get(14));
 				producto.setTempCongelacion(temp);
+				Categoria cat = categorias.get(categoria);
+				Gondola gond = cat.getGondolas().get(gondola);
 				referencia.agregarProducto(producto);
 				referencia.actualizarUnidades(producto.getUnidadesRestantes());
+				gond.getReferencias().put(SKU, referencia);
 			}
 			else if (categoria.equals(FRESCO))
 			{
 				ProductoFresco producto = new ProductoFresco(SKU, vencimiento, charac, referencia);
+				Categoria cat = categorias.get(categoria);
+				Gondola gond = cat.getGondolas().get(gondola);
 				referencia.agregarProducto(producto);
 				referencia.actualizarUnidades(producto.getUnidadesRestantes());
+				gond.getReferencias().put(SKU, referencia);
 			}
 			else
 			{

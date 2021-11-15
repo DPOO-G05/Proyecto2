@@ -58,37 +58,6 @@ public class SistemaInventario implements Serializable {
 		return this.referencias;
 	}
 	
-	public void guardarInformacion()
-	{
-		HashMap<String, String> foodType = new HashMap<>();
-		  
-        // storing data in HashMap
-        foodType.put("Burger", "Fastfood");
-        foodType.put("Cherries", "Fruit");
-        foodType.put("Fish", "Seafood");
-        foodType.put("Spinach", "Vegetables");
-        foodType.put("Chicken", "Protein-Rich");
-		 // try catch block
-        try {
-            FileOutputStream myFileOutStream
-                = new FileOutputStream(
-                    "./src/persistencia/db.ser");
-  
-            ObjectOutputStream myObjectOutStream
-                = new ObjectOutputStream(myFileOutStream);
-  
-            myObjectOutStream.writeObject(foodType);
-  
-            // closing FileOutputStream and
-            // ObjectOutputStream
-            myObjectOutStream.close();
-            myFileOutStream.close();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }	
-	}
-	
 	public void cargarInformacion()
 	{
 		HashMap<String, String> newHashMap = null;

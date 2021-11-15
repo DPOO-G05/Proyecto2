@@ -32,6 +32,7 @@ public class CoordinadorUI {
             ObjectOutputStream myObjectOutStream
                 = new ObjectOutputStream(myFileOutStream);
   
+            //myObjectOutStream.writeObject(this.sistemaInventario);
             myObjectOutStream.writeObject(this.sistemaInventario);
   
             // closing FileOutputStream and
