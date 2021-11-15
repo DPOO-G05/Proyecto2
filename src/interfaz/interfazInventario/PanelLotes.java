@@ -107,14 +107,14 @@ public class PanelLotes extends JPanel {
 		HashMap<String,Lote> lotes = coordinador.getSistemaInventario().getLotes();
 		Lote lote = lotes.get(idLote);
 		
-		//2. Recuperar la Referencia
+		//2. Recuperar la Referencia y el producto 
 		Producto producto = lote.getProducto();
 		String SKU = producto.getCodigoProducto();
 		HashMap<String, Referencia> referencias = coordinador.getSistemaInventario().getReferencias();
 		Referencia referencia = referencias.get(SKU);
 
 		//Actualiza la información desplegada del producto
-		this.principalInventario.actualizarReferencia(referencia);
+		this.principalInventario.actualizarReferencia(referencia, producto);
 	}
 	
 }

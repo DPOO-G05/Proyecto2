@@ -33,9 +33,9 @@ public class LectorProducto implements Serializable {
 	public void getProductos(HashMap<String, Referencia> referencias, HashMap<String, Categoria> categorias)
 	{
 		/*1. Iterar sobre cada linea extrayendo:
-		 * 1) Información del producto
-		 * 2) Información de la Categoria 
-		 * 3) Información Gondola
+		 * 1) Informaciï¿½n del producto
+		 * 2) Informaciï¿½n de la Categoria 
+		 * 3) Informaciï¿½n Gondola
 		 * 4) Crear el producto particular
 		 * 5) Asociar el producto particular a la referencia (es posible que toque crearla).
 		 * 6) Asociar la referencia al mapa de ser necesario.
@@ -48,7 +48,7 @@ public class LectorProducto implements Serializable {
 		{
 			String[] charac = new String[8];
 
-			//1. Extraer la información del producto 
+			//1. Extraer la informaciï¿½n del producto 
 			String vencimiento = linea.get(1).strip().toUpperCase();
 			String SKU = linea.get(2).strip().toUpperCase();
 			String nombre = linea.get(3).strip().toUpperCase();
@@ -78,7 +78,11 @@ public class LectorProducto implements Serializable {
 			Referencia referencia;
 			if (!referencias.containsKey(SKU))
 			{
-				Referencia ref = new Referencia(SKU);
+				//Buscar la gÃ³ndola
+				Categoria cat = categorias.get(categoria);
+				HashMap<String, Gondola> gondolas = cat.getGondolas();
+				Gondola gond = gondolas.get(gondola);
+				Referencia ref = new Referencia(SKU, gond);
 				referencias.put(SKU, ref);
 			}
 			
@@ -87,7 +91,7 @@ public class LectorProducto implements Serializable {
 			//3. Crear el producto dependiendo del tipo
 			if (categoria.equals(REFRIGERADO))
 			{
-				ProductoRefrigerado producto = new ProductoRefrigerado(SKU, vencimiento, charac, referencia);
+				ProductoRefrigerado producto = new ProductoRefrigerado(SKU, vencimiento, charac, referencia, LocalDate.now());
 				double temp = Double.parseDouble(linea.get(13));
 				Categoria cat = categorias.get(categoria);
 				Gondola gond = cat.getGondolas().get(gondola);
@@ -98,7 +102,7 @@ public class LectorProducto implements Serializable {
 			}
 			else if (categoria.equals(CONGELADO))
 			{
-				ProductoCongelado producto = new ProductoCongelado(SKU,vencimiento, charac, referencia);
+				ProductoCongelado producto = new ProductoCongelado(SKU,vencimiento, charac, referencia, LocalDate.now());
 				double temp = Double.parseDouble(linea.get(14));
 				producto.setTempCongelacion(temp);
 				Categoria cat = categorias.get(categoria);
@@ -109,7 +113,7 @@ public class LectorProducto implements Serializable {
 			}
 			else if (categoria.equals(FRESCO))
 			{
-				ProductoFresco producto = new ProductoFresco(SKU, vencimiento, charac, referencia);
+				ProductoFresco producto = new ProductoFresco(SKU, vencimiento, charac, referencia, LocalDate.now());
 				Categoria cat = categorias.get(categoria);
 				Gondola gond = cat.getGondolas().get(gondola);
 				referencia.agregarProducto(producto);
@@ -118,7 +122,7 @@ public class LectorProducto implements Serializable {
 			}
 			else
 			{
-				ProductoGondola producto = new ProductoGondola(SKU,vencimiento, charac, referencia);
+				ProductoGondola producto = new ProductoGondola(SKU,vencimiento, charac, referencia, LocalDate.now());
 				Categoria cat = categorias.get(categoria);
 				Gondola gond = cat.getGondolas().get(gondola);
 				producto.setGondola(gond);

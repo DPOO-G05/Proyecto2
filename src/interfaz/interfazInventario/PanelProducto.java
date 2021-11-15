@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 
+import appInventario.Categoria;
+import appInventario.Gondola;
 import appInventario.Lote;
 import appInventario.Producto;
 import appInventario.Referencia;
@@ -29,6 +31,18 @@ public class PanelProducto extends JPanel {
 	private JLabel lbl2PrecioUnidad;
 
 	private JLabel lbl2Marca;
+
+	private JLabel lbl2Empacado;
+
+	private JLabel lbl2Categoria;
+	
+	private JLabel lbl2Gondola;
+
+	private JLabel lbl2SKU;
+
+	private JLabel lbl2Peso;
+
+	private JLabel lbl2FechaIngreso;
 	
 	public PanelProducto(UIInventario principalInventario) 
 	{
@@ -94,7 +108,7 @@ public class PanelProducto extends JPanel {
 		lbl1Preciounidad.setBounds(202, 365, 120, 19);
 		add(lbl1Preciounidad);
 		
-		JLabel lblMarca = new JLabel("Marca:   ");
+		JLabel lblMarca = new JLabel("Marca:");
 		lblMarca.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 15));
 		lblMarca.setBounds(396, 365, 63, 19);
 		add(lblMarca);
@@ -168,37 +182,37 @@ public class PanelProducto extends JPanel {
 		lbl2PrecioUnidad.setBounds(318, 369, 77, 14);
 		add(lbl2PrecioUnidad);
 		
-		lbl2Marca = new JLabel("XXXXXXXXX");
+		this.lbl2Marca = new JLabel("XXXXXXXXX");
 		lbl2Marca.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2Marca.setBounds(451, 368, 77, 14);
 		add(lbl2Marca);
 		
-		JLabel lbl2Empacado = new JLabel("XXXXXXXXX");
+		this.lbl2Empacado = new JLabel("XXXXXXXXX");
 		lbl2Empacado.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2Empacado.setBounds(614, 369, 77, 14);
 		add(lbl2Empacado);
 		
-		JLabel lbl2Categoria = new JLabel("XXXXXXXXX");
+		this.lbl2Categoria = new JLabel("XXXXXXXXX");
 		lbl2Categoria.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2Categoria.setBounds(770, 369, 77, 14);
 		add(lbl2Categoria);
 		
-		JLabel lbl2Gondola = new JLabel("XXXXXXXXX");
+		this.lbl2Gondola = new JLabel("XXXXXXXXX");
 		lbl2Gondola.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2Gondola.setBounds(138, 415, 77, 14);
 		add(lbl2Gondola);
 		
-		JLabel lbl2SKU = new JLabel("XXXXXXXXX");
+		this.lbl2SKU = new JLabel("XXXXXXXXX");
 		lbl2SKU.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2SKU.setBounds(265, 415, 77, 14);
 		add(lbl2SKU);
 		
-		JLabel lbl2Peso = new JLabel("XXXXXXXXX");
+		this.lbl2Peso = new JLabel("XXXXXXXXX");
 		lbl2Peso.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2Peso.setBounds(440, 415, 77, 14);
 		add(lbl2Peso);
 		
-		JLabel lbl2FechaIngreso = new JLabel("XXXXXXXXX");
+		this.lbl2FechaIngreso = new JLabel("XXXXXXXXX");
 		lbl2FechaIngreso.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2FechaIngreso.setBounds(638, 415, 77, 14);
 		add(lbl2FechaIngreso);
@@ -210,22 +224,21 @@ public class PanelProducto extends JPanel {
 	{
 		//1. Recuperar referencia
 		Referencia referencia = principalInventario.getReferencia();
-	
+		Producto prod = principalInventario.getProducto();
 		//2. Actualizar informaci�n Panel Principal
-		actualizarBanner(referencia);
+		actualizarBanner(referencia, prod);
 		//3. Actualizar informaci�n Lote
-		actualizarInfoLote(referencia);
+		actualizarInfoLote(referencia, prod);
 		
 		//4. Actualizar Imagen
 		
 		//5. Actualizar Informaci�n General
-		actualizarInfoGen(referencia);
+		actualizarInfoGen(referencia, prod);
 	}
 	
-	private void actualizarInfoLote(Referencia referencia)
+	private void actualizarInfoLote(Referencia referencia, Producto producto)
 	{
-		SortedMap<LocalDate, Producto> productos = referencia.getProductos();
-		Producto primerProd = productos.get(productos.firstKey());
+		Producto primerProd = producto; 
 		
 		Lote lote = primerProd.getLote();
 		String id = lote.getId();
@@ -241,10 +254,9 @@ public class PanelProducto extends JPanel {
 		
 	}
 	
-	private void actualizarBanner(Referencia referencia)
+	private void actualizarBanner(Referencia referencia, Producto producto)
 	{
-		SortedMap<LocalDate, Producto> productos = referencia.getProductos();
-		Producto primerProd = productos.get(productos.firstKey());
+		Producto primerProd = producto; 
 		String titulo = primerProd.getNombre();
 		this.principalInventario.actualizarBanner(titulo);
 		
@@ -255,10 +267,9 @@ public class PanelProducto extends JPanel {
 		
 	}
 	
-	private void actualizarInfoGen(Referencia referencia) 
+	private void actualizarInfoGen(Referencia referencia, Producto producto) 
 	{
-		SortedMap<LocalDate, Producto> productos = referencia.getProductos();
-		Producto primerProd = productos.get(productos.firstKey());
+		Producto primerProd = producto; 
 
 		//1. Precio
 		this.lbl2Precio.setText(Double.toString(primerProd.getPrecioUnidad()));
@@ -266,6 +277,26 @@ public class PanelProducto extends JPanel {
 		//2. Marca
 		this.lbl2Marca.setText(primerProd.getMarca());
 
+		//3. Empacado
+		this.lbl2Empacado.setText(primerProd.isEmpacado()? "Si": "No");
+
+		//4. Categoria y Góndola
+			//1. Obtener la góndola
+		Gondola gondola = referencia.getGondola();
+		Categoria cat = gondola.getCategoria();
+
+			//2. Cambiar información 
+		this.lbl2Categoria.setText(cat.getNombre());			
+		this.lbl2Gondola.setText(gondola.getNombre());
+
+		//5. SKU
+		this.lbl2SKU.setText(referencia.getSKU());
+
+		//6. Peso
+		this.lbl2Peso.setText(primerProd.getPesoNeto());
+
+		//7. FechaIngreso
+		this.lbl2FechaIngreso.setText(primerProd.getFechaIngreso().toString());
 	}
 	
 	

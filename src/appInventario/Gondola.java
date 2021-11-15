@@ -32,4 +32,9 @@ public class Gondola implements Serializable {
 	{
 		return this.referencias;
 	}
+	
+	public Categoria getCategoria()
+	{
+		return this.categoria;
+	}
 }

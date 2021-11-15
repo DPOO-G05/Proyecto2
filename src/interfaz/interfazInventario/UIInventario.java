@@ -30,6 +30,8 @@ public class UIInventario extends JFrame implements ActionListener {
 	
 	private Referencia referenciaActual;
 	
+	private Producto productoActual;
+	
 	
 	public UIInventario(UI principal)
 	{
@@ -119,9 +121,10 @@ public class UIInventario extends JFrame implements ActionListener {
 		return this.principal;
 	}
 	
-	public void actualizarReferencia(Referencia referencia)
+	public void actualizarReferencia(Referencia referencia, Producto producto)
 	{
 		this.referenciaActual = referencia; 
+		this.productoActual = producto;
 		this.panelProducto.actualizar();
 	}
 	
@@ -133,6 +136,11 @@ public class UIInventario extends JFrame implements ActionListener {
 	public void actualizarBanner(String titulo)
 	{
 		this.panelInformacion.actualizarTitulo(titulo);
+	}
+	
+	public Producto getProducto()
+	{
+		return this.productoActual;
 	}
 	
 }

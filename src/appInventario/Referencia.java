@@ -20,9 +20,12 @@ public class Referencia implements Serializable {
 
 	private String SKU;
 
-	public Referencia(String SKU)
+	private Gondola gondola;
+
+	public Referencia(String SKU, Gondola gondola)
 	{
 		this.SKU = SKU;
+		this.gondola = gondola;
 		this.productos = new TreeMap<LocalDate, Producto>();
 	}
 	
@@ -33,7 +36,7 @@ public class Referencia implements Serializable {
 	
 	public void actualizarUnidades(int cantidad)
 	{
-		//Recibe por parámetro el número de unidades a subir o bajar
+		//Recibe por parï¿½metro el nï¿½mero de unidades a subir o bajar
 		this.unidadesRestantes += cantidad;
 	}
 
@@ -45,5 +48,15 @@ public class Referencia implements Serializable {
 	public void setPrecioVenta(double precio)
 	{
 		this.precioVenta = precio;
+	}
+
+	public Gondola getGondola()
+	{
+		return this.gondola;
+	}
+
+	public String getSKU()
+	{
+		return this.SKU;
 	}
 }

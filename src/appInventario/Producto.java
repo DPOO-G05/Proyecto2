@@ -29,7 +29,7 @@ public class Producto implements Serializable {
 	}
 
 
-	public Producto(String codigo, String fechaVenc,String[] charac,Referencia referencia)
+	public Producto(String codigo, String fechaVenc,String[] charac,Referencia referencia, LocalDate fechaIngreso)
 	{
 		this.SKU= codigo; 
 		LocalDate fecha = LocalDate.parse(fechaVenc);
@@ -43,6 +43,7 @@ public class Producto implements Serializable {
 		this.fechaIngreso = LocalDate.now();
 		this.pesoNeto = charac[6];
 		this.unidadMedida = charac[7];
+		this.fechaIngreso = fechaIngreso;
 		
 	}
 	
@@ -132,7 +133,7 @@ public class Producto implements Serializable {
 	
 	public void modificarRestantes(int unidades)
 	{
-		//Incrementa o decrementa el número de unidades restantes
+		//Incrementa o decrementa el nï¿½mero de unidades restantes
 		this.unidadesRestantes += unidades;
 	}
 
