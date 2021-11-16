@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import appInventario.Producto;
 import appInventario.SistemaInventario;
 
 public class CoordinadorUI {
@@ -92,6 +93,11 @@ public class CoordinadorUI {
 	public SistemaInventario getSistemaInventario()
 	{
 		return this.sistemaInventario;
+	}
+	
+	public void agregarNuevoProducto(Producto producto)
+	{
+		//TODO
 	}
 	
 
