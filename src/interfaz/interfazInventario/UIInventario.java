@@ -173,21 +173,21 @@ public class UIInventario extends JFrame implements ActionListener {
 			
 		if (comando.equals(NUEVO_PRODUCTO))
 		{
-			//1. Crear el nuevo producto
-			Producto prod = crearNuevoProducto();
-			
-			//2. Agregar el nuevo producto
-			this.principal.getCoordinador().agregarNuevoProducto(prod);
-
+			crearNuevoFormulario();
 		}
 	}
 	
-	private Producto crearNuevoProducto()
+	private void crearNuevoFormulario()
 	{
 		//1. Recolectar información necesaria
-		this.formulario = new FormularioProducto();
+		this.formulario = new FormularioProducto(this);
 
-		return productoActual;
+	}
+	
+	public void agregarProducto(Producto producto)
+	{
+		//Agrega el producto
+		this.principal.getCoordinador().agregarNuevoProducto(producto);
 	}
 
 }
