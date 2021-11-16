@@ -28,15 +28,13 @@ public class UIInventario extends JFrame implements ActionListener {
 
 	private JMenu menuProd, menuLotes, menuApp, menuInfo;
 	
-	private JMenuItem mu11, mu21, mu22, mu23, mu31, mu41;
+	private JMenuItem mu11, mu22, mu23, mu31, mu41;
 	
 	private Referencia referenciaActual;
 	
 	private Producto productoActual;
 	
 	private static final String NUEVO_PRODUCTO = "NUEVO_PRODUCTO";
-	
-	private static final String NUEVO_LOTE = "NUEVO_LOTE";
 	
 	private static final String CARGAR_LOTE = "CARGAR_LOTE";
 
@@ -110,12 +108,7 @@ public class UIInventario extends JFrame implements ActionListener {
 		this.mu11.setActionCommand(NUEVO_PRODUCTO);
 		this.menuProd.add(mu11);
 		//Submenus de Lotes 
-		this.mu21 = new JMenuItem("Nuevo Lote");
-		this.mu21.addActionListener(ventana);
-		this.mu21.setActionCommand(NUEVO_LOTE);
-		this.menuLotes.add(mu21);
-
-		this.mu22 = new JMenuItem("Cargar Lotes");
+		this.mu22 = new JMenuItem("Cargar Lotes (CSV)");
 		this.mu22.addActionListener(ventana);
 		this.mu22.setActionCommand(CARGAR_LOTE);
 		this.menuLotes.add(mu22);

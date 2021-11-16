@@ -176,7 +176,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 		
 		this.lbl2Categoria = new JLabel("XXXXXXXXX");
 		lbl2Categoria.setFont(new Font("SansSerif", Font.PLAIN, 13));
-		lbl2Categoria.setBounds(770, 369, 77, 14);
+		lbl2Categoria.setBounds(770, 369, 120, 14);
 		add(lbl2Categoria);
 		
 		this.lbl2Gondola = new JLabel("XXXXXXXXX");
@@ -255,6 +255,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 
 		//1. Precio
 		this.lbl2Precio.setText(Double.toString(primerProd.getPrecioUnidad()));
+		this.lbl2PrecioUnidad.setText(Double.toString(primerProd.getPrecioUnidad()));
 
 		//2. Marca
 		this.lbl2Marca.setText(primerProd.getMarca());
