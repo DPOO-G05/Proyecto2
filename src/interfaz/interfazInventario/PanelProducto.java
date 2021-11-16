@@ -145,33 +145,13 @@ public class PanelProducto extends JPanel implements ActionListener {
 		lbl1FechaIngreso.setBounds(528, 411, 120, 19);
 		add(lbl1FechaIngreso);
 		
-		JButton btnAnterior = new JButton("Anterior");
-		btnAnterior.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnAnterior.setBounds(138, 483, 105, 23);
-		add(btnAnterior);
-		
-		JButton btnSiguiente = new JButton("Siguiente");
-		btnSiguiente.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnSiguiente.setBounds(676, 484, 105, 23);
-		add(btnSiguiente);
-		
 		JSeparator separador = new JSeparator();
 		separador.setBounds(96, 527, 736, 2);
 		add(separador);
 		
-		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnModificar.setBounds(290, 551, 105, 23);
-		add(btnModificar);
-		
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnEliminar.setBounds(421, 552, 105, 23);
-		add(btnEliminar);
-		
 		JButton btnGanancias = new JButton("Ganancias");
 		btnGanancias.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnGanancias.setBounds(557, 552, 105, 23);
+		btnGanancias.setBounds(414, 545, 105, 23);
 		add(btnGanancias);
 		
 		this.lbl2Precio = new JLabel("XXXXXXXXX");
