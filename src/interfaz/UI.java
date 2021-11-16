@@ -80,4 +80,13 @@ public class UI extends JFrame implements ActionListener {
 		return this.coordinador;
 	}
 	
+	public void actualizarInventario()
+	{
+		coordinador.guardarInformacion();
+		this.UIinventario.setVisible(false);
+		this.UIinventario.dispose();
+		this.UIinventario = new UIInventario(this);
+		this.UIinventario.setVisible(true);
+	}
+	
 }

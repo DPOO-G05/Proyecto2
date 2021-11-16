@@ -43,6 +43,7 @@ public class Referencia implements Serializable {
 	public void agregarProducto(Producto producto)
 	{
 		productos.put(producto.getFechaVenc(), producto);
+		this.precioVenta = producto.getPrecioUnidad();
 	}
 	
 	public void setPrecioVenta(double precio)

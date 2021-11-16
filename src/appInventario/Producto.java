@@ -41,7 +41,7 @@ public class Producto implements Serializable {
 		this.unidadesRestantes = Integer.parseInt(charac[3]);
 		this.costoUnidad = Double.parseDouble(charac[4]);
 		this.precioUnidad = Double.parseDouble(charac[5]);
-		this.fechaIngreso = LocalDate.now();
+		this.fechaIngreso = fechaIngreso;
 		this.pesoNeto = charac[6];
 		this.unidadMedida = charac[7];
 		this.fechaIngreso = fechaIngreso;
@@ -92,9 +92,6 @@ public class Producto implements Serializable {
 		return unidadesRestantes;
 	}
 
-	public void setUnidadesRestantes(int unidadesRestantes) {
-		this.unidadesRestantes = unidadesRestantes;
-	}
 
 	public boolean isEmpacado() {
 		return empacado;

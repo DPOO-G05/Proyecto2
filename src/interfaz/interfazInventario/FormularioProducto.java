@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import javax.swing.ScrollPaneConstants;
@@ -33,27 +34,28 @@ import java.awt.Font;
 public class FormularioProducto extends JFrame implements ActionListener {
 	
 	private UIInventario principalInventario;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_13;
-	private JTextField textField_14;
-	private JTextField textField_15;
+	private JTextField txtNombre;
+	private JTextField txtSKU;
+	private JTextField txtCat;
+	private JTextField txtGond;
+	private JTextField txtMarca;
+	private JTextField txtCantidad;
+	private JTextField txtCosto;
+	private JTextField txtPrecio;
+	private JTextField txtPeso;
+	private JTextField txtUnidadVenta;
+	private JTextField txtRefrigerado;
+	private JTextField txtCongelado;
+	private JTextField txtLote;
+	private JTextField txtAnio;
+	private JTextField txtMes;
+	private JTextField txtDia;
 	private JFileChooser imageChooser;
 	private final static String ESCOGER_IMAGEN = "ESCOGER_IMAGEN";
 	private final static String AGREGAR_PRODUCTO = "AGREGAR_PRODUCTO";
 	private File imagenProducto;
 	private JTextField lblRutaImagen;
+	private JComboBox opEmpacado;
 
 	public FormularioProducto(UIInventario principalInventario) {
 		
@@ -61,7 +63,7 @@ public class FormularioProducto extends JFrame implements ActionListener {
 		
 		this.principalInventario = principalInventario;
 		//Tamaño de la ventana
-		
+		this.setTitle("Agregar Producto");
 		this.setSize(350,700);
 		this.setResizable(false);
 	
@@ -70,65 +72,65 @@ public class FormularioProducto extends JFrame implements ActionListener {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Nombre:");
-		lblNewLabel.setBounds(20, 11, 79, 17);
-		panel.add(lblNewLabel);
+		JLabel lbl1Nombre = new JLabel("Nombre:");
+		lbl1Nombre.setBounds(20, 11, 79, 17);
+		panel.add(lbl1Nombre);
 		
-		textField = new JTextField();
-		textField.setBounds(109, 8, 164, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		txtNombre = new JTextField();
+		txtNombre.setBounds(109, 8, 164, 20);
+		panel.add(txtNombre);
+		txtNombre.setColumns(10);
 		
 		JLabel lblSku = new JLabel("SKU:");
 		lblSku.setBounds(20, 46, 30, 14);
 		panel.add(lblSku);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(76, 43, 197, 20);
-		panel.add(textField_1);
+		txtSKU = new JTextField();
+		txtSKU.setColumns(10);
+		txtSKU.setBounds(76, 43, 197, 20);
+		panel.add(txtSKU);
 		
 		JLabel lblNewLabel_1 = new JLabel("Categoria");
 		lblNewLabel_1.setBounds(20, 94, 60, 14);
 		panel.add(lblNewLabel_1);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(90, 93, 183, 73);
-		panel.add(scrollPane);
+		JScrollPane scrollCategorias = new JScrollPane();
+		scrollCategorias.setBounds(90, 93, 183, 73);
+		panel.add(scrollCategorias);
 		
 		JTree tree = new JTree();
 		popularCategorias();
-		scrollPane.setViewportView(tree);
+		scrollCategorias.setViewportView(tree);
 		
 		JLabel lblNewLabel_2 = new JLabel("Otra / Seleccion: ");
 		lblNewLabel_2.setBounds(20, 194, 113, 14);
 		panel.add(lblNewLabel_2);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(143, 191, 130, 20);
-		panel.add(textField_2);
+		txtCat = new JTextField();
+		txtCat.setColumns(10);
+		txtCat.setBounds(143, 191, 130, 20);
+		panel.add(txtCat);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Gondola");
 		lblNewLabel_1_1.setBounds(20, 247, 60, 14);
 		panel.add(lblNewLabel_1_1);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(90, 261, 183, 73);
-		panel.add(scrollPane_1);
+		JScrollPane scrollGondola = new JScrollPane();
+		scrollGondola.setBounds(90, 261, 183, 73);
+		panel.add(scrollGondola);
 		
 		JTree tree_1 = new JTree();
 		popularGondolas();
-		scrollPane_1.setViewportView(tree_1);
+		scrollGondola.setViewportView(tree_1);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Otra / Seleccion: ");
 		lblNewLabel_2_1.setBounds(20, 363, 113, 14);
 		panel.add(lblNewLabel_2_1);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(143, 360, 130, 20);
-		panel.add(textField_3);
+		txtGond = new JTextField();
+		txtGond.setColumns(10);
+		txtGond.setBounds(143, 360, 130, 20);
+		panel.add(txtGond);
 		
 		panel.setPreferredSize(new Dimension(350, 1500));	
 		
@@ -136,28 +138,28 @@ public class FormularioProducto extends JFrame implements ActionListener {
 		lblNewLabel_3.setBounds(20, 421, 46, 14);
 		panel.add(lblNewLabel_3);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(76, 418, 197, 20);
-		panel.add(textField_4);
+		txtMarca = new JTextField();
+		txtMarca.setColumns(10);
+		txtMarca.setBounds(76, 418, 197, 20);
+		panel.add(txtMarca);
 		
 		JLabel lblNewLabel_3_1 = new JLabel("Empacado:");
 		lblNewLabel_3_1.setBounds(20, 470, 78, 14);
 		panel.add(lblNewLabel_3_1);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Si", "No"}));
-		comboBox.setBounds(108, 466, 165, 22);
-		panel.add(comboBox);
+		this.opEmpacado = new JComboBox();
+		opEmpacado.setModel(new DefaultComboBoxModel(new String[] {"Si", "No"}));
+		opEmpacado.setBounds(108, 466, 165, 22);
+		panel.add(opEmpacado);
 		
 		JLabel lblNewLabel_4 = new JLabel("Cantidad (Unidad Medida):");
 		lblNewLabel_4.setBounds(20, 521, 185, 14);
 		panel.add(lblNewLabel_4);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(215, 518, 125, 20);
-		panel.add(textField_5);
+		txtCantidad = new JTextField();
+		txtCantidad.setColumns(10);
+		txtCantidad.setBounds(215, 518, 125, 20);
+		panel.add(txtCantidad);
 		
 		JLabel lblNewLabel_4_1 = new JLabel("Costo (por unidad medida):");
 		lblNewLabel_4_1.setBounds(20, 559, 185, 14);
@@ -167,110 +169,110 @@ public class FormularioProducto extends JFrame implements ActionListener {
 		lblNewLabel_4_1_1.setBounds(20, 600, 185, 14);
 		panel.add(lblNewLabel_4_1_1);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(215, 556, 125, 20);
-		panel.add(textField_6);
+		txtCosto = new JTextField();
+		txtCosto.setColumns(10);
+		txtCosto.setBounds(215, 556, 125, 20);
+		panel.add(txtCosto);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(215, 597, 125, 20);
-		panel.add(textField_7);
+		txtPrecio = new JTextField();
+		txtPrecio.setColumns(10);
+		txtPrecio.setBounds(215, 597, 125, 20);
+		panel.add(txtPrecio);
 		
 		JLabel lblNewLabel_4_1_1_1 = new JLabel("Peso Neto (en unidad medida):");
 		lblNewLabel_4_1_1_1.setBounds(20, 641, 185, 14);
 		panel.add(lblNewLabel_4_1_1_1);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(215, 638, 125, 20);
-		panel.add(textField_8);
+		txtPeso = new JTextField();
+		txtPeso.setColumns(10);
+		txtPeso.setBounds(215, 638, 125, 20);
+		panel.add(txtPeso);
 		
 		JLabel lblNewLabel_4_1_1_1_1 = new JLabel("Unidad Venta (kg, g, paquete...):");
 		lblNewLabel_4_1_1_1_1.setBounds(20, 684, 185, 14);
 		panel.add(lblNewLabel_4_1_1_1_1);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(215, 681, 125, 20);
-		panel.add(textField_9);
+		txtUnidadVenta = new JTextField();
+		txtUnidadVenta.setColumns(10);
+		txtUnidadVenta.setBounds(215, 681, 125, 20);
+		panel.add(txtUnidadVenta);
 		
 		JLabel lblNewLabel_5 = new JLabel("Temp Refrigerado:  ");
 		lblNewLabel_5.setBounds(20, 715, 165, 14);
 		panel.add(lblNewLabel_5);
 		
-		textField_10 = new JTextField();
-		textField_10.setColumns(10);
-		textField_10.setBounds(215, 712, 125, 20);
-		panel.add(textField_10);
+		txtRefrigerado = new JTextField();
+		txtRefrigerado.setColumns(10);
+		txtRefrigerado.setBounds(215, 712, 125, 20);
+		panel.add(txtRefrigerado);
 		
 		JLabel lblNewLabel_5_1 = new JLabel("Temp Congelado:  ");
 		lblNewLabel_5_1.setBounds(20, 750, 165, 14);
 		panel.add(lblNewLabel_5_1);
 		
-		textField_11 = new JTextField();
-		textField_11.setColumns(10);
-		textField_11.setBounds(215, 747, 125, 20);
-		panel.add(textField_11);
+		txtCongelado = new JTextField();
+		txtCongelado.setColumns(10);
+		txtCongelado.setBounds(215, 747, 125, 20);
+		panel.add(txtCongelado);
 		
 		JLabel lblNewLabel_5_1_1 = new JLabel("N\u00FAmero Lote:   ");
 		lblNewLabel_5_1_1.setBounds(20, 803, 108, 14);
 		panel.add(lblNewLabel_5_1_1);
 		
-		textField_12 = new JTextField();
-		textField_12.setColumns(10);
-		textField_12.setBounds(117, 800, 156, 20);
-		panel.add(textField_12);
+		txtLote = new JTextField();
+		txtLote.setColumns(10);
+		txtLote.setBounds(117, 800, 156, 20);
+		panel.add(txtLote);
 		
 		JLabel lblNewLabel_5_1_1_1 = new JLabel("Fecha Vencimiento: ");
 		lblNewLabel_5_1_1_1.setBounds(20, 848, 149, 14);
 		panel.add(lblNewLabel_5_1_1_1);
 		
-		textField_13 = new JTextField();
-		textField_13.setBounds(179, 845, 46, 20);
-		panel.add(textField_13);
-		textField_13.setColumns(10);
+		txtAnio = new JTextField();
+		txtAnio.setBounds(179, 845, 46, 20);
+		panel.add(txtAnio);
+		txtAnio.setColumns(10);
 		
-		JLabel lblNewLabel_6 = new JLabel("A\u00F1o");
-		lblNewLabel_6.setBounds(179, 865, 46, 14);
-		panel.add(lblNewLabel_6);
+		JLabel lblAnio = new JLabel("A\u00F1o");
+		lblAnio.setBounds(179, 865, 46, 14);
+		panel.add(lblAnio);
 		
-		textField_14 = new JTextField();
-		textField_14.setColumns(10);
-		textField_14.setBounds(235, 845, 46, 20);
-		panel.add(textField_14);
+		txtMes = new JTextField();
+		txtMes.setColumns(10);
+		txtMes.setBounds(235, 845, 46, 20);
+		panel.add(txtMes);
 		
-		textField_15 = new JTextField();
-		textField_15.setColumns(10);
-		textField_15.setBounds(294, 845, 46, 20);
-		panel.add(textField_15);
+		txtDia = new JTextField();
+		txtDia.setColumns(10);
+		txtDia.setBounds(294, 845, 46, 20);
+		panel.add(txtDia);
 		
-		JLabel lblNewLabel_6_1 = new JLabel("Mes");
-		lblNewLabel_6_1.setBounds(235, 865, 46, 14);
-		panel.add(lblNewLabel_6_1);
+		JLabel lblMes = new JLabel("Mes");
+		lblMes.setBounds(235, 865, 46, 14);
+		panel.add(lblMes);
 		
-		JLabel lblNewLabel_6_1_1 = new JLabel("Dia");
-		lblNewLabel_6_1_1.setBounds(294, 865, 46, 14);
-		panel.add(lblNewLabel_6_1_1);
+		JLabel lblDia = new JLabel("Dia");
+		lblDia.setBounds(294, 865, 46, 14);
+		panel.add(lblDia);
 		
 		JLabel lblNewLabel_3_1_1 = new JLabel("Imagen:");
 		lblNewLabel_3_1_1.setBounds(20, 900, 60, 14);
 		panel.add(lblNewLabel_3_1_1);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Si", "No"}));
-		comboBox_1.setBounds(76, 896, 197, 22);
-		panel.add(comboBox_1);
+		JComboBox opImagen = new JComboBox();
+		opImagen.setModel(new DefaultComboBoxModel(new String[] {"Si", "No"}));
+		opImagen.setBounds(76, 896, 197, 22);
+		panel.add(opImagen);
 		
 		JLabel lblNewLabel_3_1_1_1 = new JLabel("Imagen:");
 		lblNewLabel_3_1_1_1.setBounds(20, 943, 60, 14);
 		panel.add(lblNewLabel_3_1_1_1);
 		
-		JButton btnNewButton = new JButton("Seleccionar");
-		btnNewButton.setBounds(117, 939, 125, 23);
-		btnNewButton.addActionListener(this);
-		btnNewButton.setActionCommand(ESCOGER_IMAGEN);
-		panel.add(btnNewButton);
+		JButton btnSelecImagen = new JButton("Seleccionar");
+		btnSelecImagen.setBounds(117, 939, 125, 23);
+		btnSelecImagen.addActionListener(this);
+		btnSelecImagen.setActionCommand(ESCOGER_IMAGEN);
+		panel.add(btnSelecImagen);
 		
 		JLabel lblNewLabel_3_1_1_1_1 = new JLabel("Ruta Imagen:");
 		lblNewLabel_3_1_1_1_1.setBounds(20, 981, 93, 14);
@@ -294,9 +296,7 @@ public class FormularioProducto extends JFrame implements ActionListener {
 		//Scroller 
 		JScrollPane scroller = new JScrollPane(panel);
 		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
 		getContentPane().add(scroller, BorderLayout.CENTER);
-//		
 		this.setVisible(true);
 	}
 
@@ -326,15 +326,50 @@ public class FormularioProducto extends JFrame implements ActionListener {
 		
 		else if(comando.equals(AGREGAR_PRODUCTO))
 		{
-			Producto producto = this.crearProducto();
-			principalInventario.agregarProducto(producto);
+			ArrayList<String> caracteristicas = this.crearProducto();
+			principalInventario.agregarProducto(caracteristicas, this);
 		}
 		
 	}
 	
-	private Producto crearProducto()
+	private ArrayList<String> crearProducto()
 	{
-		return this.principalInventario.getProducto();
+		ArrayList<String> caracteristicas = new ArrayList<>();
+		String nombre = this.txtNombre.getText().strip().toUpperCase();
+		caracteristicas.add(nombre);
+		String SKU = this.txtSKU.getText().strip().toUpperCase();
+		caracteristicas.add(SKU);
+		String categoria = this.txtCat.getText().strip().toUpperCase();
+		caracteristicas.add(categoria);
+		String gondola = this.txtGond.getText().strip().toUpperCase();
+		caracteristicas.add(gondola);
+		String marca = this.txtMarca.getText().strip().toUpperCase();
+		caracteristicas.add(marca);
+		String empacado = this.opEmpacado.getSelectedIndex() == 0 ? "Y" : "N";
+		caracteristicas.add(empacado);
+		String cantidad = this.txtCantidad.getText().strip().toUpperCase();
+		caracteristicas.add(cantidad);
+		String costo = this.txtCosto.getText().strip().toUpperCase();
+		caracteristicas.add(costo);
+		String precio = this.txtPrecio.getText().strip().toUpperCase();
+		caracteristicas.add(precio);
+		String pesoNeto = this.txtPeso.getText().strip().toUpperCase();
+		caracteristicas.add(pesoNeto);
+		String unidad = this.txtUnidadVenta.getText().strip().toUpperCase();
+		caracteristicas.add(unidad);
+		String tempRef = this.txtUnidadVenta.getText().strip().toUpperCase();
+		caracteristicas.add(tempRef);
+		String tempCongelado = this.txtCongelado.getText().strip().toUpperCase();
+		caracteristicas.add(tempCongelado);
+		String idLote = this.txtLote.getText().strip().toUpperCase(); 
+		caracteristicas.add(idLote);
+		String vencimiento = this.txtAnio.getText().strip().toUpperCase() + "-" + this.txtMes.getText().strip().toUpperCase() + "-" + this.txtDia.getText().strip().toUpperCase();
+		caracteristicas.add(vencimiento);
+		String tieneImagen = this.imagenProducto == null ? "NO" : "SI";
+		caracteristicas.add(tieneImagen);
+		return caracteristicas;
+
+		
 	}
 	
 	private void popularCategorias()
@@ -345,6 +380,11 @@ public class FormularioProducto extends JFrame implements ActionListener {
 	private void popularGondolas()
 	{
 		
+	}
+	
+	public File getImagen()
+	{
+		return this.imagenProducto;
 	}
 	
 	

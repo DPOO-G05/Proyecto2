@@ -58,47 +58,6 @@ public class SistemaInventario implements Serializable {
 		return this.referencias;
 	}
 	
-	public void cargarInformacion()
-	{
-		HashMap<String, String> newHashMap = null;
-		  
-        try {
-            FileInputStream fileInput = new FileInputStream("./src/persistencia/db.ser");
-            ObjectInputStream objectInput
-                = new ObjectInputStream(fileInput);
-  
-            newHashMap = (HashMap)objectInput.readObject();
-  
-            objectInput.close();
-            fileInput.close();
-        }
-  
-        catch (IOException obj1) {
-            obj1.printStackTrace();
-            return;
-        }
-  
-        catch (ClassNotFoundException obj2) {
-            System.out.println("Class not found");
-            obj2.printStackTrace();
-            return;
-        }
-  
-        System.out.println("Deserializing  HashMap..");
-  
-        // Displaying content in "newHashMap.txt" using
-        // Iterator
-        Set set = newHashMap.entrySet();
-        Iterator iterator = set.iterator();
-  
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry)iterator.next();
-  
-            System.out.print("key : " + entry.getKey()
-                             + " & Value : ");
-            System.out.println(entry.getValue());
-        }
-    }	
-	
+		
 	
 }

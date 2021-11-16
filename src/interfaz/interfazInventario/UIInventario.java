@@ -9,6 +9,7 @@ import interfaz.UI;
 import java.awt.*;
 
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class UIInventario extends JFrame implements ActionListener {
 
@@ -175,12 +176,12 @@ public class UIInventario extends JFrame implements ActionListener {
 		//1. Recolectar información necesaria
 		this.formulario = new FormularioProducto(this);
 
-	}
+		}
 	
-	public void agregarProducto(Producto producto)
+	public void agregarProducto(ArrayList<String> caracteristicas, FormularioProducto formulario)
 	{
 		//Agrega el producto
-		this.principal.getCoordinador().agregarNuevoProducto(producto);
+		this.principal.getCoordinador().agregarNuevoProducto(caracteristicas, formulario);
 	}
 
 }
