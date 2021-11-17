@@ -202,6 +202,7 @@ public class UIInventario extends JFrame implements ActionListener {
 			{
 				File file = chooserLote.getSelectedFile();
 				this.principal.getCoordinador().leerCSV(file);
+				principal.actualizarInventario();
 			}
 			else
 			{
