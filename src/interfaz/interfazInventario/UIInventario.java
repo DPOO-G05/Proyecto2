@@ -9,6 +9,7 @@ import interfaz.UI;
 import java.awt.*;
 
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class UIInventario extends JFrame implements ActionListener {
@@ -35,7 +36,9 @@ public class UIInventario extends JFrame implements ActionListener {
 	
 	private Producto productoActual;
 	
-	private JFileChooser chooser;
+	private JFileChooser chooserLote;
+	
+	private JFileChooser chooserImagen;
 	
 	private static final String NUEVO_PRODUCTO = "NUEVO_PRODUCTO";
 	
@@ -193,8 +196,33 @@ public class UIInventario extends JFrame implements ActionListener {
 	
 	public void cargarLote()
 	{
-		this.chooser = new JFileChooser();
-		int valor = chooser.showDialog(this, "Seleccionar Archivo");
+		this.chooserLote = new JFileChooser();
+		int valor = chooserLote.showDialog(this, "Seleccionar CSV");
+		if(valor == JFileChooser.APPROVE_OPTION)
+			{
+				File file = chooserLote.getSelectedFile();
+				this.principal.getCoordinador().leerCSV(file);
+			}
+			else
+			{
+				System.out.println("Abrir cancelado por el usuario");
+			}
+	}
+	
+	public void actualizarImagen()
+	{
+		this.chooserImagen = new JFileChooser();
+		int valor = chooserImagen.showDialog(this, "Seleccionar Imagen");
+		if(valor == JFileChooser.APPROVE_OPTION)
+			{
+				File file = chooserImagen.getSelectedFile();
+				this.referenciaActual.setImagen(file);
+				this.panelProducto.actualizarImagen(referenciaActual);
+			}
+			else
+			{
+				System.out.println("Abrir cancelado por el usuario");
+			}
 	}
 
 }

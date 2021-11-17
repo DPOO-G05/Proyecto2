@@ -93,43 +93,21 @@ public class FormularioProducto extends JFrame implements ActionListener {
 		JLabel lblNewLabel_1 = new JLabel("Categoria");
 		lblNewLabel_1.setBounds(20, 94, 60, 14);
 		panel.add(lblNewLabel_1);
-		
-		JScrollPane scrollCategorias = new JScrollPane();
-		scrollCategorias.setBounds(90, 93, 183, 73);
-		panel.add(scrollCategorias);
-		
-		JTree tree = new JTree();
 		popularCategorias();
-		scrollCategorias.setViewportView(tree);
-		
-		JLabel lblNewLabel_2 = new JLabel("Otra / Seleccion: ");
-		lblNewLabel_2.setBounds(20, 194, 113, 14);
-		panel.add(lblNewLabel_2);
 		
 		txtCat = new JTextField();
 		txtCat.setColumns(10);
-		txtCat.setBounds(143, 191, 130, 20);
+		txtCat.setBounds(90, 91, 183, 20);
 		panel.add(txtCat);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Gondola");
-		lblNewLabel_1_1.setBounds(20, 247, 60, 14);
+		lblNewLabel_1_1.setBounds(20, 152, 60, 14);
 		panel.add(lblNewLabel_1_1);
-		
-		JScrollPane scrollGondola = new JScrollPane();
-		scrollGondola.setBounds(90, 261, 183, 73);
-		panel.add(scrollGondola);
-		
-		JTree tree_1 = new JTree();
 		popularGondolas();
-		scrollGondola.setViewportView(tree_1);
-		
-		JLabel lblNewLabel_2_1 = new JLabel("Otra / Seleccion: ");
-		lblNewLabel_2_1.setBounds(20, 363, 113, 14);
-		panel.add(lblNewLabel_2_1);
 		
 		txtGond = new JTextField();
 		txtGond.setColumns(10);
-		txtGond.setBounds(143, 360, 130, 20);
+		txtGond.setBounds(90, 149, 183, 20);
 		panel.add(txtGond);
 		
 		panel.setPreferredSize(new Dimension(350, 1500));	

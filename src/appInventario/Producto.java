@@ -24,7 +24,6 @@ public class Producto implements Serializable {
 	private boolean empacado;
 	private boolean disponibleVenta;
 	private Lote lote;
-	private File imagen;
 
 	public LocalDate getFechaVenc() {
 		return fechaVenc;

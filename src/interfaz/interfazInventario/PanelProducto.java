@@ -1,5 +1,6 @@
 package interfaz.interfazInventario;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -17,7 +18,8 @@ import appInventario.Referencia;
 import interfaz.CoordinadorUI;
 
 import java.awt.Color;
-
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 public class PanelProducto extends JPanel implements ActionListener {
 	
 	private UIInventario principalInventario;
@@ -48,6 +50,10 @@ public class PanelProducto extends JPanel implements ActionListener {
 	
 	private final static String BUSQUEDA_SKU = "BUSQUEDA_SKU";
 	
+	private final static String CAMBIAR_IMAGEN = "CAMBIAR_IMAGEN";
+	
+	private JPanel panelImagen;
+
 	public PanelProducto(UIInventario principalInventario) 
 	{
 		
@@ -96,7 +102,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 		lbl2Vencimiento.setBounds(778, 91, 112, 14);
 		add(lbl2Vencimiento);
 		
-		JPanel panelImagen = new JPanel();
+		this.panelImagen = new JPanel();
 		panelImagen.setBounds(241, 140, 407, 211);
 		add(panelImagen);
 		
@@ -199,10 +205,12 @@ public class PanelProducto extends JPanel implements ActionListener {
 		lbl2FechaIngreso.setBounds(638, 415, 77, 14);
 		add(lbl2FechaIngreso);
 		
-		JButton btnNewButton = new JButton("Cambiar Imagen");
-		btnNewButton.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnNewButton.setBounds(252, 546, 143, 23);
-		add(btnNewButton);
+		JButton btnCambiarImagen= new JButton("Cambiar Imagen");
+		btnCambiarImagen.addActionListener(this);
+		btnCambiarImagen.setActionCommand(CAMBIAR_IMAGEN);
+		btnCambiarImagen.setFont(new Font("SansSerif", Font.BOLD, 13));
+		btnCambiarImagen.setBounds(252, 546, 143, 23);
+		add(btnCambiarImagen);
 	}
 	
 	
@@ -216,11 +224,10 @@ public class PanelProducto extends JPanel implements ActionListener {
 		actualizarBanner(referencia, prod);
 		//3. Actualizar informaci�n Lote
 		actualizarInfoLote(referencia, prod);
-		
-		//4. Actualizar Imagen
-		
-		//5. Actualizar Informaci�n General
+		//4. Actualizar Informaci�n General
 		actualizarInfoGen(referencia, prod);
+		//5. Actualizar Imagen
+		actualizarImagen(referencia);
 	}
 	
 	private void actualizarInfoLote(Referencia referencia, Producto producto)
@@ -249,8 +256,30 @@ public class PanelProducto extends JPanel implements ActionListener {
 		
 	}
 	
-	private void actualizarImagen(Referencia referencia)
+	public void actualizarImagen(Referencia referencia)
 	{
+		if (!(referencia.getImagen() == null))
+		{
+			BufferedImage myPicture;
+			try {
+				myPicture = ImageIO.read(referencia.getImagen());
+				JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+				this.panelImagen.removeAll();
+				this.panelImagen.revalidate();
+				this.panelImagen.add(picLabel);
+				this.panelImagen.repaint();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		}
+		else
+		{
+			this.panelImagen.removeAll();
+			this.panelImagen.revalidate();
+			this.panelImagen.add(new JLabel("Imagen no disponible"));
+			this.panelImagen.repaint();
+		}
 		
 	}
 	
@@ -297,6 +326,10 @@ public class PanelProducto extends JPanel implements ActionListener {
 		{
 			buscarPorSKU();
 
+		}
+		else if(comando.equals(CAMBIAR_IMAGEN))
+		{
+			this.principalInventario.actualizarImagen();
 		}
 		
 	}

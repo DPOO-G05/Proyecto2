@@ -19,11 +19,11 @@ public class LectorArchivo implements Serializable {
 	
 	
 	
-	public void leerArchivo() throws IOException
+	public void leerArchivo(File archivo) throws IOException
 	{
 		try
 		{
-			BufferedReader lectura = new BufferedReader(new FileReader("./src/consolaInventario/lotes.csv"));
+			BufferedReader lectura = new BufferedReader(new FileReader(archivo));
 			lectura.readLine();
 			String linea = lectura.readLine();
 		

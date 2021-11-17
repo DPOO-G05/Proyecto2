@@ -1,5 +1,6 @@
 package appInventario;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,9 +35,9 @@ public class SistemaInventario implements Serializable {
 	}
 
 	
-	public void leerCSV()
+	public void leerCSV(File archivo)
 	{
-		this.constructorArchivo.leerCSV();
+		this.constructorArchivo.leerCSV(archivo);
 		this.constructorArchivo.crearCategorias();
 		this.constructorArchivo.crearGondolas();
 		this.constructorArchivo.crearReferencias();

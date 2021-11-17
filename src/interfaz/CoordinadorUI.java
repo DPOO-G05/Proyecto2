@@ -200,6 +200,7 @@ public class CoordinadorUI {
 		if (!existeRef)
 		{
 			ref = new Referencia(SKU, gondola);
+			ref.setImagen(formulario.getImagen());
 			this.sistemaInventario.getReferencias().put(SKU, ref);
 			gondola.getReferencias().put(SKU, ref);
 		}
@@ -208,10 +209,6 @@ public class CoordinadorUI {
 			ref = gondola.getReferencias().get(SKU);
 		}
 
-		
-		
-		
-		
 		Producto prod;
 		//Crear el producto
 		if(catStr.equals(FRESCO)|| gondStr.equals(FRESCO))
@@ -255,6 +252,11 @@ public class CoordinadorUI {
 		prod.setLote(lote);
 	
 		this.principal.actualizarInventario();
+	}
+	
+	public void leerCSV(File archivo)
+	{
+		this.sistemaInventario.leerCSV(archivo);
 	}
 	
 

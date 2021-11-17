@@ -1,5 +1,6 @@
 package appInventario;
 
+import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
@@ -21,6 +22,8 @@ public class Referencia implements Serializable {
 	private String SKU;
 
 	private Gondola gondola;
+	
+	private File imagen;
 
 	public Referencia(String SKU, Gondola gondola)
 	{
@@ -59,5 +62,15 @@ public class Referencia implements Serializable {
 	public String getSKU()
 	{
 		return this.SKU;
+	}
+	
+	public void setImagen(File imagen)
+	{
+		this.imagen = imagen;
+	}
+	
+	public File getImagen()
+	{
+		return this.imagen;
 	}
 }

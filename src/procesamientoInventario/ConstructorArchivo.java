@@ -1,5 +1,6 @@
 package procesamientoInventario;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class ConstructorArchivo implements Serializable
 	}
 
 	
-	public void leerCSV()
+	public void leerCSV(File archivo)
 	{
 		LectorArchivo lector = new LectorArchivo();
 		this.lecCat.setLector(lector);
@@ -50,7 +51,7 @@ public class ConstructorArchivo implements Serializable
 		this.lecProd.setLector(lector);
 		
 		try {
-			lector.leerArchivo();
+			lector.leerArchivo(archivo);
 		} catch (IOException e) {
 
 			e.printStackTrace();
