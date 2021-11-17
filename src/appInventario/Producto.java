@@ -1,4 +1,5 @@
 package appInventario;
+import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
@@ -23,6 +24,7 @@ public class Producto implements Serializable {
 	private boolean empacado;
 	private boolean disponibleVenta;
 	private Lote lote;
+	private File imagen;
 
 	public LocalDate getFechaVenc() {
 		return fechaVenc;

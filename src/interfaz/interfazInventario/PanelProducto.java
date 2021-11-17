@@ -151,7 +151,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 		
 		JButton btnGanancias = new JButton("Ganancias");
 		btnGanancias.setFont(new Font("SansSerif", Font.BOLD, 13));
-		btnGanancias.setBounds(414, 545, 105, 23);
+		btnGanancias.setBounds(516, 545, 105, 23);
 		add(btnGanancias);
 		
 		this.lbl2Precio = new JLabel("XXXXXXXXX");
@@ -198,6 +198,11 @@ public class PanelProducto extends JPanel implements ActionListener {
 		lbl2FechaIngreso.setFont(new Font("SansSerif", Font.PLAIN, 13));
 		lbl2FechaIngreso.setBounds(638, 415, 77, 14);
 		add(lbl2FechaIngreso);
+		
+		JButton btnNewButton = new JButton("Cambiar Imagen");
+		btnNewButton.setFont(new Font("SansSerif", Font.BOLD, 13));
+		btnNewButton.setBounds(252, 546, 143, 23);
+		add(btnNewButton);
 	}
 	
 	
@@ -355,6 +360,4 @@ public class PanelProducto extends JPanel implements ActionListener {
 			
 	
 	}
-	
-	
 }

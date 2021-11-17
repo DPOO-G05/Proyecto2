@@ -35,6 +35,8 @@ public class UIInventario extends JFrame implements ActionListener {
 	
 	private Producto productoActual;
 	
+	private JFileChooser chooser;
+	
 	private static final String NUEVO_PRODUCTO = "NUEVO_PRODUCTO";
 	
 	private static final String CARGAR_LOTE = "CARGAR_LOTE";
@@ -169,6 +171,11 @@ public class UIInventario extends JFrame implements ActionListener {
 		{
 			crearNuevoFormulario();
 		}
+		
+		if (comando.equals(CARGAR_LOTE))
+		{
+			cargarLote();
+		}
 	}
 	
 	private void crearNuevoFormulario()
@@ -176,12 +183,18 @@ public class UIInventario extends JFrame implements ActionListener {
 		//1. Recolectar información necesaria
 		this.formulario = new FormularioProducto(this);
 
-		}
+	}
 	
 	public void agregarProducto(ArrayList<String> caracteristicas, FormularioProducto formulario)
 	{
 		//Agrega el producto
 		this.principal.getCoordinador().agregarNuevoProducto(caracteristicas, formulario);
+	}
+	
+	public void cargarLote()
+	{
+		this.chooser = new JFileChooser();
+		int valor = chooser.showDialog(this, "Seleccionar Archivo");
 	}
 
 }
