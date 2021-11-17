@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import appInventario.Categoria;
 import appInventario.Gondola;
@@ -257,6 +258,28 @@ public class CoordinadorUI {
 	public void leerCSV(File archivo)
 	{
 		this.sistemaInventario.leerCSV(archivo);
+	}
+	
+	public void eliminarVencidos()
+	{
+		HashMap<String, Lote> lotes =  this.getSistemaInventario().getLotes();
+		
+		Set<String> llaves = lotes.keySet();
+		
+		for(String llave: llaves)
+		{
+			Lote lote =  lotes.get(llave);
+			String key = llave;
+			Producto prod = lote.getProducto();  
+			if(prod.getFechaVenc().isBefore(LocalDate.now()))
+			{
+				lotes.remove(key);
+				prod.getReferencia().getProductos().remove(prod.getFechaVenc());
+				lote = null;
+				prod = null;
+			}
+		}
+		
 	}
 	
 

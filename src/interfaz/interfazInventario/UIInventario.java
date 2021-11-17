@@ -175,9 +175,14 @@ public class UIInventario extends JFrame implements ActionListener {
 			crearNuevoFormulario();
 		}
 		
-		if (comando.equals(CARGAR_LOTE))
+		else if (comando.equals(CARGAR_LOTE))
 		{
 			cargarLote();
+		}
+		
+		else if (comando.equals(this.ELIMINAR_VENCIDOS))
+		{
+			//eliminarVencidos();
 		}
 	}
 	
@@ -224,6 +229,12 @@ public class UIInventario extends JFrame implements ActionListener {
 			{
 				System.out.println("Abrir cancelado por el usuario");
 			}
+	}
+	
+	private void eliminarVencidos()
+	{
+		this.principal.getCoordinador().eliminarVencidos();
+		this.principal.actualizarInventario();
 	}
 
 }
