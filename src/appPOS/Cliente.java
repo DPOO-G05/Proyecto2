@@ -1,36 +1,35 @@
 package appPOS;
 
+import java.util.HashMap;
+
 public class Cliente {
 	
-
 	private String nombre;
-	private int cedula;
+	private String cedula;
 	private int edad;
-	private char sexo;
+	private String sexo;
 	private String estadoCivil;
 	private String situacionLaboral;
-	private boolean clienteNuevo;
 	private int puntos;
-	private boolean inscrito;
+	private HashMap<String, Venta> compras;
 	
+	//Constructor
+	public Cliente(String cedula)
+	{
+		this.cedula = cedula;
+		this.compras = new HashMap<>();
+	}
 	
-	//Metodos
-	public int getPuntos() {
-		return puntos;
-	}
-	public void setPuntos(int puntos) {
-		this.puntos = puntos;
-	}
 	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public int getCedula() {
+	public String getCedula() {
 		return cedula;
 	}
-	public void setCedula(int cedula) {
+	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
 	public int getEdad() {
@@ -39,11 +38,11 @@ public class Cliente {
 	public void setEdad(int edad) {
 		this.edad = edad;
 	}
-	public char getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
-	public void setSexo(char sexo) {
-		this.sexo = sexo;
+	public void setSexo(String string) {
+		this.sexo = string;
 	}
 	public String getEstadoCivil() {
 		return estadoCivil;
@@ -57,9 +56,14 @@ public class Cliente {
 	public void setSituacionLaboral(String situacionLaboral) {
 		this.situacionLaboral = situacionLaboral;
 	}
-	
-	public void cliente(String[] infoCliente) {
-		
+
+	public int getPuntos() {
+		return this.puntos;
 	}
 
+	public void agregarVenta(Venta venta) {
+		this.compras.put(venta.getId(), venta);
+	}
+	
+	
 }

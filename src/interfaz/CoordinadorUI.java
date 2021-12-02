@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import javax.swing.DefaultListModel;
+
 import appInventario.Categoria;
 import appInventario.Gondola;
 import appInventario.Lote;
@@ -21,12 +23,16 @@ import appInventario.ProductoGondola;
 import appInventario.ProductoRefrigerado;
 import appInventario.Referencia;
 import appInventario.SistemaInventario;
+import appPOS.Cliente;
+import appPOS.SistemaPOS;
+import appPOS.Venta;
 import interfaz.interfazInventario.FormularioProducto;
 
 public class CoordinadorUI {
 
 	private UI principal;
 	private SistemaInventario sistemaInventario;
+	private SistemaPOS sistemaPos;
 	private final String FRESCO = "FRESCO";
 	private final String CONGELADO = "CONGELADO";
 	private final String REFRIGERADO = "REFRIGERADO";
@@ -34,6 +40,7 @@ public class CoordinadorUI {
 	CoordinadorUI(UI principal)
 	{
 		this.principal = principal;
+		this.sistemaPos = new SistemaPOS(this);
 		cargarInformacion();
 		desplegarInformacion();
 	}
@@ -282,5 +289,107 @@ public class CoordinadorUI {
 		
 	}
 	
+	public boolean existeCliente(String cedula)
+	{
+		boolean respuesta = this.sistemaPos.existeCliente(cedula);
+		return respuesta;
+	}
+	
+	public Cliente buscarCliente(String cedula)
+	{
+		return this.sistemaPos.buscarCliente(cedula);
+	}
+	
+	public Cliente crearCliente(String cedula)
+	{
+		return this.sistemaPos.crearCliente(cedula);
+	}
 
+
+	public boolean esAfiliado(String cedula)
+	{
+		boolean respuesta = this.sistemaPos.esAfiliado(cedula);
+		return respuesta;
+
+	}
+
+
+	public void afiliarCliente(ArrayList<String> atributos, String cedula) {
+		this.sistemaPos.afiliarCliente(atributos, cedula);
+	}
+
+
+	public void iniciarVenta(Cliente cliente) {
+
+		this.sistemaPos.iniciarVenta(cliente);
+
+	}
+
+
+	public void popularProductos(DefaultListModel model) {
+		HashMap<String, Referencia> referencias = this.sistemaInventario.getReferencias();
+		for (String SKU: referencias.keySet())
+		{
+			Referencia ref = referencias.get(SKU);
+			model.addElement(ref);
+		}
+	}
+
+
+	public void agregarProductoVenta(String SKU) {
+		try {
+			this.sistemaPos.agregarProductoVenta(SKU);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+	}
+
+
+	public Referencia getReferencia(String SKU) {
+		return this.sistemaInventario.buscarReferencia(SKU);
+	}
+
+
+	public Venta getVentaActual() {
+		return this.sistemaPos.getVentaActual();
+	}
+	
+	public double getTotalVenta()
+	{
+		Venta actual = getVentaActual();
+		return actual.calcularTotal();
+	}
+
+
+	public ArrayList<String> getProductosActuales() {
+		ArrayList<String> respuesta = new ArrayList<>();
+
+		Venta actual = getVentaActual();
+		
+		HashMap<String,Integer> productos = actual.getProductos();
+	
+		for (String llave: productos.keySet())
+		{
+			int cantidad = productos.get(llave);
+			String cantidadStr = Integer.toString(cantidad);
+			Referencia referencia = getReferencia(llave);
+			String nombre = referencia.getNombre();
+			double precio = referencia.getPrecioVenta();
+			double total = precio * cantidad;
+			String totalStr = Double.toString(total);
+			
+			String row = nombre + "," + cantidadStr + "," + total;
+			
+			respuesta.add(row);
+		}
+		return respuesta;
+	}
+
+
+	public void agregarVentaHistorico(Venta ventaActual) {
+
+		this.sistemaPos.agregarVentaHistorico(ventaActual);
+
+	}
 }

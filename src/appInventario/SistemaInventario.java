@@ -58,6 +58,13 @@ public class SistemaInventario implements Serializable {
 	{
 		return this.referencias;
 	}
+
+
+	public Referencia buscarReferencia(String sKU) {
+		
+		Referencia ref = this.referencias.get(sKU);
+		return ref; 
+	}
 	
 		
 	

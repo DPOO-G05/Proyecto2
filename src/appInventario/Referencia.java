@@ -73,4 +73,19 @@ public class Referencia implements Serializable {
 	{
 		return this.imagen;
 	}
+	
+	public String getRutaImagen()
+	{
+		return this.imagen.getAbsolutePath();
+	}
+	
+	public String getNombre()
+	{
+		return this.productos.get(this.productos.firstKey()).getNombre();
+	}
+	
+	public double getPrecioVenta()
+	{
+		return this.precioVenta;
+	}
 }

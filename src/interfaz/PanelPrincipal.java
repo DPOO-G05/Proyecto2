@@ -1,8 +1,6 @@
-package interfaz.interfazInventario;
+package interfaz;
 
 import javax.swing.*;
-
-import interfaz.UI;
 
 import java.awt.Dimension;
 import java.awt.event.*;

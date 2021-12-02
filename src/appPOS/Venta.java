@@ -1,64 +1,66 @@
 package appPOS;
 import java.time.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import appInventario.Producto;
+import appInventario.Referencia;
 
 
 public class Venta {
 	
+	private Cliente cliente;
 	private int puntos;
+	private String id;
 	private float monto;
 	private LocalDate fecha;
-	private ArrayList<String> listaProductos; 
+	private HashMap<String,Integer> listaReferencias; 
+	private Recibo recibo;
 	
-	//Metodos ;
-	
-	public int getPuntos() {
-		return puntos;
-	}
-	public void setPuntos(int puntos) {
-		this.puntos = puntos;
-	}
-	public float getMonto() {
-		return monto;
-	}
-	public void setMonto(float monto) {
-		this.monto = monto;
-	}
-	public LocalDate getFecha() {
-		return LocalDate.now();
-	}
-	public void setFecha(LocalDate fecha) {
+	public Venta(Cliente cliente,LocalDate fecha)
+	{
 		this.fecha = fecha;
-	}	
-	
-	public ArrayList<String> getListaProductos() {
-		return listaProductos;
+		this.cliente = cliente;
+		this.id = fecha.toString() + "-" + cliente.getCedula();
+		this.listaReferencias = new HashMap<>();
+
 	}
 
-
-	public void agregarProducto(String product,ArrayList<String> listaProd) {
-		this.listaProductos.add(product);
-	}
-	
-	public void calcularPrecioCobrar(String precio) {
-		
-	}
-	public float calcularTotal() {
-		float total = 0;
-		return total;
-		
-	}
-	
-	public void generarRecibo() {
-		Recibo recibo = new Recibo();
-		recibo.setResumenPuntos("Los puntos acumulados con esta compra son " + this.getPuntos().toString());
-		ArrayList<String> productos = this.getListaProductos();
-		for (String p : productos) {
-			String s = "";
-			s += productos.get(p);
+	public void agregarProducto(Referencia ref) {
+		int unidades; 
+		if (!listaReferencias.containsKey(ref.getSKU()))
+		{
+			this.listaReferencias.put(ref.getSKU(),1);
+			unidades = this.listaReferencias.get(ref.getSKU());
 		}
-		recibo.setResumenProductos("Resumen de los productos: " + s );
+		else
+		{
+			unidades = this.listaReferencias.get(ref.getSKU());
+			unidades += 1;
+			this.listaReferencias.put(ref.getSKU(),unidades);
+		}
 		
+		monto += ref.getPrecioVenta();
 	}
+	
+	public double calcularTotal()
+	{
+		return this.monto;
+	}
+
+	public HashMap<String, Integer> getProductos() {
+		return this.listaReferencias;
+	}
+
+	public Recibo getRecibo() {
+		return this.recibo;
+	}
+
+	public String getId() {
+
+		return this.id;
+	}
+
+	
 
 }

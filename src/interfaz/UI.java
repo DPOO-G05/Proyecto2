@@ -3,7 +3,6 @@ package interfaz;
 import javax.swing.*;
 import java.awt.event.*;
 
-import interfaz.interfazInventario.PanelPrincipal;
 import interfaz.interfazInventario.UIInventario;
 import interfaz.interfazPOS.UIPos;
 import java.awt.*;
@@ -37,7 +36,7 @@ public class UI extends JFrame implements ActionListener {
 
 		this.coordinador = new CoordinadorUI(this);
 		this.UIinventario = new UIInventario(this);
-		this.UIpos = new UIPos();
+		this.UIpos = new UIPos(this);
 	
 		//Crear el Panel y agregar opciones
 		this.panelPrincipal = new PanelPrincipal(this);
@@ -71,7 +70,7 @@ public class UI extends JFrame implements ActionListener {
 	public void iniciarPOS()
 	{
 		
-		this.UIpos.setVisible(true);
+		this.UIpos.iniciarPOS();
 	
 	}
 	
