@@ -3,13 +3,18 @@ package appPOS;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class SistemaPuntos 
+public class SistemaPuntos implements Serializable 
 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private HashMap<String, Cliente> registrados;
 	private SistemaPOS sistemaPos;
 	

@@ -11,6 +11,7 @@ import appPOS.Venta;
 import interfaz.UI;
 
 import java.awt.Font;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.awt.*;
 
@@ -19,8 +20,12 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 
-public class UIPos extends JFrame {
+public class UIPos extends JFrame implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4286689125664218341L;
 	private VentanaProductos productos;
 	private PanelBotonesPOS panelBotones;
 	private PanelInformacionPOS panelInformacion;
@@ -28,6 +33,7 @@ public class UIPos extends JFrame {
 	private Cliente clienteActual;
 	private FormularioRegistro formularioRegistro;
 	private VentanaRecibo ventanaRecibo;
+	private VentanaEstadisticas ventanaEstadisticas;
 
 	
 	public UIPos(UI principal)
@@ -237,10 +243,16 @@ public class UIPos extends JFrame {
 	}
 
 	public void agregarProducto(String SKU) { 
-		
-		this.principal.getCoordinador().agregarProductoVenta(SKU);
+		this.productos.dispose();
+		String reciboModel = this.panelInformacion.getModel().toString();
+		String recibo = "";
+		String[] productos = reciboModel.split(",");
+		for(String producto: productos)
+		{
+			recibo += (producto + "\n");
+		}
+		this.principal.getCoordinador().agregarProductoVenta(SKU, recibo);
 		actualizarProducto();
-		
 	}
 
 	public ArrayList<String> getProductosActuales() {
@@ -278,7 +290,8 @@ public class UIPos extends JFrame {
 		}
 		else
 		{
-			this.ventanaRecibo = new VentanaRecibo(actual.getRecibo());
+			//TODO: Terminar recibo
+			this.ventanaRecibo = new VentanaRecibo(this.getVentaActual().toString());
 		}
 
 	}
@@ -286,6 +299,20 @@ public class UIPos extends JFrame {
 	public boolean esAfiliado(String cedula)
 	{
 		return this.principal.getCoordinador().esAfiliado(cedula);
+	}
+	
+	public Venta getVentaActual()
+	{
+		return this.principal.getCoordinador().getVentaActual();
+	}
+	
+	public VentanaProductos getVentanaProductos()
+	{
+		return this.productos;
+	}
+
+	public void mostrarEstadisticas() {
+			this.ventanaEstadisticas = new VentanaEstadisticas(this.clienteActual);
 	}
 	
 	

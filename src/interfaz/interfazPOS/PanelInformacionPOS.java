@@ -24,6 +24,8 @@ public class PanelInformacionPOS extends JPanel {
 	
 	private JLabel lblMontoTotal;
 	
+	private DefaultListModel<String> model = new DefaultListModel();
+	
 	public PanelInformacionPOS(UIPos principal)
 	{
 		this.principal = principal;
@@ -62,9 +64,8 @@ public class PanelInformacionPOS extends JPanel {
 	public void actualizarProducto()
 	{
 		//Recibe un array de String en el que cada String tiene la forma: "nombre,cantidad,total" 
-
-		DefaultListModel<String> model = new DefaultListModel();
-		this.productos.setModel(model);
+		this.model.clear();
+		this.productos.setModel(this.model);
 		String header = "NOMBRE-----------CANTIDAD-----------TOTAL";
 		model.addElement(header);
 		ArrayList<String> productos = this.principal.getProductosActuales();
@@ -78,6 +79,9 @@ public class PanelInformacionPOS extends JPanel {
 			model.addElement(row);
 			
 		}
+		
+		String puntosActual = Integer.toString(principal.getVentaActual().getPuntos());
+		model.addElement("PUNTOS ACUMULADOS: " + puntosActual);
 
 	}
 	
@@ -101,5 +105,20 @@ public class PanelInformacionPOS extends JPanel {
 			this.lblNombre.setText(nombre);
 		}
 
+	}
+	
+	public DefaultListModel<String> getModel()
+	{
+		return this.model;
+	}
+	
+	public JScrollPane getScrollPane()
+	{
+		return this.scrollPane;
+	}
+	
+	public JLabel getTotal()
+	{
+		return this.lblMontoTotal;
 	}
 }

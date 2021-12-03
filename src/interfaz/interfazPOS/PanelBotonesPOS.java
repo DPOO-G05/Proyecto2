@@ -14,6 +14,8 @@ public class PanelBotonesPOS extends JPanel implements ActionListener
 
 	private UIPos principal;
 	
+	private final String ESTADISTICAS = "ESTADISTICAS";
+
 	private final String CAMBIAR_CLIENTE= "CAMBIAR_CLIENTE";
 
 	private final String AFILIAR_CLIENTE = "AFILIAR_CLIENTE";
@@ -72,6 +74,12 @@ public class PanelBotonesPOS extends JPanel implements ActionListener
 		btnAgregarProducto.setActionCommand(AGREGAR_PRODUCTO);
 		add(btnAgregarProducto);
 		
+		JButton btnEstadisticas= new JButton("Ver Estadísticas del Cliente");
+		btnEstadisticas.setActionCommand(ESTADISTICAS);
+		btnEstadisticas.setBounds(64, 78, 461, 38);
+		btnEstadisticas.addActionListener(this);
+		add(btnEstadisticas);
+		
 	}
 
 	@Override
@@ -102,6 +110,10 @@ public class PanelBotonesPOS extends JPanel implements ActionListener
 		else if (IMPRIMIR_RECIBO.equals(comando))
 		{
 			this.principal.imprimirRecibo();
+		}
+		else if (ESTADISTICAS.equals(comando))
+		{
+			this.principal.mostrarEstadisticas();
 		}
 		
 		

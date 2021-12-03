@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,8 +29,12 @@ import appPOS.SistemaPOS;
 import appPOS.Venta;
 import interfaz.interfazInventario.FormularioProducto;
 
-public class CoordinadorUI {
+public class CoordinadorUI implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8546555423014517128L;
 	private UI principal;
 	private SistemaInventario sistemaInventario;
 	private SistemaPOS sistemaPos;
@@ -59,11 +64,19 @@ public class CoordinadorUI {
   
             //myObjectOutStream.writeObject(this.sistemaInventario);
             myObjectOutStream.writeObject(this.sistemaInventario);
+            FileOutputStream myFileOutPOS
+                = new FileOutputStream(
+                    "./src/persistencia/pos.ser");
   
+            ObjectOutputStream myObjectOutPOS
+                = new ObjectOutputStream(myFileOutPOS);
+            myObjectOutPOS.writeObject(this.sistemaPos);
             // closing FileOutputStream and
             // ObjectOutputStream
             myObjectOutStream.close();
             myFileOutStream.close();
+            myObjectOutPOS.close();
+            myFileOutPOS.close();
             
             System.out.println("Información Guardada Exitosamente");
         }
@@ -79,15 +92,23 @@ public class CoordinadorUI {
 		//Deserializar el sistemaInventario y asignarlo de nuevo a la aplicación.
   
 		SistemaInventario sistemaInventario;
+		SistemaPOS sistemaPos;
         try {
             FileInputStream fileInput = new FileInputStream("./src/persistencia/app.ser");
+            FileInputStream inputPOS = new FileInputStream("./src/persistencia/pos.ser");
             ObjectInputStream objectInput
                 = new ObjectInputStream(fileInput);
+            ObjectInputStream posInput = new ObjectInputStream(inputPOS);
   
             sistemaInventario = (SistemaInventario)objectInput.readObject();
+            sistemaPos = (SistemaPOS) posInput.readObject();
+            this.sistemaPos = sistemaPos;
             this.sistemaInventario = sistemaInventario; 
             objectInput.close();
             fileInput.close();
+            posInput.close();
+            inputPOS.close();
+
         }
   
         catch (IOException obj1) {
@@ -336,9 +357,9 @@ public class CoordinadorUI {
 	}
 
 
-	public void agregarProductoVenta(String SKU) {
+	public void agregarProductoVenta(String SKU, String recibo) {
 		try {
-			this.sistemaPos.agregarProductoVenta(SKU);
+			this.sistemaPos.agregarProductoVenta(SKU, recibo);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

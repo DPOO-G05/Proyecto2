@@ -1,5 +1,6 @@
 package appPOS;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,8 +8,13 @@ import java.util.HashMap;
 import appInventario.Referencia;
 import interfaz.CoordinadorUI;
 
-public class SistemaPOS {
+public class SistemaPOS implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5437242534545248707L;
+
 	private HashMap<String, Venta> ventas;
 	
 	private SistemaPuntos sistemaPuntos;
@@ -68,7 +74,7 @@ public class SistemaPOS {
 		this.enProgreso = venta;
 	}
 
-	public void agregarProductoVenta(String SKU) throws Exception {
+	public void agregarProductoVenta(String SKU, String recibo) throws Exception {
 		
 		if(this.enProgreso == null)
 		{
@@ -77,7 +83,8 @@ public class SistemaPOS {
 		else
 		{
 			Referencia ref = coordinador.getReferencia(SKU);
-			this.enProgreso.agregarProducto(ref);
+			boolean acumula = this.esAfiliado(enProgreso.getCliente().getCedula());
+			this.enProgreso.agregarProducto(ref, acumula, recibo);
 		}
 	}
 

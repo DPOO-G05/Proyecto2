@@ -1,9 +1,14 @@
 package appPOS;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Cliente {
+public class Cliente implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5965428077880139052L;
 	private String nombre;
 	private String cedula;
 	private int edad;
@@ -63,7 +68,13 @@ public class Cliente {
 
 	public void agregarVenta(Venta venta) {
 		this.compras.put(venta.getId(), venta);
+		this.puntos += venta.getPuntos();
 	}
+
+	public HashMap<String, Venta> getCompras() {
+		return this.compras;
+	}
+	
 	
 	
 }

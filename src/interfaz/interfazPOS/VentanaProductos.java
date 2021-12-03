@@ -28,6 +28,7 @@ public class VentanaProductos extends JFrame {
 	            if(e.getClickCount() == 2) {
 	            	Referencia ref = (Referencia) jList.getSelectedValue();
 	            	principal.agregarProducto(ref.getSKU());
+	            	dispose();
 	            }
 	        }
 	    };
