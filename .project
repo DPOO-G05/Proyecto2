@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/consolaInventario/promociones.csv</name>
+			<type>1</type>
+			<location>C:/Users/esteb/git/Proyecto2/src/consolaInventario/promociones.csv</location>
+		</link>
+	</linkedResources>
 </projectDescription>

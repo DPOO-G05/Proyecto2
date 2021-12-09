@@ -9,8 +9,13 @@ import java.awt.*;
 
 public class UI extends JFrame implements ActionListener {
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8273088128931595481L;
 	private UIInventario UIinventario;
-	private UIPos UIpos;
+	public UIPos UIpos;
 	private PanelPrincipal panelPrincipal;
 	private CoordinadorUI coordinador;
 	
