@@ -164,6 +164,12 @@ public class Venta implements Serializable {
 	{
 		return this.monto;
 	}
+	
+	public void  ventaPuntos( )
+	{
+		this.puntos = 0;
+		
+	}
 
 	
 

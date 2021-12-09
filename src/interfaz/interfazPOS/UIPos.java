@@ -34,6 +34,7 @@ public class UIPos extends JFrame implements Serializable{
 	private FormularioRegistro formularioRegistro;
 	private VentanaRecibo ventanaRecibo;
 	private VentanaEstadisticas ventanaEstadisticas;
+	private boolean ventaPuntos;
 
 	
 	public UIPos(UI principal)
@@ -271,7 +272,7 @@ public class UIPos extends JFrame implements Serializable{
 	public void cerrarCompra() {
 		//1. Guardar compra y mostrar recibo
 		Venta ventaActual = this.principal.getCoordinador().getVentaActual();
-		this.clienteActual.agregarVenta(ventaActual);
+		this.clienteActual.agregarVenta(ventaActual, false);
 		this.principal.getCoordinador().agregarVentaHistorico(ventaActual);
 		this.imprimirRecibo();
 		//2. 
@@ -313,6 +314,13 @@ public class UIPos extends JFrame implements Serializable{
 
 	public void mostrarEstadisticas() {
 			this.ventanaEstadisticas = new VentanaEstadisticas(this.clienteActual);
+	}
+	
+	public void Ventapuntos (boolean ventapuntos)
+	{
+		ventaPuntos=ventapuntos;
+		darPuntos();
+		cerrarCompra();
 	}
 	
 	

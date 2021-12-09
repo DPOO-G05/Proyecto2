@@ -101,21 +101,22 @@ public class CoordinadorUI implements Serializable {
 		SistemaPOS sistemaPos;
         try {
             FileInputStream fileInput = new FileInputStream("./src/persistencia/app.ser");
-            //FileInputStream inputPOS = new FileInputStream("./src/persistencia/pos.ser");
+            FileInputStream inputPOS = new FileInputStream("./src/persistencia/pos.ser");
             ObjectInputStream objectInput
-                = new ObjectInputStream(fileInput);
-            //ObjectInputStream posInput = new ObjectInputStream(inputPOS);
+        		= new ObjectInputStream(fileInput);
+            ObjectInputStream posInput = new ObjectInputStream(inputPOS);
   
             sistemaInventario = (SistemaInventario)objectInput.readObject();
-            //sistemaPos = (SistemaPOS) posInput.readObject();
-            this.sistemaPos =  new SistemaPOS(this);
+            sistemaPos = (SistemaPOS) posInput.readObject();
+            this.sistemaPos =  sistemaPos;
             this.sistemaInventario = sistemaInventario; 
             objectInput.close();
             fileInput.close();
-            //posInput.close();
-            //inputPOS.close();
+            posInput.close();
+            inputPOS.close();
 
         }
+        
   
         catch (IOException obj1) {
             obj1.printStackTrace();
