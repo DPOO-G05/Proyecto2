@@ -73,7 +73,7 @@ public class Cliente implements Serializable {
 		
 		if (ventaPuntos== true)
 		{
-			venta.ventaPuntos();
+			venta.ventaPuntos(puntos);
 			this.puntos = (int) (puntos - venta.getMonto()/15);			
 		}
 		else
