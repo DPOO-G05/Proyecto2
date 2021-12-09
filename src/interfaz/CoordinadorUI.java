@@ -78,7 +78,7 @@ public class CoordinadorUI implements Serializable {
             myObjectOutPOS.close();
             myFileOutPOS.close();
             
-            System.out.println("Información Guardada Exitosamente");
+            System.out.println("Informaciï¿½n Guardada Exitosamente");
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -89,25 +89,25 @@ public class CoordinadorUI implements Serializable {
 	
 	private void cargarInformacion()
 	{
-		//Deserializar el sistemaInventario y asignarlo de nuevo a la aplicación.
+		//Deserializar el sistemaInventario y asignarlo de nuevo a la aplicaciï¿½n.
   
 		SistemaInventario sistemaInventario;
 		SistemaPOS sistemaPos;
         try {
             FileInputStream fileInput = new FileInputStream("./src/persistencia/app.ser");
-            FileInputStream inputPOS = new FileInputStream("./src/persistencia/pos.ser");
+            //FileInputStream inputPOS = new FileInputStream("./src/persistencia/pos.ser");
             ObjectInputStream objectInput
                 = new ObjectInputStream(fileInput);
-            ObjectInputStream posInput = new ObjectInputStream(inputPOS);
+            //ObjectInputStream posInput = new ObjectInputStream(inputPOS);
   
             sistemaInventario = (SistemaInventario)objectInput.readObject();
-            sistemaPos = (SistemaPOS) posInput.readObject();
-            this.sistemaPos = sistemaPos;
+            //sistemaPos = (SistemaPOS) posInput.readObject();
+            this.sistemaPos =  new SistemaPOS(this);
             this.sistemaInventario = sistemaInventario; 
             objectInput.close();
             fileInput.close();
-            posInput.close();
-            inputPOS.close();
+            //posInput.close();
+            //inputPOS.close();
 
         }
   
@@ -122,7 +122,7 @@ public class CoordinadorUI implements Serializable {
             return;
        }
   
-        System.out.println("Información Cargada Exitosamente");
+        System.out.println("Informaciï¿½n Cargada Exitosamente");
  
 	}
 	
@@ -132,7 +132,7 @@ public class CoordinadorUI implements Serializable {
 		int numRef = this.sistemaInventario.getReferencias().size(); 
 		int numLotes = this.sistemaInventario.getLotes().size();
 		
-		System.out.printf("***********************\n 1. Número de Categorias: %d\n 2. Número de Referencias: %d\n 3. Número de Lotes: %d\n", numCategorias, numRef, numLotes);
+		System.out.printf("***********************\n 1. Nï¿½mero de Categorias: %d\n 2. Nï¿½mero de Referencias: %d\n 3. Nï¿½mero de Lotes: %d\n", numCategorias, numRef, numLotes);
 	}
 	
 	public SistemaInventario getSistemaInventario()
@@ -142,7 +142,7 @@ public class CoordinadorUI implements Serializable {
 	
 	public void agregarNuevoProducto(ArrayList<String> caracteristicas, FormularioProducto formulario)
 	{
-		//Indice	información
+		//Indice	informaciï¿½n
 		//0			nombre
 		//1			SKU
 		//2			categoria
@@ -160,7 +160,7 @@ public class CoordinadorUI implements Serializable {
 		//14		vencimiento (YYYY-MM-DD)
 		//15		tieneImagen ("NO" o "SI) - la imagen
 	
-		//1. Extraer toda la información:
+		//1. Extraer toda la informaciï¿½n:
 		String nombre = caracteristicas.get(0);
 		String SKU = caracteristicas.get(1);
 		String catStr = caracteristicas.get(2);
@@ -274,7 +274,7 @@ public class CoordinadorUI implements Serializable {
 			prod =  producto;
 		}
 		
-		//Crear el nuevo Lote con la información y asociarle el producto
+		//Crear el nuevo Lote con la informaciï¿½n y asociarle el producto
 		
 		Lote lote = new Lote(idLote, LocalDate.parse(vencimiento), prod, prod.getPrecioUnidad(),prod.getCostoUnidad(),prod.getUnidadesRestantes());
 		this.sistemaInventario.getLotes().put(idLote, lote);
