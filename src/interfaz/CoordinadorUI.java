@@ -25,6 +25,7 @@ import appInventario.ProductoRefrigerado;
 import appInventario.Referencia;
 import appInventario.SistemaInventario;
 import appPOS.Cliente;
+import appPOS.Promocion;
 import appPOS.SistemaPOS;
 import appPOS.Venta;
 import interfaz.interfazInventario.FormularioProducto;
@@ -37,7 +38,7 @@ public class CoordinadorUI implements Serializable {
 	private static final long serialVersionUID = 8546555423014517128L;
 	private UI principal;
 	private SistemaInventario sistemaInventario;
-	private SistemaPOS sistemaPos;
+	public SistemaPOS sistemaPos;
 	private final String FRESCO = "FRESCO";
 	private final String CONGELADO = "CONGELADO";
 	private final String REFRIGERADO = "REFRIGERADO";
@@ -48,6 +49,11 @@ public class CoordinadorUI implements Serializable {
 		this.sistemaPos = new SistemaPOS(this);
 		cargarInformacion();
 		desplegarInformacion();
+		File archivo = new File("C:\\Users\\esteb\\git\\Proyecto2\\src\\consolaInventario\\promociones.csv");
+		this.sistemaPos.constructorArchivoPOS.leerCSV(archivo);
+		this.sistemaPos.constructorArchivoPOS.crearPromociones();
+		
+	
 	}
 	
 	
@@ -62,7 +68,7 @@ public class CoordinadorUI implements Serializable {
             ObjectOutputStream myObjectOutStream
                 = new ObjectOutputStream(myFileOutStream);
   
-            //myObjectOutStream.writeObject(this.sistemaInventario);
+            myObjectOutStream.writeObject(this.sistemaInventario);
             myObjectOutStream.writeObject(this.sistemaInventario);
             FileOutputStream myFileOutPOS
                 = new FileOutputStream(
@@ -71,8 +77,8 @@ public class CoordinadorUI implements Serializable {
             ObjectOutputStream myObjectOutPOS
                 = new ObjectOutputStream(myFileOutPOS);
             myObjectOutPOS.writeObject(this.sistemaPos);
-            // closing FileOutputStream and
-            // ObjectOutputStream
+            //closing FileOutputStream and
+            //ObjectOutputStream
             myObjectOutStream.close();
             myFileOutStream.close();
             myObjectOutPOS.close();
@@ -310,6 +316,30 @@ public class CoordinadorUI implements Serializable {
 		
 	}
 	
+	public void eliminarPromocionesVencidas()
+	{
+		HashMap<String, ArrayList<Promocion>> promociones =  this.sistemaPos.getPromociones();
+		
+		Set<String> llaves = promociones.keySet();
+
+		for(String llave: llaves)
+		{
+			ArrayList<Promocion> listaProms =  promociones.get(llave);
+			
+			for(Promocion promocion: listaProms) {
+				if(promocion.getFechaInicio().isAfter(LocalDate.now()) && promocion.getFechaVencimiento().isBefore(LocalDate.now())) {
+					listaProms.remove(promocion);
+				}
+			}
+			
+			if(listaProms.isEmpty()) {
+				promociones.remove(llave);
+			}
+			
+		}
+			
+	}
+	
 	public boolean existeCliente(String cedula)
 	{
 		boolean respuesta = this.sistemaPos.existeCliente(cedula);
@@ -359,7 +389,10 @@ public class CoordinadorUI implements Serializable {
 
 	public void agregarProductoVenta(String SKU, String recibo) {
 		try {
-			this.sistemaPos.agregarProductoVenta(SKU, recibo);
+			
+			sistemaPos.agregarProductoVenta(SKU, recibo);
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

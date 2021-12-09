@@ -1,5 +1,6 @@
 package appPOS;
 
+import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 
 import appInventario.Referencia;
 import interfaz.CoordinadorUI;
+import procesamientoPOS.ConstructorArchivoPOS;
 
 public class SistemaPOS implements Serializable {
 	
@@ -14,6 +16,8 @@ public class SistemaPOS implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5437242534545248707L;
+	
+	public ConstructorArchivoPOS constructorArchivoPOS;
 
 	private HashMap<String, Venta> ventas;
 	
@@ -23,15 +27,29 @@ public class SistemaPOS implements Serializable {
 	
 	private HashMap<String,Cliente> clientesHistoricos;
 	
+	private HashMap<String,ArrayList<Promocion>> promociones;
+	
 	private CoordinadorUI coordinador;
 	
 	public SistemaPOS(CoordinadorUI coordinador) 
 	{
 		this.ventas = new HashMap<String,Venta>();
+		this.promociones = new HashMap<String,ArrayList<Promocion>>();
 		this.sistemaPuntos = new SistemaPuntos(this);
 		this.clientesHistoricos = new HashMap<>();
 		this.coordinador = coordinador;
+		this.constructorArchivoPOS = new ConstructorArchivoPOS(this,coordinador.getSistemaInventario());
+		
 	}
+	
+	public HashMap<String,ArrayList<Promocion>> getPromociones(){
+		return promociones;
+	}
+	
+	public void leerCSV(File archivo) {
+		
+	}
+	
 	
 	public boolean existeCliente(String cedula)
 	{
@@ -84,7 +102,11 @@ public class SistemaPOS implements Serializable {
 		{
 			Referencia ref = coordinador.getReferencia(SKU);
 			boolean acumula = this.esAfiliado(enProgreso.getCliente().getCedula());
-			this.enProgreso.agregarProducto(ref, acumula, recibo);
+			System.out.println("1");
+			System.out.println(getPromociones());
+			this.enProgreso.agregarProducto(this, ref, acumula, recibo);
+			System.out.println("2");
+			System.out.println(promociones);
 		}
 	}
 
