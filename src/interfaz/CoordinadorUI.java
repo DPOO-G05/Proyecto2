@@ -49,7 +49,7 @@ public class CoordinadorUI implements Serializable {
 		this.sistemaPos = new SistemaPOS(this);
 		cargarInformacion();
 		desplegarInformacion();
-		File archivo = new File("C:\\Users\\esteb\\git\\Proyecto2\\src\\consolaInventario\\promociones.csv");
+		File archivo = new File("./src/consolaInventario/promociones.csv");
 		this.sistemaPos.constructorArchivoPOS.leerCSV(archivo);
 		this.sistemaPos.constructorArchivoPOS.crearPromociones();
 		
@@ -107,7 +107,7 @@ public class CoordinadorUI implements Serializable {
             ObjectInputStream posInput = new ObjectInputStream(inputPOS);
   
             sistemaInventario = (SistemaInventario)objectInput.readObject();
-            sistemaPos = (SistemaPOS) posInput.readObject();
+            sistemaPos =new SistemaPOS(this);
             this.sistemaPos =  sistemaPos;
             this.sistemaInventario = sistemaInventario; 
             objectInput.close();
