@@ -251,8 +251,6 @@ public class UIPos extends JFrame implements Serializable{
 		{
 			recibo += (producto + "\n");
 		}
-		System.out.println("UIPOS");
-		System.out.println(this.principal.getCoordinador().sistemaPos.getPromociones());
 		this.principal.getCoordinador().agregarProductoVenta(SKU, recibo);
 		actualizarProducto();
 	}

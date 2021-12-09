@@ -29,7 +29,7 @@ public class Venta implements Serializable {
 	}
 
 	public void agregarProducto(SistemaPOS sisPOS, Referencia ref, boolean acumulaPuntos, String recibo) {
-		System.out.println(sisPOS.getPromociones());
+		
 		int unidades; 
 		if (!listaReferencias.containsKey(ref.getSKU()))
 		{
@@ -56,10 +56,6 @@ public class Venta implements Serializable {
 		
 		this.recibo = recibo;
 		
-		System.out.println(sisPOS.getPromociones());
-		System.out.println(monto);
-		System.out.println(puntos);
-		System.out.println(recibo);
 		
 	}
 	

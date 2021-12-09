@@ -46,13 +46,13 @@ public class ConstructorArchivoPOS  implements Serializable{
 	public void crearPromociones() {
 		HashMap<String,ArrayList<Promocion>> promociones = principalPOS.getPromociones();
 		ArrayList<Promocion> promocionesArray = this.lectProm.getPromociones();
-		System.out.println(promocionesArray);
+		
 		
 		for (Promocion promocion: promocionesArray) {
 			String SKU = promocion.getProductoAplicable();
-			System.out.println(SKU);
+			
 			if (!promociones.containsKey(SKU)) {
-				System.out.println("paso");
+			
 				promociones.put(SKU, new ArrayList<Promocion>());
 				promociones.get(SKU).add(promocion);
 			}
@@ -62,8 +62,7 @@ public class ConstructorArchivoPOS  implements Serializable{
 			}
 			
 		}
-		System.out.println("Creador");
-		System.out.println(principalPOS.getPromociones());
+	
 		
 	}
 	

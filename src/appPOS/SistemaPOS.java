@@ -39,8 +39,7 @@ public class SistemaPOS implements Serializable {
 		this.clientesHistoricos = new HashMap<>();
 		this.coordinador = coordinador;
 		this.constructorArchivoPOS = new ConstructorArchivoPOS(this,coordinador.getSistemaInventario());
-		System.out.println("ConstructorPOS");
-		System.out.println(promociones);
+		
 	}
 	
 	public HashMap<String,ArrayList<Promocion>> getPromociones(){

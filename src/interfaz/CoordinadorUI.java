@@ -52,8 +52,7 @@ public class CoordinadorUI implements Serializable {
 		File archivo = new File("C:\\Users\\esteb\\git\\Proyecto2\\src\\consolaInventario\\promociones.csv");
 		this.sistemaPos.constructorArchivoPOS.leerCSV(archivo);
 		this.sistemaPos.constructorArchivoPOS.crearPromociones();
-		System.out.println("Coordinador");
-		System.out.println(this.sistemaPos.getPromociones());
+		
 	
 	}
 	
@@ -392,8 +391,8 @@ public class CoordinadorUI implements Serializable {
 		try {
 			
 			sistemaPos.agregarProductoVenta(SKU, recibo);
-			System.out.println("Coordinador2");
-			System.out.println(this.sistemaPos.getPromociones());
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
