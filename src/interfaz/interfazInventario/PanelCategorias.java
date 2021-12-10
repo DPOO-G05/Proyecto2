@@ -147,11 +147,17 @@ public class PanelCategorias extends JPanel {
 		
 		Referencia referencia = referencias.get(SKU);
 		
-		//2. Determinar el producto a desplegar (por default es el primero en la liste de productos de la referencia)
-		Producto producto = referencia.getProductos().get(referencia.getProductos().firstKey());
+		if(referencia.getProductos().isEmpty())
+		{
+			principalInventario.actualizarAgotado(referencia);
+		}
+		else
+		{
+			//2. Determinar el producto a desplegar (por default es el primero en la liste de productos de la referencia)
+			Producto producto = referencia.getProductos().get(referencia.getProductos().firstKey());
+			principalInventario.actualizarReferencia(referencia, producto, "referencia");
+		}
 		
-		//3. Asignar 
-		principalInventario.actualizarReferencia(referencia, producto, "referencia");
 
 		
 		

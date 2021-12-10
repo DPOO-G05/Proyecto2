@@ -254,4 +254,12 @@ public class UIInventario extends JFrame implements ActionListener {
 		
 	}
 
+
+	public void actualizarAgotado(Referencia referencia)
+	{
+		this.referenciaActual = referencia;
+		this.productoActual = null;
+		this.panelProducto.actualizar("agotado");
+	}
+
 }

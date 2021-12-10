@@ -239,6 +239,53 @@ public class PanelProducto extends JPanel implements ActionListener {
 		//1. Recuperar referencia
 		Referencia referencia = principalInventario.getReferencia();
 		Producto prod = principalInventario.getProducto();
+		if (tipo.equals("agotado"))
+		{
+			actualizarAgotado(referencia);
+		}
+		else if (tipo.equals("referencia"))
+		{
+			String unidades = Integer.toString(referencia.getRestantes());
+			this.lbl2Unidades.setText(unidades);
+			actualizarNoAgotado(referencia, prod);
+		}
+		else if (tipo.equals("lote"))
+		{
+			String unidades = Double.toString(prod.getLote().getUnidades());
+			this.lbl2Unidades.setText(unidades);
+			actualizarNoAgotado(referencia, prod);
+		}
+	
+	}
+	
+	private void actualizarAgotado(Referencia ref)
+	{
+		actualizarImagen(ref);
+		String titulo = ref.getSKU() + " - " + "AGOTADO";
+		this.principalInventario.actualizarBanner(titulo);
+		this.resetLabels();
+	}
+	
+	private void resetLabels()
+	{
+		this.lbl2Lote.setText("");
+		this.lbl2Vencimiento.setText("");
+		this.lbl2Precio.setText("");
+		this.lbl2PrecioUnidad.setText("");
+		this.lbl2Marca.setText("");
+		this.lbl2Empacado.setText("");
+		this.lbl2Categoria.setText("");			
+		this.lbl2Gondola.setText("");
+		this.lbl2SKU.setText("");
+		this.lbl2Peso.setText("");
+		this.lbl2FechaIngreso.setText("");
+	}
+
+
+
+	private void actualizarNoAgotado(Referencia referencia, Producto prod)
+	{
+
 		//2. Actualizar informaci�n Panel Principal
 		actualizarBanner(referencia, prod);
 		//3. Actualizar informaci�n Lote
@@ -247,19 +294,11 @@ public class PanelProducto extends JPanel implements ActionListener {
 		actualizarInfoGen(referencia, prod);
 		//5. Actualizar Imagen
 		actualizarImagen(referencia);
-		
-		if (tipo.equals("referencia"))
-		{
-			String unidades = Integer.toString(referencia.getRestantes());
-			this.lbl2Unidades.setText(unidades);
-		}
-		else if (tipo.equals("lote"))
-		{
-			String unidades = Double.toString(prod.getLote().getUnidades());
-			this.lbl2Unidades.setText(unidades);
-		}
+
 	}
-	
+
+
+
 	private void actualizarInfoLote(Referencia referencia, Producto producto)
 	{
 		Producto primerProd = producto; 
