@@ -27,7 +27,7 @@ public class PromocionRegalo extends Promocion {
 	}
 	
 	public int getRecibaNumero() {
-		return pagueNumero;
+		return recibaNumero;
 	}
 	
 	public void setRecibaNumero(int recibaNumero) {

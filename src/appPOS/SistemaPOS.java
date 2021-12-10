@@ -29,6 +29,8 @@ public class SistemaPOS implements Serializable {
 	
 	private HashMap<String,ArrayList<Promocion>> promociones;
 	
+	private HashMap<String,Promocion> promocionesCodigos;
+	
 	private CoordinadorUI coordinador;
 	
 	
@@ -36,11 +38,16 @@ public class SistemaPOS implements Serializable {
 	{
 		this.ventas = new HashMap<String,Venta>();
 		this.promociones = new HashMap<String,ArrayList<Promocion>>();
+		this.promocionesCodigos = new HashMap<String,Promocion>();
 		this.sistemaPuntos = new SistemaPuntos(this);
 		this.clientesHistoricos = new HashMap<>();
 		this.coordinador = coordinador;
 		this.constructorArchivoPOS = new ConstructorArchivoPOS(this,coordinador.getSistemaInventario());
 		
+	}
+	
+	public HashMap<String,Promocion> getPromocionesCodigos(){
+		return promocionesCodigos;
 	}
 	
 	public HashMap<String,ArrayList<Promocion>> getPromociones(){

@@ -15,6 +15,7 @@ public class Promocion implements Serializable {
 	private LocalDate fechaInicio;
 	private LocalDate fechaVencimiento;
 	private String SKUproductoAplicable;
+	private double precio;
 	
 
 	public Promocion(String codigo, LocalDate fechaInicio, LocalDate fechaVencimiento, String SKUproductoAplicable) {
@@ -46,6 +47,13 @@ public class Promocion implements Serializable {
 	
 	public double getBeneficio() {
 		return 0;
+	}
+	
+	public void setPrecio(double precio) {
+		this.precio=precio;
+	}
+	public double getPrecio() {
+		return precio;
 	}
 	
 }
