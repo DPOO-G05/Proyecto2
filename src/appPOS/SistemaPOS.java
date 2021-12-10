@@ -31,6 +31,7 @@ public class SistemaPOS implements Serializable {
 	
 	private CoordinadorUI coordinador;
 	
+	
 	public SistemaPOS(CoordinadorUI coordinador) 
 	{
 		this.ventas = new HashMap<String,Venta>();
@@ -102,11 +103,8 @@ public class SistemaPOS implements Serializable {
 		{
 			Referencia ref = coordinador.getReferencia(SKU);
 			boolean acumula = this.esAfiliado(enProgreso.getCliente().getCedula());
-			System.out.println("1");
-			System.out.println(getPromociones());
 			this.enProgreso.agregarProducto(this, ref, acumula, recibo);
-			System.out.println("2");
-			System.out.println(promociones);
+		
 		}
 	}
 

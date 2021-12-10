@@ -66,6 +66,7 @@ public class Venta implements Serializable {
 			var listaPromociones = sisPOS.getPromociones().get(SKU);
 			var promocion = listaPromociones.get(0);
 			if(promocion.getClass()==PromocionDescuento.class || promocion.getClass() == PromocionCombo.class) {
+				this.listaReferencias.put(promocion.getCodigo(), 1);
 				this.monto += ref.getPrecioVenta()*(1.0-promocion.getBeneficio());
 			}
 			else {
@@ -95,6 +96,7 @@ public class Venta implements Serializable {
 					int unidades = this.listaReferencias.get(ref.getSKU());
 					unidades += regalos;
 					this.listaReferencias.put(ref.getSKU(),unidades);
+					this.listaReferencias.put(promocion.getCodigo(), 1);
 				}		
 			}	
 		}
@@ -107,7 +109,8 @@ public class Venta implements Serializable {
 			var listaPromociones = sisPOS.getPromociones().get(SKU);
 			var promocion = listaPromociones.get(0);
 			if(promocion.getClass()==PromocionRegalo.class) {
-				this.puntos += (int) ref.getPrecioVenta()*(promocion.getBeneficio());
+				this.puntos += (int) (ref.getPrecioVenta()/1000)*(promocion.getBeneficio());
+				this.listaReferencias.put(promocion.getCodigo(), 1);
 			}
 			else {
 				this.puntos += (int) ref.getPrecioVenta()/1000;

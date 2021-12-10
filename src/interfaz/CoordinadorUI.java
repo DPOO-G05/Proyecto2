@@ -49,7 +49,7 @@ public class CoordinadorUI implements Serializable {
 		this.sistemaPos = new SistemaPOS(this);
 		cargarInformacion();
 		desplegarInformacion();
-		File archivo = new File("./src/consolaInventario/promociones.csv");
+		File archivo = new File("/Proyecto2/src/consolaInventario/promociones.csv");
 		this.sistemaPos.constructorArchivoPOS.leerCSV(archivo);
 		this.sistemaPos.constructorArchivoPOS.crearPromociones();
 		
@@ -426,17 +426,35 @@ public class CoordinadorUI implements Serializable {
 	
 		for (String llave: productos.keySet())
 		{
-			int cantidad = productos.get(llave);
-			String cantidadStr = Integer.toString(cantidad);
-			Referencia referencia = getReferencia(llave);
-			String nombre = referencia.getNombre();
-			double precio = referencia.getPrecioVenta();
-			double total = precio * cantidad;
-			String totalStr = Double.toString(total);
+			if (sistemaInventario.getReferencias().containsKey(llave)) {
+				int cantidad = productos.get(llave);
+				String cantidadStr = Integer.toString(cantidad);
+				Referencia referencia = getReferencia(llave);
+				String nombre = referencia.getNombre();
+				double precio = referencia.getPrecioVenta();
+				double total = precio * cantidad;
+				String totalStr = Double.toString(total);
+				
+				String row = nombre + "," + cantidadStr + "," + total;
+				
+				respuesta.add(row);
+			}
 			
-			String row = nombre + "," + cantidadStr + "," + total;
+			else if (sistemaPos.getPromociones().containsKey(llave)){
+				int cantidad = productos.get(llave);
+				String cantidadStr = Integer.toString(cantidad);
+				Promocion promocion = sistemaPos.getPromociones().get(llave).get(0);
+				String nombre = promocion.getCodigo();
+				double precio = 0;
+				double total = precio * cantidad;
+				String totalStr = Double.toString(total);
+				
+				String row = nombre + "," + cantidadStr + "," + totalStr;
+				
+				respuesta.add(row);
+			}
+		
 			
-			respuesta.add(row);
 		}
 		return respuesta;
 	}

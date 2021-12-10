@@ -88,4 +88,13 @@ public class Referencia implements Serializable {
 	{
 		return this.precioVenta;
 	}
+	
+	public String generarRecibo() {
+		var producto = productos.firstEntry().getValue();
+		String recibo = producto.getNombre();
+		recibo += ",";
+		recibo += String.valueOf(getPrecioVenta());
+		return recibo;
+		
+	}
 }
