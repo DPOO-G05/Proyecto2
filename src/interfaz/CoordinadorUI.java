@@ -46,7 +46,8 @@ public class CoordinadorUI implements Serializable {
 	CoordinadorUI(UI principal)
 	{
 		this.principal = principal;
-		this.sistemaPos = new SistemaPOS(this);
+		//this.sistemaPos = new SistemaPOS(this);
+		//this.sistemaInventario = new SistemaInventario();
 		cargarInformacion();
 		desplegarInformacion();
 		File archivo = new File("./src/consolaInventario/promociones.csv");
@@ -68,7 +69,6 @@ public class CoordinadorUI implements Serializable {
             ObjectOutputStream myObjectOutStream
                 = new ObjectOutputStream(myFileOutStream);
   
-            myObjectOutStream.writeObject(this.sistemaInventario);
             myObjectOutStream.writeObject(this.sistemaInventario);
             FileOutputStream myFileOutPOS
                 = new FileOutputStream(
@@ -107,9 +107,9 @@ public class CoordinadorUI implements Serializable {
             ObjectInputStream posInput = new ObjectInputStream(inputPOS);
   
             sistemaInventario = (SistemaInventario)objectInput.readObject();
-            sistemaPos =new SistemaPOS(this);
+            sistemaPos = (SistemaPOS) posInput.readObject();
             this.sistemaPos =  sistemaPos;
-            this.sistemaInventario = sistemaInventario; 
+            this.sistemaInventario = new SistemaInventario(); 
             objectInput.close();
             fileInput.close();
             posInput.close();
@@ -297,24 +297,8 @@ public class CoordinadorUI implements Serializable {
 	
 	public void eliminarVencidos()
 	{
-		HashMap<String, Lote> lotes =  this.getSistemaInventario().getLotes();
-		
-		Set<String> llaves = lotes.keySet();
-		
-		for(String llave: llaves)
-		{
-			Lote lote =  lotes.get(llave);
-			String key = llave;
-			Producto prod = lote.getProducto();  
-			if(prod.getFechaVenc().isBefore(LocalDate.now()))
-			{
-				lotes.remove(key);
-				prod.getReferencia().getProductos().remove(prod.getFechaVenc());
-				lote = null;
-				prod = null;
-			}
-		}
-		
+		this.sistemaInventario.eliminarLotesVencidos();
+				
 	}
 	
 	public void eliminarPromocionesVencidas()

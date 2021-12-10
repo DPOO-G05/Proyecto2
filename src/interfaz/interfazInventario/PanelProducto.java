@@ -54,6 +54,8 @@ public class PanelProducto extends JPanel implements ActionListener {
 	
 	private final static  String  GRAFICO_COMPORTAMIENTO = "GRAFICO_COMPORTAMIENTO";
 
+	private final static  String  DESEMPENO = "DESEMPENO";
+
 	private JPanel panelImagen;
 
 	public PanelProducto(UIInventario principalInventario) 
@@ -160,6 +162,8 @@ public class PanelProducto extends JPanel implements ActionListener {
 		JButton btnGanancias = new JButton("Ganancias");
 		btnGanancias.setFont(new Font("SansSerif", Font.BOLD, 13));
 		btnGanancias.setBounds(516, 545, 105, 23);
+		btnGanancias.setActionCommand(DESEMPENO);
+		btnGanancias.addActionListener(this);
 		add(btnGanancias);
 		
 		this.lbl2Precio = new JLabel("XXXXXXXXX");
@@ -359,6 +363,10 @@ public class PanelProducto extends JPanel implements ActionListener {
 		else if(comando.equals(GRAFICO_COMPORTAMIENTO))
 		{
 			this.principalInventario.graficoComportamiento();
+		}
+		else if (comando.equals(DESEMPENO))
+		{
+			this.principalInventario.mostrarDesempeno();
 		}
 		
 	}

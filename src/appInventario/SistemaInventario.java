@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
+import java.time.*;
 
 import procesamientoInventario.ConstructorArchivo;
 
@@ -88,6 +89,31 @@ public class SistemaInventario implements Serializable {
 					e.printStackTrace();
 					System.out.println(e.getMessage());
 				}
+			}
+		}
+	}
+
+
+	public void eliminarLotesVencidos() 
+	{
+		//Identificar los productos para los que hay perdidas y generarlas
+		this.calcularPerdidas();
+		//Eliminar lotes vencidos definitivamente
+		lotes.keySet().removeIf(key -> lotes.get(key).getProducto().getFechaVenc().isBefore(LocalDate.now()));
+
+	}
+
+
+	private void calcularPerdidas() 
+	{
+		Iterator<String> iterator = lotes.keySet().iterator();
+		while(iterator.hasNext())
+		{
+			String llave = iterator.next();
+			Producto prod = lotes.get(llave).getProducto();
+			if (prod.getFechaVenc().isBefore(LocalDate.now()))
+			{
+				prod.getReferencia().eliminarProducto(prod);
 			}
 		}
 	}

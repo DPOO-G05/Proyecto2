@@ -107,6 +107,11 @@ public class PanelCategorias extends JPanel {
 				{
 					Referencia referencia = referencias.get(llaveRef);
 					SortedMap<LocalDate, Producto> productos = referencia.getProductos();
+					DefaultMutableTreeNode nodoRef;
+					if (productos.isEmpty())
+					{
+						nodoRef = new DefaultMutableTreeNode()
+					}
 					LocalDate firstKey = productos.firstKey();
 					Producto prod = productos.get(firstKey);
 					DefaultMutableTreeNode nodoRef = new DefaultMutableTreeNode(prod.getNombre() + "-" + llaveRef);  

@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+
+import appInventario.DesempenoFinanciero;
+
 import java.time.format.DateTimeFormatter;
 
 
@@ -29,6 +32,8 @@ public class Referencia implements Serializable {
 	
 	private ArrayList<String> dataInventario;
 	
+	private DesempenoFinanciero desempenioFinanciero;
+	
 	
 
 	public Referencia(String SKU, Gondola gondola)
@@ -38,6 +43,7 @@ public class Referencia implements Serializable {
 		this.productos = new TreeMap<LocalDate, Producto>();
 		this.dataInventario = new ArrayList<>();
 		this.imagen = new File("./src/persistencia/imagenesProductos/placeholder.png");
+		this.desempenioFinanciero  = new DesempenoFinanciero();
 	}
 	
 	public SortedMap<LocalDate, Producto> getProductos()
@@ -127,8 +133,11 @@ public class Referencia implements Serializable {
 		{
 			// 1. disminuir la cuenta global
 			this.actualizarUnidades(-cantidadDisminuir);
-			
-			//2. Ir vendiendo uno a uno los productos disminuyendo sus cantidades 
+
+			//2. Agregar el monto de ventas generado
+			this.generarVentas(cantidadDisminuir);
+
+			//3. Ir vendiendo uno a uno los productos disminuyendo sus cantidades 
 			int restantes = cantidadDisminuir;
 			Set<LocalDate> llaves = this.productos.keySet();
 			Iterator<LocalDate> iterator = llaves.iterator();
@@ -139,9 +148,14 @@ public class Referencia implements Serializable {
 				//Disminuir la cantidad en el producto y sincronizar eso con la cantidad del Lote
 				cantidadDisminuir = prod.disminuirCantidad(cantidadDisminuir);
 			}
-
 		   			
 		}
+	}
+
+	private void generarVentas(int unidadesVendidas)
+	{
+		double ventas = this.precioVenta * unidadesVendidas;
+		this.desempenioFinanciero.generarVentas(ventas);
 	}
 
 	public int getRestantes()
@@ -153,6 +167,33 @@ public class Referencia implements Serializable {
 	public ArrayList<String> getDataInventario()
 	{
 		return this.dataInventario;
+	}
+
+	public void eliminarProducto(Producto prod)
+	{
+
+		this.actualizarUnidades(-prod.getUnidadesRestantes());
+		this.generarPerdidas(prod.getUnidadesRestantes());
+		this.productos.remove(prod.getFechaVenc());
+
+	}
+
+	private void generarPerdidas(int unidadesRestantes2) 
+	{
+		double perdida = unidadesRestantes2 * this.precioVenta;
+		try
+		{
+			this.desempenioFinanciero.registrarPerdida(perdida);
+		} 
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public DesempenoFinanciero getDesempenio()
+	{
+		return this.desempenioFinanciero;
 	}
 
 	
