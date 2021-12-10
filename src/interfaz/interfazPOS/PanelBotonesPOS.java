@@ -128,7 +128,9 @@ public class PanelBotonesPOS extends JPanel implements ActionListener
 		else if (COMPRA_PUNTOS.equals(comando))
 		{
 			ventapuntos=true;
-			this.principal.Ventapuntos(ventapuntos);	
+			this.principal.darPuntos();
+			this.principal.ventanaCompraPuntos();
+			
 		}
 		
 	}

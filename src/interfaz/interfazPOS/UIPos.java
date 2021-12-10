@@ -35,6 +35,8 @@ public class UIPos extends JFrame implements Serializable{
 	private VentanaRecibo ventanaRecibo;
 	private VentanaEstadisticas ventanaEstadisticas;
 	private boolean ventaPuntos= false;
+	private VentanaCompraPuntos puntoscompra;
+	private int numero;
 
 
 	
@@ -243,6 +245,11 @@ public class UIPos extends JFrame implements Serializable{
 		this.principal.getCoordinador().popularProductos(model);
 		
 	}
+	public void ventanaCompraPuntos()
+	{
+		this.puntoscompra = new VentanaCompraPuntos(this);
+	}
+	
 
 	public void agregarProducto(String SKU) { 
 		this.productos.dispose();
@@ -278,7 +285,7 @@ public class UIPos extends JFrame implements Serializable{
 			
 			if (ventaPuntos==true) {
 				int puntosC=clienteActual.getPuntos();
-				ventaActual.ventaPuntos(puntosC);
+				ventaActual.ventaPuntos(puntosC,numero);
 			}
 			this.clienteActual.agregarVenta(ventaActual,ventaPuntos);
 			this.principal.getCoordinador().agregarVentaHistorico(ventaActual);
@@ -324,10 +331,10 @@ public class UIPos extends JFrame implements Serializable{
 			this.ventanaEstadisticas = new VentanaEstadisticas(this.clienteActual);
 	}
 	
-	public void Ventapuntos (boolean ventapuntos)
+	public void Ventapuntos (boolean ventapuntos, int numeroo)
 	{
 		ventaPuntos=ventapuntos;
-		
+		numero=numeroo;
 		cerrarCompra();
 		darPuntos();
 	}
