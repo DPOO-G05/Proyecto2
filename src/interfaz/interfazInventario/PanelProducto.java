@@ -242,6 +242,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 		if (tipo.equals("agotado"))
 		{
 			actualizarAgotado(referencia);
+			this.lbl2Unidades.setText("");
 		}
 		else if (tipo.equals("referencia"))
 		{

@@ -32,10 +32,19 @@ public class VentanaFinanciera extends JFrame {
 	    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		try 
 		{
+			String nombre;
+			if (referencia.getProductos().isEmpty())
+			{
+				nombre = referencia.getSKU();
+			}
+			else
+			{
+				nombre = referencia.getNombre();
+			}
 			dataset = createDataset();
 			//Crear el grafico
 			JFreeChart chart = ChartFactory.createBarChart(  
-	        "Desempeño financiero de" + this.referencia.getNombre(), //Titulo 
+	        "Desempeño financiero de " + nombre, //Titulo 
 	        "Desempeño", // Eje x  
 	        "Monto (pesos)", // Eje y  
 	        dataset  
