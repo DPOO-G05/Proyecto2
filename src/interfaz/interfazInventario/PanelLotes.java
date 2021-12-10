@@ -99,7 +99,7 @@ public class PanelLotes extends JPanel {
 	
 	public void setProductoLote(String idLote)
 	{
-		//Recibe por parámetro el id del SKU y modifica el producto a desplegar
+		//Recibe por parï¿½metro el id del SKU y modifica el producto a desplegar
 		// dependiendo del asociado al lote seleccionado
 		
 		//1. Recuperar el Lote
@@ -113,8 +113,8 @@ public class PanelLotes extends JPanel {
 		HashMap<String, Referencia> referencias = coordinador.getSistemaInventario().getReferencias();
 		Referencia referencia = referencias.get(SKU);
 
-		//Actualiza la información desplegada del producto
-		this.principalInventario.actualizarReferencia(referencia, producto);
+		//Actualiza la informaciï¿½n desplegada del producto
+		this.principalInventario.actualizarReferencia(referencia, producto,"lote");
 	}
 	
 }

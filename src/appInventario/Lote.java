@@ -50,6 +50,11 @@ public class Lote implements Serializable {
 	{
 		return this.unidades;
 	}
+	
+	public void setUnidades(double unidades)
+	{
+		this.unidades = unidades;
+	}
 
 	
 	

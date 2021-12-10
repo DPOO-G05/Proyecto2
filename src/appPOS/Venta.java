@@ -186,5 +186,17 @@ public class Venta implements Serializable {
 			monto=(monto-pesosPuntos);
 		}
 
-}
+	}
+	
+	
+	public HashMap<String, Integer> getListaReferencias()
+	{
+		return this.listaReferencias;
+	}
+
+	
+	
+	
+	
+	
 }

@@ -39,8 +39,8 @@ public class UIPos extends JFrame implements Serializable{
 	
 	public UIPos(UI principal)
 	{
-		//Configuración de la ventana
-		this.setTitle("Aplicación POS");
+		//Configuraciï¿½n de la ventana
+		this.setTitle("Aplicaciï¿½n POS");
 		this.setSize(1200,700);
 		this.setResizable(false);
 		this.getContentPane().setLayout(new GridLayout(1,2));
@@ -55,7 +55,7 @@ public class UIPos extends JFrame implements Serializable{
 		this.add(this.panelInformacion);
 		
 		//Mostrar el JDiaglog para construir el cliente
-		//Capturar la información y dependiendo de eso abrir la ventana 
+		//Capturar la informaciï¿½n y dependiendo de eso abrir la ventana 
 		
 
 	}
@@ -117,7 +117,7 @@ public class UIPos extends JFrame implements Serializable{
 		Object[] opciones = {"Afiliar", "No Afiliar"};
 		Object opcionDefault = opciones[0];
 		int seleccion = JOptionPane.showOptionDialog(this,
-	            "¿Desea afiliar al cliente al Sistema de Puntos?" ,
+	            "ï¿½Desea afiliar al cliente al Sistema de Puntos?" ,
 	            "Afiliar",
 	            JOptionPane.YES_NO_OPTION,
 	            JOptionPane.QUESTION_MESSAGE,
@@ -136,7 +136,7 @@ public class UIPos extends JFrame implements Serializable{
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(this.getContentPane(),"El cliente ya está registrado", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this.getContentPane(),"El cliente ya estï¿½ registrado", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		
 	}
@@ -167,7 +167,7 @@ public class UIPos extends JFrame implements Serializable{
 		String cedula;
 		do
 		{
-			cedula = JOptionPane.showInputDialog("Introduzca la cédula del cliente","Cédula");
+			cedula = JOptionPane.showInputDialog("Introduzca la cï¿½dula del cliente","Cï¿½dula");
 			if(cedula == null)
 			{
 				if (this.clienteActual == null)
@@ -182,8 +182,8 @@ public class UIPos extends JFrame implements Serializable{
 				Object[] opciones = {"Confirmar", "Corregir"};
 				Object opcionDefault = opciones[0];
 				int seleccion = JOptionPane.showOptionDialog(this,
-		             "Usted ingresó el siguiente documento: " + cedula,
-		             "Confirmación",
+		             "Usted ingresï¿½ el siguiente documento: " + cedula,
+		             "Confirmaciï¿½n",
 		             JOptionPane.YES_NO_OPTION,
 		             JOptionPane.QUESTION_MESSAGE,
 		             null,
@@ -197,12 +197,12 @@ public class UIPos extends JFrame implements Serializable{
 				
 				else
 				{
-					cedula = "Cédula";
+					cedula = "Cï¿½dula";
 				}
 
 			}
 		}
-		while(cedula.equals("Cédula") || cedula.equals(""));
+		while(cedula.equals("Cï¿½dula") || cedula.equals(""));
 		
 		return cedula;
 	}
@@ -219,7 +219,7 @@ public class UIPos extends JFrame implements Serializable{
 			int puntos = this.getClienteActual().getPuntos();
 			String nombre = this.getClienteActual().getNombre();
 			JOptionPane.showMessageDialog(this.getContentPane(),
-					"El número de puntos de: " + nombre + " es " + Integer.toString(puntos), "Puntos",
+					"El nï¿½mero de puntos de: " + nombre + " es " + Integer.toString(puntos), "Puntos",
 					JOptionPane.INFORMATION_MESSAGE);
 		}	
 		else
@@ -272,13 +272,25 @@ public class UIPos extends JFrame implements Serializable{
 	public void cerrarCompra() {
 		//1. Guardar compra y mostrar recibo
 		Venta ventaActual = this.principal.getCoordinador().getVentaActual();
+		//TODO: CORREGIR ESTA LINEA SIGUIENTE DE CODIGO
 		this.clienteActual.agregarVenta(ventaActual, false);
 		this.principal.getCoordinador().agregarVentaHistorico(ventaActual);
+		
+		//3. Disminuir el inventario dependiendo de los productos
+		
+		this.disminuirInventario();
+		// 4. Imprimir el recibo
+
 		this.imprimirRecibo();
-		//2. 
+
+	  //5.  Iniciar venta nueva con el cliente actual
 		this.principal.getCoordinador().iniciarVenta(clienteActual);
 		this.actualizarProducto();
 		this.actualizarUsuario();
+	}
+
+	private void disminuirInventario() {
+		this.principal.getCoordinador().disminuirInventario();
 	}
 
 	public void imprimirRecibo() 

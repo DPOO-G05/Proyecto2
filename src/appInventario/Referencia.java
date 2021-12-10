@@ -88,4 +88,37 @@ public class Referencia implements Serializable {
 	{
 		return this.precioVenta;
 	}
+
+	public void disminuirInventario(int cantidadDisminuir) throws Exception
+	{
+		if (cantidadDisminuir < 0 )
+		{
+			throw new Exception("La cantidad a disminuir no puede ser negativa");
+		}
+		else if (cantidadDisminuir > this.unidadesRestantes)
+		{
+			throw new Exception("No hay suficientes productos para vender esta cantidad");
+		}
+		else 
+		{
+			// 1. disminuir la cuenta global
+			this.actualizarUnidades(-cantidadDisminuir);
+			
+			//2. Ir vendiendo uno a uno los productos disminuyendo sus cantidades 
+			int restantes = cantidadDisminuir;
+			Set<LocalDate> llaves = this.productos.keySet();
+			Iterator<LocalDate> iterator = llaves.iterator();
+			while (iterator.hasNext() && cantidadDisminuir > 0)
+			{
+				LocalDate fecha = iterator.next(); 
+				Producto prod = this.productos.get(fecha);
+				//Disminuir la cantidad en el producto y sincronizar eso con la cantidad del Lote
+				cantidadDisminuir = prod.disminuirCantidad(cantidadDisminuir);
+			}
+		}
+	}
+
+	public int getRestantes() {
+		return this.unidadesRestantes;
+	}
 }

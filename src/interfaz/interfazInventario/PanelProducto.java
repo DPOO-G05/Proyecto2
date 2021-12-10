@@ -215,8 +215,14 @@ public class PanelProducto extends JPanel implements ActionListener {
 	
 	
 	
-	public void actualizar()
+	public void actualizar(String tipo)
 	{
+		//params
+		/*
+		 * Recibe como parÃ¡metro el tipo de actualizacioÅ„ que va a hacer: 1) "referencia"
+		 * o 2) "lote" 
+		 * Esto depende de la interacciÃ³n del usuario
+		 */
 		//1. Recuperar referencia
 		Referencia referencia = principalInventario.getReferencia();
 		Producto prod = principalInventario.getProducto();
@@ -228,6 +234,17 @@ public class PanelProducto extends JPanel implements ActionListener {
 		actualizarInfoGen(referencia, prod);
 		//5. Actualizar Imagen
 		actualizarImagen(referencia);
+		
+		if (tipo.equals("referencia"))
+		{
+			String unidades = Integer.toString(referencia.getRestantes());
+			this.lbl2Unidades.setText(unidades);
+		}
+		else if (tipo.equals("lote"))
+		{
+			String unidades = Double.toString(prod.getLote().getUnidades());
+			this.lbl2Unidades.setText(unidades);
+		}
 	}
 	
 	private void actualizarInfoLote(Referencia referencia, Producto producto)
@@ -237,12 +254,10 @@ public class PanelProducto extends JPanel implements ActionListener {
 		Lote lote = primerProd.getLote();
 		String id = lote.getId();
 		String vencimiento = lote.getVencimiento();
-		String unidades = Double.toString(lote.getUnidades());
 		
 		//Cambiar informaciï¿½n
 		
 		this.lbl2Lote.setText(id);
-		this.lbl2Unidades.setText(unidades);
 		this.lbl2Vencimiento.setText(vencimiento);
 		
 		
@@ -287,6 +302,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 	{
 		Producto primerProd = producto; 
 
+		
 		//1. Precio
 		this.lbl2Precio.setText(Double.toString(primerProd.getPrecioUnidad()));
 		this.lbl2PrecioUnidad.setText(Double.toString(primerProd.getPrecioUnidad()));
@@ -339,7 +355,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 		Object[] opciones = {"SKU", "Lote"};
 		Object opcionDefault = opciones[0];
 		int seleccion = JOptionPane.showOptionDialog(this,
-		             "¿Quiere buscar por SKU o ID de Lote?",
+		             "ï¿½Quiere buscar por SKU o ID de Lote?",
 		             "Busqueda",
 		             JOptionPane.YES_NO_OPTION,
 		             JOptionPane.QUESTION_MESSAGE,
@@ -350,7 +366,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 		//Recuperar el coordinador
 
 		CoordinadorUI coordinador = this.principalInventario.getPrincipal().getCoordinador();
-		//Leer la información
+		//Leer la informaciï¿½n
 		if (seleccion == JOptionPane.YES_OPTION) {
 				//Solicitar el SKU
 			String SKU = JOptionPane.showInputDialog("Introduzca el SKU","SKU...");
@@ -360,7 +376,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 				HashMap<String, Referencia> referencias = coordinador.getSistemaInventario().getReferencias();
 				Referencia ref = referencias.get(SKU);
 				Producto prod = ref.getProductos().get(ref.getProductos().firstKey());
-				this.principalInventario.actualizarReferencia(ref, prod);
+				this.principalInventario.actualizarReferencia(ref, prod, "referencia");
 				System.out.println(SKU);
 			}
 
@@ -374,17 +390,17 @@ public class PanelProducto extends JPanel implements ActionListener {
 				//Recuperar el Lote
 				HashMap<String, Lote> lotes = coordinador.getSistemaInventario().getLotes();
 				Lote lote = lotes.get(idLote);
-				//Actualizar información
+				//Actualizar informaciï¿½n
 				Producto producto = lote.getProducto();
 				Referencia referencia = producto.getReferencia();
-				this.principalInventario.actualizarReferencia(referencia, producto);
+				this.principalInventario.actualizarReferencia(referencia, producto,"lote");
 			}
 		}
 		else {
 			
-			//Warning: No seleccionó nada
+			//Warning: No seleccionï¿½ nada
 			
-		    JOptionPane.showMessageDialog(this, "Debe seleccionar una opción", "Advertencia",JOptionPane.WARNING_MESSAGE);	
+		    JOptionPane.showMessageDialog(this, "Debe seleccionar una opciï¿½n", "Advertencia",JOptionPane.WARNING_MESSAGE);	
 			
 		}
 			
