@@ -273,7 +273,9 @@ public class UIPos extends JFrame implements Serializable{
 
 	public void cerrarCompra() {
 		//1. Guardar compra y mostrar recibo
+
 		Venta ventaActual = this.principal.getCoordinador().getVentaActual();
+
 		//TODO: CORREGIR ESTA LINEA SIGUIENTE DE CODIGO
 		this.clienteActual.agregarVenta(ventaActual, false);
 		this.principal.getCoordinador().agregarVentaHistorico(ventaActual);
@@ -281,6 +283,7 @@ public class UIPos extends JFrame implements Serializable{
 		//3. Disminuir el inventario dependiendo de los productos
 		
 		this.disminuirInventario();
+
 		// 4. Imprimir el recibo
 
 		this.imprimirRecibo();
@@ -291,7 +294,8 @@ public class UIPos extends JFrame implements Serializable{
 		this.actualizarUsuario();
 	}
 
-	private void disminuirInventario() {
+	private void disminuirInventario() 
+	{
 		this.principal.getCoordinador().disminuirInventario();
 	}
 

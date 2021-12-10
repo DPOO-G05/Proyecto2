@@ -3,7 +3,9 @@ package appInventario;
 import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.time.format.DateTimeFormatter;
 
 
 public class Referencia implements Serializable {
@@ -24,12 +26,18 @@ public class Referencia implements Serializable {
 	private Gondola gondola;
 	
 	private File imagen;
+	
+	private ArrayList<String> dataInventario;
+	
+	
 
 	public Referencia(String SKU, Gondola gondola)
 	{
 		this.SKU = SKU;
 		this.gondola = gondola;
 		this.productos = new TreeMap<LocalDate, Producto>();
+		this.dataInventario = new ArrayList<>();
+
 	}
 	
 	public SortedMap<LocalDate, Producto> getProductos()
@@ -124,6 +132,14 @@ public class Referencia implements Serializable {
 				//Disminuir la cantidad en el producto y sincronizar eso con la cantidad del Lote
 				cantidadDisminuir = prod.disminuirCantidad(cantidadDisminuir);
 			}
+
+		   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		   LocalDateTime now = LocalDateTime.now();  
+		   String fecha = dtf.format(now);  
+		   String cantidad = Integer.toString(this.unidadesRestantes);
+		   String finalStr = fecha + "," + cantidad;
+		   this.dataInventario.add(finalStr);
+			
 		}
 	}
 
