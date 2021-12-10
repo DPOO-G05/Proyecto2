@@ -165,6 +165,29 @@ public class Venta implements Serializable {
 		return this.monto;
 	}
 
+public boolean ventaPuntos( int puntosC)
 	
-
+	{
+		this.puntos=0;
+		 boolean alcanza =PuntosMonto(puntosC);
+		
+		return alcanza;
+		
+	} 
+	public boolean PuntosMonto(int puntosC)
+	{
+		boolean alcanza=false;
+		int pesosPuntos=puntosC*15;
+		if (pesosPuntos >= monto)
+		{
+			monto=0;
+			alcanza=true;
+			
+		}
+		else
+		{
+			monto=(monto-pesosPuntos);
+		}
+		return alcanza;
+	}
 }

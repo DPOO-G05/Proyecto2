@@ -17,6 +17,7 @@ public class Cliente implements Serializable {
 	private String situacionLaboral;
 	private int puntos;
 	private HashMap<String, Venta> compras;
+	private boolean ventaPuntos; 
 	
 	//Constructor
 	public Cliente(String cedula)
@@ -66,9 +67,19 @@ public class Cliente implements Serializable {
 		return this.puntos;
 	}
 
-	public void agregarVenta(Venta venta) {
+	public void agregarVenta(Venta venta, boolean ventaPuntos2) {
 		this.compras.put(venta.getId(), venta);
-		this.puntos += venta.getPuntos();
+		ventaPuntos=ventaPuntos2;
+		
+		if (ventaPuntos== true)
+		{
+			venta.ventaPuntos(puntos);
+			this.puntos = (int) (puntos - venta.getMonto()/15);			
+		}
+		else
+		{	
+			this.puntos += venta.getPuntos();
+		}
 	}
 
 	public HashMap<String, Venta> getCompras() {

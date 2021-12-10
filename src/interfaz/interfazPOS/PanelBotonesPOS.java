@@ -27,6 +27,9 @@ public class PanelBotonesPOS extends JPanel implements ActionListener
 	private final String IMPRIMIR_RECIBO = "IMPRIMIR_RECIBO";
 	
 	private final String AGREGAR_PRODUCTO = "AGREGAR_PRODUCTO";
+	private final String COMPRA_PUNTOS = "COMPRA_PUNTOS";
+	boolean ventapuntos=false;
+
 
 	public PanelBotonesPOS(UIPos principal)
 	{
@@ -74,11 +77,18 @@ public class PanelBotonesPOS extends JPanel implements ActionListener
 		btnAgregarProducto.setActionCommand(AGREGAR_PRODUCTO);
 		add(btnAgregarProducto);
 		
-		JButton btnEstadisticas= new JButton("Ver Estadísticas del Cliente");
+		JButton btnEstadisticas= new JButton("Ver Estadï¿½sticas del Cliente");
 		btnEstadisticas.setActionCommand(ESTADISTICAS);
 		btnEstadisticas.setBounds(64, 78, 461, 38);
 		btnEstadisticas.addActionListener(this);
 		add(btnEstadisticas);
+		
+		JButton btnComprarPuntos = new JButton("Comprar con Puntos");
+		btnComprarPuntos.setBounds(64, 120, 461, 38);
+		btnComprarPuntos.addActionListener(this);
+		btnComprarPuntos.setActionCommand(COMPRA_PUNTOS);
+		add(btnComprarPuntos);
+
 		
 	}
 
@@ -115,7 +125,11 @@ public class PanelBotonesPOS extends JPanel implements ActionListener
 		{
 			this.principal.mostrarEstadisticas();
 		}
-		
+		else if (COMPRA_PUNTOS.equals(comando))
+		{
+			ventapuntos=true;
+			this.principal.Ventapuntos(ventapuntos);	
+		}
 		
 	}
 }
