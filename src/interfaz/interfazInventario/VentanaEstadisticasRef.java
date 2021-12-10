@@ -27,22 +27,29 @@ public class VentanaEstadisticasRef extends JFrame {
 		  this.referencia = referencia;
 		this.setTitle("Comportamiento del Inventario en el Tiempo");
 	    // Crear la informaci�n 
-	    DefaultCategoryDataset dataset = createDataset();  
-	    //Crear el grafico
-	    JFreeChart chart = ChartFactory.createBarChart(  
+	    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		try 
+		{
+			dataset = createDataset();
+			//Crear el grafico
+			JFreeChart chart = ChartFactory.createBarChart(  
 	        "Comportamiento del Inventario de  " + this.referencia.getNombre(), //Titulo 
 	        "Fecha", // Eje x  
 	        "Cantidad", // Eje y  
 	        dataset  
 	        );  
-	  
-	    ChartPanel panel = new ChartPanel(chart);  
-	    setContentPane(panel);  
-	    this.setVisible(true);
-
+			ChartPanel panel = new ChartPanel(chart);  
+			setContentPane(panel);  
+			this.setVisible(true);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}  
+	    
 	  }  
 	  
-	  private DefaultCategoryDataset createDataset() 
+	  private DefaultCategoryDataset createDataset() throws Exception 
 	  {  
 
 	    String series1 = "Cantidad";  
@@ -51,17 +58,25 @@ public class VentanaEstadisticasRef extends JFrame {
 
 	    ArrayList<String> dataCantidades = this.referencia.getDataInventario();
 	    
-	    for (String entrada: dataCantidades)
-	    {
+	   if (referencia == null)
+	   {
+		   throw new Exception("Asegurese de que seleccionó una Referencia o Lote y no una Categoria o Gondola");
+	   }
+	   else
+	   {
+		   for (String entrada: dataCantidades)
+		   {
 
-	    	String[] informacion = entrada.split(",");
-	    	String fecha = informacion[0];
-	    	String cantidad = informacion[1];
-	    	int cantidadInt = Integer.parseInt(cantidad);
-	    	dataset.addValue(cantidadInt, series1, fecha);
-	    }
-    
-	   	 	    return dataset;  
+			   String[] informacion = entrada.split(",");
+			   String fecha = informacion[0];
+			   String cantidad = informacion[1];
+			   int cantidadInt = Integer.parseInt(cantidad);
+			   dataset.addValue(cantidadInt, series1, fecha);
+		   }
+
+	   }
+	    
+	   	 return dataset;  
 	  }  
 	  
 }

@@ -67,18 +67,27 @@ public class SistemaInventario implements Serializable {
 	}
 
 
-	public void disminuirInventario(HashMap<String, Integer> referencias2)
+	public void disminuirInventario(HashMap<String, Integer> referencias2) throws Exception
 	{
 		for(String SKU: referencias2.keySet())
 		{
 			Referencia ref = referencias.get(SKU);
-			int cantidadDisminuir = referencias2.get(SKU);
-			try {
-				ref.disminuirInventario(cantidadDisminuir);
-			} catch (Exception e) {
-
-				e.printStackTrace();
-				System.out.println(e.getMessage());
+			if (ref == null)
+			{
+				throw new Exception("La referencia no existe en el Sistema Inventario, pueda que se deba a una promoción... continuando la ejecución");
+			}
+			else
+			{
+				int cantidadDisminuir = referencias2.get(SKU);
+				try
+				{
+					ref.disminuirInventario(cantidadDisminuir);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+					System.out.println(e.getMessage());
+				}
 			}
 		}
 	}
