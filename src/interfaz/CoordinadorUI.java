@@ -465,4 +465,12 @@ public class CoordinadorUI implements Serializable {
 		this.sistemaPos.agregarVentaHistorico(ventaActual);
 
 	}
+
+	public void disminuirInventario() 
+	{
+		Venta actual = this.getVentaActual();
+		HashMap<String, Integer> referencias = actual.getListaReferencias();
+		this.sistemaInventario.disminuirInventario(referencias);
+
+	}
 }

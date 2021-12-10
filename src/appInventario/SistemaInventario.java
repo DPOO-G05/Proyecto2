@@ -65,6 +65,23 @@ public class SistemaInventario implements Serializable {
 		Referencia ref = this.referencias.get(sKU);
 		return ref; 
 	}
+
+
+	public void disminuirInventario(HashMap<String, Integer> referencias2)
+	{
+		for(String SKU: referencias2.keySet())
+		{
+			Referencia ref = referencias.get(SKU);
+			int cantidadDisminuir = referencias2.get(SKU);
+			try {
+				ref.disminuirInventario(cantidadDisminuir);
+			} catch (Exception e) {
+
+				e.printStackTrace();
+				System.out.println(e.getMessage());
+			}
+		}
+	}
 	
 		
 	

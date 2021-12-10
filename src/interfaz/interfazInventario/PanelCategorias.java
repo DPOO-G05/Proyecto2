@@ -143,7 +143,7 @@ public class PanelCategorias extends JPanel {
 		
 		//3. Asignar 
 		
-		principalInventario.actualizarReferencia(referencia, producto);
+		principalInventario.actualizarReferencia(referencia, producto, "referencia");
 
 		
 		

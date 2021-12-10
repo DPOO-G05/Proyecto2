@@ -58,7 +58,7 @@ public class UIInventario extends JFrame implements ActionListener {
 		
 		
 		//Configuracion de la Ventana
-		this.setTitle("Gestión Inventario");
+		this.setTitle("Gestiï¿½n Inventario");
 		this.setSize(1200,700);
 		this.setResizable(false);
 		this.setLayout(new BorderLayout());
@@ -98,7 +98,7 @@ public class UIInventario extends JFrame implements ActionListener {
 		
 		//Crear Menus del Menu Barra 
 		this.menuProd = new JMenu("Producto");
-		this.menuApp = new JMenu("Aplicación");
+		this.menuApp = new JMenu("Aplicaciï¿½n");
 		this.menuLotes = new JMenu("Lotes");
 		this.menuInfo = new JMenu("Info");
 		
@@ -125,13 +125,13 @@ public class UIInventario extends JFrame implements ActionListener {
 		this.menuLotes.add(mu23);
 
 		//Submenus de Aplicacion 
-		this.mu31 = new JMenuItem("Cerrar Aplicación");
+		this.mu31 = new JMenuItem("Cerrar Aplicaciï¿½n");
 		this.mu31.addActionListener(ventana);
 		this.mu31.setActionCommand(CERRAR_APLICACION);
 		this.menuApp.add(mu31);
 
-		//Submenus Información
-		this.mu41 = new JMenuItem("Información Aplicación");
+		//Submenus Informaciï¿½n
+		this.mu41 = new JMenuItem("Informaciï¿½n Aplicaciï¿½n");
 		this.mu41.addActionListener(ventana);
 		this.mu41.setActionCommand(MOSTRAR_INFO);
 		this.menuInfo.add(mu41);
@@ -144,11 +144,11 @@ public class UIInventario extends JFrame implements ActionListener {
 		return this.principal;
 	}
 	
-	public void actualizarReferencia(Referencia referencia, Producto producto)
+	public void actualizarReferencia(Referencia referencia, Producto producto, String tipoInteraccion)
 	{
 		this.referenciaActual = referencia; 
 		this.productoActual = producto;
-		this.panelProducto.actualizar();
+		this.panelProducto.actualizar(tipoInteraccion);
 	}
 	
 	public Referencia getReferencia()
@@ -188,7 +188,7 @@ public class UIInventario extends JFrame implements ActionListener {
 	
 	private void crearNuevoFormulario()
 	{
-		//1. Recolectar información necesaria
+		//1. Recolectar informaciï¿½n necesaria
 		this.formulario = new FormularioProducto(this);
 
 	}
