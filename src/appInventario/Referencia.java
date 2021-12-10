@@ -37,7 +37,7 @@ public class Referencia implements Serializable {
 		this.gondola = gondola;
 		this.productos = new TreeMap<LocalDate, Producto>();
 		this.dataInventario = new ArrayList<>();
-
+		this.imagen = new File("./src/persistencia/imagenesProductos/placeholder.png");
 	}
 	
 	public SortedMap<LocalDate, Producto> getProductos()
@@ -49,6 +49,13 @@ public class Referencia implements Serializable {
 	{
 		//Recibe por par�metro el n�mero de unidades a subir o bajar
 		this.unidadesRestantes += cantidad;
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+	   LocalDateTime now = LocalDateTime.now();  
+	   String fecha = dtf.format(now);  
+	   String cantidadStr = Integer.toString(this.unidadesRestantes);
+	   String finalStr = fecha + "," + cantidadStr;
+	   this.dataInventario.add(finalStr);
+
 	}
 
 	public void agregarProducto(Producto producto)
@@ -133,18 +140,22 @@ public class Referencia implements Serializable {
 				cantidadDisminuir = prod.disminuirCantidad(cantidadDisminuir);
 			}
 
-		   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-		   LocalDateTime now = LocalDateTime.now();  
-		   String fecha = dtf.format(now);  
-		   String cantidad = Integer.toString(this.unidadesRestantes);
-		   String finalStr = fecha + "," + cantidad;
-		   this.dataInventario.add(finalStr);
-			
+		   			
 		}
 	}
 
-	public int getRestantes() {
+	public int getRestantes()
+	{
 		return this.unidadesRestantes;
 
 	}
+
+	public ArrayList<String> getDataInventario()
+	{
+		return this.dataInventario;
+	}
+
+	
+	
+	
 }

@@ -39,6 +39,8 @@ public class UIInventario extends JFrame implements ActionListener {
 	private JFileChooser chooserLote;
 	
 	private JFileChooser chooserImagen;
+
+	private VentanaEstadisticasRef graficoComportamiento;
 	
 	private static final String NUEVO_PRODUCTO = "NUEVO_PRODUCTO";
 	
@@ -235,6 +237,12 @@ public class UIInventario extends JFrame implements ActionListener {
 	{
 		this.principal.getCoordinador().eliminarVencidos();
 		this.principal.actualizarInventario();
+	}
+
+
+	public void graficoComportamiento()
+	{
+		this.graficoComportamiento = new VentanaEstadisticasRef(this.referenciaActual);
 	}
 
 }

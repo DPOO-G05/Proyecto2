@@ -52,6 +52,8 @@ public class PanelProducto extends JPanel implements ActionListener {
 	
 	private final static String CAMBIAR_IMAGEN = "CAMBIAR_IMAGEN";
 	
+	private final static  String  GRAFICO_COMPORTAMIENTO = "GRAFICO_COMPORTAMIENTO";
+
 	private JPanel panelImagen;
 
 	public PanelProducto(UIInventario principalInventario) 
@@ -211,6 +213,13 @@ public class PanelProducto extends JPanel implements ActionListener {
 		btnCambiarImagen.setFont(new Font("SansSerif", Font.BOLD, 13));
 		btnCambiarImagen.setBounds(252, 546, 143, 23);
 		add(btnCambiarImagen);
+		
+		JButton btnGraficoComportamiento = new JButton("GRAFICO COMPORTAMIENTO");
+		btnGraficoComportamiento.setFont(new Font("SansSerif", Font.BOLD, 13));
+		btnGraficoComportamiento.setActionCommand(GRAFICO_COMPORTAMIENTO);
+		btnGraficoComportamiento.setBounds(230, 453, 453, 36);
+		btnGraficoComportamiento.addActionListener(this);
+		add(btnGraficoComportamiento);
 	}
 	
 	
@@ -346,6 +355,10 @@ public class PanelProducto extends JPanel implements ActionListener {
 		else if(comando.equals(CAMBIAR_IMAGEN))
 		{
 			this.principalInventario.actualizarImagen();
+		}
+		else if(comando.equals(GRAFICO_COMPORTAMIENTO))
+		{
+			this.principalInventario.graficoComportamiento();
 		}
 		
 	}
