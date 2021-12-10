@@ -69,11 +69,11 @@ public class Cliente implements Serializable {
 
 	public void agregarVenta(Venta venta, boolean ventaPuntos2) {
 		this.compras.put(venta.getId(), venta);
-		ventaPuntos=ventaPuntos2;
+		ventaPuntos = ventaPuntos2;
 		
-		if (ventaPuntos== true)
+		if (ventaPuntos == true)
 		{
-			venta.ventaPuntos(puntos);
+			//venta.ventaPuntos(puntos, numero);
 			this.puntos = (int) (puntos - venta.getMonto()/15);			
 		}
 		else
