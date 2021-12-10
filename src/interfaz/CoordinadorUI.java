@@ -46,9 +46,9 @@ public class CoordinadorUI implements Serializable {
 	CoordinadorUI(UI principal)
 	{
 		this.principal = principal;
-		//this.sistemaPos = new SistemaPOS(this);
-		//this.sistemaInventario = new SistemaInventario();
-		cargarInformacion();
+		this.sistemaPos = new SistemaPOS(this);
+		this.sistemaInventario = new SistemaInventario();
+		//cargarInformacion();
 		desplegarInformacion();
 		File archivo = new File("./src/consolaInventario/promociones.csv");
 		this.sistemaPos.constructorArchivoPOS.leerCSV(archivo);

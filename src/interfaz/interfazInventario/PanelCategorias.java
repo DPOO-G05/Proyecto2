@@ -110,11 +110,15 @@ public class PanelCategorias extends JPanel {
 					DefaultMutableTreeNode nodoRef;
 					if (productos.isEmpty())
 					{
-						nodoRef = new DefaultMutableTreeNode()
+						nodoRef = new DefaultMutableTreeNode("AGOTADO-" + llaveRef);
+
 					}
-					LocalDate firstKey = productos.firstKey();
-					Producto prod = productos.get(firstKey);
-					DefaultMutableTreeNode nodoRef = new DefaultMutableTreeNode(prod.getNombre() + "-" + llaveRef);  
+					else
+					{
+						LocalDate firstKey = productos.firstKey();
+						Producto prod = productos.get(firstKey);
+						nodoRef = new DefaultMutableTreeNode(prod.getNombre() + "-" + llaveRef);  
+					}
 					nodoGond.add(nodoRef);
 				}
 				
@@ -147,7 +151,6 @@ public class PanelCategorias extends JPanel {
 		Producto producto = referencia.getProductos().get(referencia.getProductos().firstKey());
 		
 		//3. Asignar 
-		
 		principalInventario.actualizarReferencia(referencia, producto, "referencia");
 
 		
