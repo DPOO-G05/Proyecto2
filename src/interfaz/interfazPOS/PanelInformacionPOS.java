@@ -75,7 +75,7 @@ public class PanelInformacionPOS extends JPanel {
 			String nombre = caracteristicas[0].strip().toUpperCase();
 			String cantidad = caracteristicas[1].strip().toUpperCase();
 			String totalItem = caracteristicas[2].strip().toUpperCase();
-			String row = nombre + "-----------" + cantidad +"-----------" + totalItem;
+			String row = nombre + "    -     " + cantidad +"     -     " + totalItem;
 			model.addElement(row);
 			
 		}

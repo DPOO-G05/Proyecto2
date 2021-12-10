@@ -66,7 +66,16 @@ public class Venta implements Serializable {
 			var listaPromociones = sisPOS.getPromociones().get(SKU);
 			var promocion = listaPromociones.get(0);
 			if(promocion.getClass()==PromocionDescuento.class || promocion.getClass() == PromocionCombo.class) {
-				this.listaReferencias.put(promocion.getCodigo(), 1);
+				promocion.setPrecio(-ref.getPrecioVenta()*promocion.getBeneficio());
+				if (listaReferencias.containsKey(promocion.getCodigo())) {
+					var num = this.listaReferencias.get(promocion.getCodigo());
+					num += 1;
+					this.listaReferencias.put(promocion.getCodigo(),num);
+				}
+				else {
+					this.listaReferencias.put(promocion.getCodigo(), 1);
+				}
+				
 				this.monto += ref.getPrecioVenta()*(1.0-promocion.getBeneficio());
 			}
 			else {
@@ -91,12 +100,21 @@ public class Venta implements Serializable {
 				int recibaNumero = (int) prom.getRecibaNumero();
 				int comprados = listaReferencias.get(SKU);
 				
-				if (comprados%pagueNumero == 0) {
+				if (comprados!=0 && comprados%pagueNumero == 0) {
 					int regalos = recibaNumero;
 					int unidades = this.listaReferencias.get(ref.getSKU());
-					unidades += regalos;
+					unidades = unidades + regalos;
 					this.listaReferencias.put(ref.getSKU(),unidades);
-					this.listaReferencias.put(promocion.getCodigo(), 1);
+					
+					promocion.setPrecio(-regalos*ref.getPrecioVenta());
+					if (listaReferencias.containsKey(promocion.getCodigo())) {
+						var num = this.listaReferencias.get(promocion.getCodigo());
+						num += 1;
+						this.listaReferencias.put(promocion.getCodigo(),num);
+					}
+					else {
+						this.listaReferencias.put(promocion.getCodigo(), 1);
+					}
 				}		
 			}	
 		}
@@ -108,7 +126,8 @@ public class Venta implements Serializable {
 		if (sisPOS.getPromociones().containsKey(SKU)) {
 			var listaPromociones = sisPOS.getPromociones().get(SKU);
 			var promocion = listaPromociones.get(0);
-			if(promocion.getClass()==PromocionRegalo.class) {
+			promocion.setPrecio(0);
+			if(promocion.getClass()==PromocionPuntos.class) {
 				this.puntos += (int) (ref.getPrecioVenta()/1000)*(promocion.getBeneficio());
 				this.listaReferencias.put(promocion.getCodigo(), 1);
 			}

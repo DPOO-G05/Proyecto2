@@ -440,16 +440,17 @@ public class CoordinadorUI implements Serializable {
 				respuesta.add(row);
 			}
 			
-			else if (sistemaPos.getPromociones().containsKey(llave)){
+			else if (sistemaPos.getPromocionesCodigos().containsKey(llave)){
+				
+				Promocion promocion = sistemaPos.getPromocionesCodigos().get(llave);
 				int cantidad = productos.get(llave);
 				String cantidadStr = Integer.toString(cantidad);
-				Promocion promocion = sistemaPos.getPromociones().get(llave).get(0);
 				String nombre = promocion.getCodigo();
-				double precio = 0;
-				double total = precio * cantidad;
+				double precio = promocion.getPrecio();
+				double total = precio*cantidad;
 				String totalStr = Double.toString(total);
 				
-				String row = nombre + "," + cantidadStr + "," + totalStr;
+				String row = nombre + "," + " "  + "," + totalStr;
 				
 				respuesta.add(row);
 			}
