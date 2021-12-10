@@ -151,4 +151,32 @@ public class Producto implements Serializable {
 		return this.referencia;
 	}
 
+
+	public int disminuirCantidad(int cantidadDisminuir)
+	{
+		int respuesta;
+
+		if (cantidadDisminuir == this.unidadesRestantes)
+		{
+			this.unidadesRestantes = 0;
+			respuesta = 0;
+		}
+		else if (cantidadDisminuir < unidadesRestantes)
+		{
+			this.unidadesRestantes -= cantidadDisminuir;
+			respuesta = 0;
+		}
+		else
+		{
+			this.unidadesRestantes = 0;
+			respuesta = cantidadDisminuir - this.unidadesRestantes;
+		}
+		
+		this.lote.setUnidades(this.unidadesRestantes);
+		
+		return respuesta;
+
+	}
+
+
 }

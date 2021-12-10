@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
+import appInventario.Referencia;
 import appPOS.Cliente;
 import appPOS.Venta;
 import interfaz.UI;
@@ -251,15 +252,16 @@ public class UIPos extends JFrame implements Serializable{
 	}
 	
 
-	public void agregarProducto(String SKU) { 
+	public void agregarProducto(String SKU, Referencia ref) { 
 		this.productos.dispose();
-		String reciboModel = this.panelInformacion.getModel().toString();
+		/*String reciboModel = this.panelInformacion.getModel().toString();
 		String recibo = "";
 		String[] productos = reciboModel.split(",");
 		for(String producto: productos)
 		{
 			recibo += (producto + "\n");
-		}
+		} */
+		String recibo = ref.generarRecibo();
 		this.principal.getCoordinador().agregarProductoVenta(SKU, recibo);
 		actualizarProducto();
 	}
@@ -289,13 +291,19 @@ public class UIPos extends JFrame implements Serializable{
 			}
 			this.clienteActual.agregarVenta(ventaActual,ventaPuntos);
 			this.principal.getCoordinador().agregarVentaHistorico(ventaActual);
-			this.imprimirRecibo();
+			this.disminuirInventario();
 			//2. 
 			this.principal.getCoordinador().iniciarVenta(clienteActual);
 			this.actualizarProducto();
 			this.actualizarUsuario();
 		
-		}
+	}
+
+	private void disminuirInventario() 
+	{
+		this.principal.getCoordinador().disminuirInventario();
+	}
+
 	public void imprimirRecibo() 
 	{
 

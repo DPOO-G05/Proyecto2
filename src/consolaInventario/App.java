@@ -13,6 +13,7 @@ public class App {
 
 	public App() 
 	{
+
 		this.ui = new UI();
 		//cargarInformacion();
 		//desplegarInformacion();
@@ -20,7 +21,7 @@ public class App {
 
 	
 	public static void main(String[] args) {
-		System.out.println("Aplicación Iniciada");
+		System.out.println("Aplicaciï¿½n Iniciada");
 		
 		
 		App app = new App();
@@ -31,7 +32,7 @@ public class App {
 	private void cargarCSV()
 	{
 		//this.sistemaInventario.leerCSV();
-		System.out.println("Información Cargada Exitosamente");
+		System.out.println("Informaciï¿½n Cargada Exitosamente");
 	}
 	
 	

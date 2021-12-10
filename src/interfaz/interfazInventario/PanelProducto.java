@@ -52,6 +52,10 @@ public class PanelProducto extends JPanel implements ActionListener {
 	
 	private final static String CAMBIAR_IMAGEN = "CAMBIAR_IMAGEN";
 	
+	private final static  String  GRAFICO_COMPORTAMIENTO = "GRAFICO_COMPORTAMIENTO";
+
+	private final static  String  DESEMPENO = "DESEMPENO";
+
 	private JPanel panelImagen;
 
 	public PanelProducto(UIInventario principalInventario) 
@@ -158,6 +162,8 @@ public class PanelProducto extends JPanel implements ActionListener {
 		JButton btnGanancias = new JButton("Ganancias");
 		btnGanancias.setFont(new Font("SansSerif", Font.BOLD, 13));
 		btnGanancias.setBounds(516, 545, 105, 23);
+		btnGanancias.setActionCommand(DESEMPENO);
+		btnGanancias.addActionListener(this);
 		add(btnGanancias);
 		
 		this.lbl2Precio = new JLabel("XXXXXXXXX");
@@ -211,15 +217,76 @@ public class PanelProducto extends JPanel implements ActionListener {
 		btnCambiarImagen.setFont(new Font("SansSerif", Font.BOLD, 13));
 		btnCambiarImagen.setBounds(252, 546, 143, 23);
 		add(btnCambiarImagen);
+		
+		JButton btnGraficoComportamiento = new JButton("GRAFICO COMPORTAMIENTO");
+		btnGraficoComportamiento.setFont(new Font("SansSerif", Font.BOLD, 13));
+		btnGraficoComportamiento.setActionCommand(GRAFICO_COMPORTAMIENTO);
+		btnGraficoComportamiento.setBounds(230, 453, 453, 36);
+		btnGraficoComportamiento.addActionListener(this);
+		add(btnGraficoComportamiento);
 	}
 	
 	
 	
-	public void actualizar()
+	public void actualizar(String tipo)
 	{
+		//params
+		/*
+		 * Recibe como parÃ¡metro el tipo de actualizacioÅ„ que va a hacer: 1) "referencia"
+		 * o 2) "lote" 
+		 * Esto depende de la interacciÃ³n del usuario
+		 */
 		//1. Recuperar referencia
 		Referencia referencia = principalInventario.getReferencia();
 		Producto prod = principalInventario.getProducto();
+		if (tipo.equals("agotado"))
+		{
+			actualizarAgotado(referencia);
+			this.lbl2Unidades.setText("");
+		}
+		else if (tipo.equals("referencia"))
+		{
+			String unidades = Integer.toString(referencia.getRestantes());
+			this.lbl2Unidades.setText(unidades);
+			actualizarNoAgotado(referencia, prod);
+		}
+		else if (tipo.equals("lote"))
+		{
+			String unidades = Double.toString(prod.getLote().getUnidades());
+			this.lbl2Unidades.setText(unidades);
+			actualizarNoAgotado(referencia, prod);
+		}
+	
+	}
+	
+	private void actualizarAgotado(Referencia ref)
+	{
+		actualizarImagen(ref);
+		String titulo = ref.getSKU() + " - " + "AGOTADO";
+		this.principalInventario.actualizarBanner(titulo);
+		this.resetLabels();
+	}
+	
+	private void resetLabels()
+	{
+		this.lbl2Lote.setText("");
+		this.lbl2Vencimiento.setText("");
+		this.lbl2Precio.setText("");
+		this.lbl2PrecioUnidad.setText("");
+		this.lbl2Marca.setText("");
+		this.lbl2Empacado.setText("");
+		this.lbl2Categoria.setText("");			
+		this.lbl2Gondola.setText("");
+		this.lbl2SKU.setText("");
+		this.lbl2Peso.setText("");
+		this.lbl2FechaIngreso.setText("");
+	}
+
+
+
+	private void actualizarNoAgotado(Referencia referencia, Producto prod)
+	{
+
 		//2. Actualizar informaciï¿½n Panel Principal
 		actualizarBanner(referencia, prod);
 		//3. Actualizar informaciï¿½n Lote
@@ -228,8 +295,11 @@ public class PanelProducto extends JPanel implements ActionListener {
 		actualizarInfoGen(referencia, prod);
 		//5. Actualizar Imagen
 		actualizarImagen(referencia);
+
 	}
-	
+
+
+
 	private void actualizarInfoLote(Referencia referencia, Producto producto)
 	{
 		Producto primerProd = producto; 
@@ -237,12 +307,10 @@ public class PanelProducto extends JPanel implements ActionListener {
 		Lote lote = primerProd.getLote();
 		String id = lote.getId();
 		String vencimiento = lote.getVencimiento();
-		String unidades = Double.toString(lote.getUnidades());
 		
 		//Cambiar informaciï¿½n
 		
 		this.lbl2Lote.setText(id);
-		this.lbl2Unidades.setText(unidades);
 		this.lbl2Vencimiento.setText(vencimiento);
 		
 		
@@ -287,6 +355,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 	{
 		Producto primerProd = producto; 
 
+		
 		//1. Precio
 		this.lbl2Precio.setText(Double.toString(primerProd.getPrecioUnidad()));
 		this.lbl2PrecioUnidad.setText(Double.toString(primerProd.getPrecioUnidad()));
@@ -331,6 +400,14 @@ public class PanelProducto extends JPanel implements ActionListener {
 		{
 			this.principalInventario.actualizarImagen();
 		}
+		else if(comando.equals(GRAFICO_COMPORTAMIENTO))
+		{
+			this.principalInventario.graficoComportamiento();
+		}
+		else if (comando.equals(DESEMPENO))
+		{
+			this.principalInventario.mostrarDesempeno();
+		}
 		
 	}
 	
@@ -339,7 +416,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 		Object[] opciones = {"SKU", "Lote"};
 		Object opcionDefault = opciones[0];
 		int seleccion = JOptionPane.showOptionDialog(this,
-		             "¿Quiere buscar por SKU o ID de Lote?",
+		             "ï¿½Quiere buscar por SKU o ID de Lote?",
 		             "Busqueda",
 		             JOptionPane.YES_NO_OPTION,
 		             JOptionPane.QUESTION_MESSAGE,
@@ -350,7 +427,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 		//Recuperar el coordinador
 
 		CoordinadorUI coordinador = this.principalInventario.getPrincipal().getCoordinador();
-		//Leer la información
+		//Leer la informaciï¿½n
 		if (seleccion == JOptionPane.YES_OPTION) {
 				//Solicitar el SKU
 			String SKU = JOptionPane.showInputDialog("Introduzca el SKU","SKU...");
@@ -360,7 +437,7 @@ public class PanelProducto extends JPanel implements ActionListener {
 				HashMap<String, Referencia> referencias = coordinador.getSistemaInventario().getReferencias();
 				Referencia ref = referencias.get(SKU);
 				Producto prod = ref.getProductos().get(ref.getProductos().firstKey());
-				this.principalInventario.actualizarReferencia(ref, prod);
+				this.principalInventario.actualizarReferencia(ref, prod, "referencia");
 				System.out.println(SKU);
 			}
 
@@ -374,17 +451,17 @@ public class PanelProducto extends JPanel implements ActionListener {
 				//Recuperar el Lote
 				HashMap<String, Lote> lotes = coordinador.getSistemaInventario().getLotes();
 				Lote lote = lotes.get(idLote);
-				//Actualizar información
+				//Actualizar informaciï¿½n
 				Producto producto = lote.getProducto();
 				Referencia referencia = producto.getReferencia();
-				this.principalInventario.actualizarReferencia(referencia, producto);
+				this.principalInventario.actualizarReferencia(referencia, producto,"lote");
 			}
 		}
 		else {
 			
-			//Warning: No seleccionó nada
+			//Warning: No seleccionï¿½ nada
 			
-		    JOptionPane.showMessageDialog(this, "Debe seleccionar una opción", "Advertencia",JOptionPane.WARNING_MESSAGE);	
+		    JOptionPane.showMessageDialog(this, "Debe seleccionar una opciï¿½n", "Advertencia",JOptionPane.WARNING_MESSAGE);	
 			
 		}
 			

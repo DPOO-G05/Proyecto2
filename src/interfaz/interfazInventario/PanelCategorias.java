@@ -107,9 +107,18 @@ public class PanelCategorias extends JPanel {
 				{
 					Referencia referencia = referencias.get(llaveRef);
 					SortedMap<LocalDate, Producto> productos = referencia.getProductos();
-					LocalDate firstKey = productos.firstKey();
-					Producto prod = productos.get(firstKey);
-					DefaultMutableTreeNode nodoRef = new DefaultMutableTreeNode(prod.getNombre() + "-" + llaveRef);  
+					DefaultMutableTreeNode nodoRef;
+					if (productos.isEmpty())
+					{
+						nodoRef = new DefaultMutableTreeNode("AGOTADO-" + llaveRef);
+
+					}
+					else
+					{
+						LocalDate firstKey = productos.firstKey();
+						Producto prod = productos.get(firstKey);
+						nodoRef = new DefaultMutableTreeNode(prod.getNombre() + "-" + llaveRef);  
+					}
 					nodoGond.add(nodoRef);
 				}
 				
@@ -138,12 +147,17 @@ public class PanelCategorias extends JPanel {
 		
 		Referencia referencia = referencias.get(SKU);
 		
-		//2. Determinar el producto a desplegar (por default es el primero en la liste de productos de la referencia)
-		Producto producto = referencia.getProductos().get(referencia.getProductos().firstKey());
+		if(referencia.getProductos().isEmpty())
+		{
+			principalInventario.actualizarAgotado(referencia);
+		}
+		else
+		{
+			//2. Determinar el producto a desplegar (por default es el primero en la liste de productos de la referencia)
+			Producto producto = referencia.getProductos().get(referencia.getProductos().firstKey());
+			principalInventario.actualizarReferencia(referencia, producto, "referencia");
+		}
 		
-		//3. Asignar 
-		
-		principalInventario.actualizarReferencia(referencia, producto);
 
 		
 		

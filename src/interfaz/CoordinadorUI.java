@@ -70,7 +70,6 @@ public class CoordinadorUI implements Serializable {
                 = new ObjectOutputStream(myFileOutStream);
   
             myObjectOutStream.writeObject(this.sistemaInventario);
-            myObjectOutStream.writeObject(this.sistemaInventario);
             FileOutputStream myFileOutPOS
                 = new FileOutputStream(
                     "./src/persistencia/pos.ser");
@@ -102,21 +101,22 @@ public class CoordinadorUI implements Serializable {
 		SistemaPOS sistemaPos;
         try {
             FileInputStream fileInput = new FileInputStream("./src/persistencia/app.ser");
-            //FileInputStream inputPOS = new FileInputStream("./src/persistencia/pos.ser");
+            FileInputStream inputPOS = new FileInputStream("./src/persistencia/pos.ser");
             ObjectInputStream objectInput
-                = new ObjectInputStream(fileInput);
-            //ObjectInputStream posInput = new ObjectInputStream(inputPOS);
+        		= new ObjectInputStream(fileInput);
+            ObjectInputStream posInput = new ObjectInputStream(inputPOS);
   
             sistemaInventario = (SistemaInventario)objectInput.readObject();
-            //sistemaPos = (SistemaPOS) posInput.readObject();
-            this.sistemaPos =  new SistemaPOS(this);
-            this.sistemaInventario = sistemaInventario; 
+            sistemaPos = (SistemaPOS) posInput.readObject();
+            this.sistemaPos =  sistemaPos;
+            this.sistemaInventario = new SistemaInventario(); 
             objectInput.close();
             fileInput.close();
-            //posInput.close();
-            //inputPOS.close();
+            posInput.close();
+            inputPOS.close();
 
         }
+        
   
         catch (IOException obj1) {
             obj1.printStackTrace();
@@ -297,24 +297,8 @@ public class CoordinadorUI implements Serializable {
 	
 	public void eliminarVencidos()
 	{
-		HashMap<String, Lote> lotes =  this.getSistemaInventario().getLotes();
-		
-		Set<String> llaves = lotes.keySet();
-		
-		for(String llave: llaves)
-		{
-			Lote lote =  lotes.get(llave);
-			String key = llave;
-			Producto prod = lote.getProducto();  
-			if(prod.getFechaVenc().isBefore(LocalDate.now()))
-			{
-				lotes.remove(key);
-				prod.getReferencia().getProductos().remove(prod.getFechaVenc());
-				lote = null;
-				prod = null;
-			}
-		}
-		
+		this.sistemaInventario.eliminarLotesVencidos();
+				
 	}
 	
 	public void eliminarPromocionesVencidas()
@@ -426,17 +410,36 @@ public class CoordinadorUI implements Serializable {
 	
 		for (String llave: productos.keySet())
 		{
-			int cantidad = productos.get(llave);
-			String cantidadStr = Integer.toString(cantidad);
-			Referencia referencia = getReferencia(llave);
-			String nombre = referencia.getNombre();
-			double precio = referencia.getPrecioVenta();
-			double total = precio * cantidad;
-			String totalStr = Double.toString(total);
+			if (sistemaInventario.getReferencias().containsKey(llave)) {
+				int cantidad = productos.get(llave);
+				String cantidadStr = Integer.toString(cantidad);
+				Referencia referencia = getReferencia(llave);
+				String nombre = referencia.getNombre();
+				double precio = referencia.getPrecioVenta();
+				double total = precio * cantidad;
+				String totalStr = Double.toString(total);
+				
+				String row = nombre + "," + cantidadStr + "," + total;
+				
+				respuesta.add(row);
+			}
 			
-			String row = nombre + "," + cantidadStr + "," + total;
+			else if (sistemaPos.getPromocionesCodigos().containsKey(llave)){
+				
+				Promocion promocion = sistemaPos.getPromocionesCodigos().get(llave);
+				int cantidad = productos.get(llave);
+				String cantidadStr = Integer.toString(cantidad);
+				String nombre = promocion.getCodigo();
+				double precio = promocion.getPrecio();
+				double total = precio*cantidad;
+				String totalStr = Double.toString(total);
+				
+				String row = nombre + "," + " "  + "," + totalStr;
+				
+				respuesta.add(row);
+			}
+		
 			
-			respuesta.add(row);
 		}
 		return respuesta;
 	}
@@ -445,6 +448,20 @@ public class CoordinadorUI implements Serializable {
 	public void agregarVentaHistorico(Venta ventaActual) {
 
 		this.sistemaPos.agregarVentaHistorico(ventaActual);
+
+	}
+
+	public void disminuirInventario() 
+	{
+		Venta actual = this.getVentaActual();
+		HashMap<String, Integer> referencias = actual.getListaReferencias();
+		try {
+			this.sistemaInventario.disminuirInventario(referencias);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 
 	}
 }

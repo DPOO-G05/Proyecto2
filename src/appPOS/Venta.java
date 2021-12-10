@@ -66,6 +66,16 @@ public class Venta implements Serializable {
 			var listaPromociones = sisPOS.getPromociones().get(SKU);
 			var promocion = listaPromociones.get(0);
 			if(promocion.getClass()==PromocionDescuento.class || promocion.getClass() == PromocionCombo.class) {
+				promocion.setPrecio(-ref.getPrecioVenta()*promocion.getBeneficio());
+				if (listaReferencias.containsKey(promocion.getCodigo())) {
+					var num = this.listaReferencias.get(promocion.getCodigo());
+					num += 1;
+					this.listaReferencias.put(promocion.getCodigo(),num);
+				}
+				else {
+					this.listaReferencias.put(promocion.getCodigo(), 1);
+				}
+				
 				this.monto += ref.getPrecioVenta()*(1.0-promocion.getBeneficio());
 			}
 			else {
@@ -90,11 +100,21 @@ public class Venta implements Serializable {
 				int recibaNumero = (int) prom.getRecibaNumero();
 				int comprados = listaReferencias.get(SKU);
 				
-				if (comprados%pagueNumero == 0) {
+				if (comprados!=0 && comprados%pagueNumero == 0) {
 					int regalos = recibaNumero;
 					int unidades = this.listaReferencias.get(ref.getSKU());
-					unidades += regalos;
+					unidades = unidades + regalos;
 					this.listaReferencias.put(ref.getSKU(),unidades);
+					
+					promocion.setPrecio(-regalos*ref.getPrecioVenta());
+					if (listaReferencias.containsKey(promocion.getCodigo())) {
+						var num = this.listaReferencias.get(promocion.getCodigo());
+						num += 1;
+						this.listaReferencias.put(promocion.getCodigo(),num);
+					}
+					else {
+						this.listaReferencias.put(promocion.getCodigo(), 1);
+					}
 				}		
 			}	
 		}
@@ -106,8 +126,10 @@ public class Venta implements Serializable {
 		if (sisPOS.getPromociones().containsKey(SKU)) {
 			var listaPromociones = sisPOS.getPromociones().get(SKU);
 			var promocion = listaPromociones.get(0);
-			if(promocion.getClass()==PromocionRegalo.class) {
-				this.puntos += (int) ref.getPrecioVenta()*(promocion.getBeneficio());
+			promocion.setPrecio(0);
+			if(promocion.getClass()==PromocionPuntos.class) {
+				this.puntos += (int) (ref.getPrecioVenta()/1000)*(promocion.getBeneficio());
+				this.listaReferencias.put(promocion.getCodigo(), 1);
 			}
 			else {
 				this.puntos += (int) ref.getPrecioVenta()/1000;
@@ -164,6 +186,27 @@ public class Venta implements Serializable {
 	{
 		return this.monto;
 	}
+	
+	public void  ventaPuntos( int puntosC)
+	
+	{
+		this.puntos=0;
+		PuntosMonto(puntosC);
+		
+		
+		
+	} 
+	public void PuntosMonto(int puntosC)
+	{
+		int pesosPuntos=puntosC*15;
+		if (pesosPuntos >= monto)
+		{
+			monto=0;
+		}
+		else
+		{
+			monto=(monto-pesosPuntos);
+		}
 
 public void ventaPuntos( int puntosC, int numero)
 	

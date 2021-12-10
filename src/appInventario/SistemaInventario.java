@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
+import java.time.*;
 
 import procesamientoInventario.ConstructorArchivo;
 
@@ -64,6 +65,57 @@ public class SistemaInventario implements Serializable {
 		
 		Referencia ref = this.referencias.get(sKU);
 		return ref; 
+	}
+
+
+	public void disminuirInventario(HashMap<String, Integer> referencias2) throws Exception
+	{
+		for(String SKU: referencias2.keySet())
+		{
+			Referencia ref = referencias.get(SKU);
+			if (ref == null)
+			{
+				throw new Exception("La referencia no existe en el Sistema Inventario, pueda que se deba a una promoción... continuando la ejecución");
+			}
+			else
+			{
+				int cantidadDisminuir = referencias2.get(SKU);
+				try
+				{
+					ref.disminuirInventario(cantidadDisminuir);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+	}
+
+
+	public void eliminarLotesVencidos() 
+	{
+		//Identificar los productos para los que hay perdidas y generarlas
+		this.calcularPerdidas();
+		//Eliminar lotes vencidos definitivamente
+		lotes.keySet().removeIf(key -> lotes.get(key).getProducto().getFechaVenc().isBefore(LocalDate.now()));
+
+	}
+
+
+	private void calcularPerdidas() 
+	{
+		Iterator<String> iterator = lotes.keySet().iterator();
+		while(iterator.hasNext())
+		{
+			String llave = iterator.next();
+			Producto prod = lotes.get(llave).getProducto();
+			if (prod.getFechaVenc().isBefore(LocalDate.now()))
+			{
+				prod.getReferencia().eliminarProducto(prod);
+			}
+		}
 	}
 	
 		

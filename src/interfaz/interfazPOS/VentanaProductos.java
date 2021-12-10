@@ -27,7 +27,7 @@ public class VentanaProductos extends JFrame {
 	        public void mousePressed(MouseEvent e) {
 	            if(e.getClickCount() == 2) {
 	            	Referencia ref = (Referencia) jList.getSelectedValue();
-	            	principal.agregarProducto(ref.getSKU());
+	            	principal.agregarProducto(ref.getSKU(), ref);
 	            	dispose();
 	            }
 	        }
