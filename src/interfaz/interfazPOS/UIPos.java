@@ -281,14 +281,8 @@ public class UIPos extends JFrame implements Serializable{
 		this.principal.getCoordinador().agregarVentaHistorico(ventaActual);
 		
 		//3. Disminuir el inventario dependiendo de los productos
-		
 		this.disminuirInventario();
-
-		// 4. Imprimir el recibo
-
-		this.imprimirRecibo();
-
-	  //5.  Iniciar venta nueva con el cliente actual
+		//5.  Iniciar venta nueva con el cliente actual
 		this.principal.getCoordinador().iniciarVenta(clienteActual);
 		this.actualizarProducto();
 		this.actualizarUsuario();

@@ -24,8 +24,6 @@ public class PanelBotonesPOS extends JPanel implements ActionListener
 
 	private final String CERRAR_COMPRA = "CERRAR_COMPRA";
 
-	private final String IMPRIMIR_RECIBO = "IMPRIMIR_RECIBO";
-	
 	private final String AGREGAR_PRODUCTO = "AGREGAR_PRODUCTO";
 	
 	private final String COMPRA_PUNTOS = "COMPRA_PUNTOS";
@@ -62,16 +60,10 @@ public class PanelBotonesPOS extends JPanel implements ActionListener
 		add(btnConsultarPuntos);
 		
 		JButton btnCerrarCompra = new JButton("Cerrar Compra");
-		btnCerrarCompra.setBounds(75, 438, 461, 38);
+		btnCerrarCompra.setBounds(75, 438, 461, 89);
 		btnCerrarCompra.setActionCommand(CERRAR_COMPRA);
 		btnCerrarCompra.addActionListener(this);
 		add(btnCerrarCompra);
-		
-		JButton btnImprimirRecibo = new JButton("Imprimir Recibo");
-		btnImprimirRecibo.setBounds(75, 503, 461, 38);
-		btnImprimirRecibo.addActionListener(this);
-		btnImprimirRecibo.setActionCommand(IMPRIMIR_RECIBO);
-		add(btnImprimirRecibo);
 		
 		JButton btnAgregarProducto = new JButton("Agregar Producto");
 		btnAgregarProducto.setBounds(75, 558, 461, 64);
@@ -81,12 +73,12 @@ public class PanelBotonesPOS extends JPanel implements ActionListener
 		
 		JButton btnEstadisticas= new JButton("Ver Estadísticas del Cliente");
 		btnEstadisticas.setActionCommand(ESTADISTICAS);
-		btnEstadisticas.setBounds(64, 78, 461, 38);
+		btnEstadisticas.setBounds(75, 79, 461, 38);
 		btnEstadisticas.addActionListener(this);
 		add(btnEstadisticas);
 		
 		JButton btnComprarPuntos = new JButton("Comprar con Puntos");
-		btnComprarPuntos.setBounds(64, 120, 461, 38);
+		btnComprarPuntos.setBounds(75, 164, 461, 38);
 		btnComprarPuntos.addActionListener(this);
 		btnComprarPuntos.setActionCommand(COMPRA_PUNTOS);
 		add(btnComprarPuntos);
@@ -117,10 +109,6 @@ public class PanelBotonesPOS extends JPanel implements ActionListener
 		else if (CERRAR_COMPRA.equals(comando))
 		{
 			this.principal.cerrarCompra();
-		}
-		else if (IMPRIMIR_RECIBO.equals(comando))
-		{
-			this.principal.imprimirRecibo();
 		}
 		else if (ESTADISTICAS.equals(comando))
 		{
