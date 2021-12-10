@@ -95,9 +95,8 @@ public class Referencia implements Serializable {
 		String recibo = producto.getNombre();
 		recibo += ",";
 		recibo += String.valueOf(getPrecioVenta());
-		return recibo;
-		
-
+		return recibo;	
+	}
 
 	public void disminuirInventario(int cantidadDisminuir) throws Exception
 	{
